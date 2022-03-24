@@ -4,6 +4,7 @@ from flask import Flask
 from flask import request, make_response, session, render_template
 from flask_login import login_user, login_required, logout_user, LoginManager
 
+from Project.apps.home import app_home
 from Project.apps.test import app_test
 from forms.RegisterForm import RegisterForm
 from forms.UserForm import LoginForm
@@ -14,15 +15,14 @@ from data.db_session import global_init
 from werkzeug.utils import redirect
 
 app = Flask(__name__)
-app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(
-    days=365
-)
+app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(days=365)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
+
+app.register_blueprint(app_home)
+app.register_blueprint(app_test)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-
-app.register_blueprint(app_test)
 
 
 @app.route("/")
@@ -105,9 +105,9 @@ def logout():
     return redirect("/")
 
 
-# @app.errorhandler(404)
-# def not_found(error):
-#     return make_response(jsonify({'error': 'Not found'}), 404)
+@app.errorhandler(404)
+def not_found(error):
+    return render_template('Not_found.html')
 
 if __name__ == '__main__':
     global_init("db/db.db")
