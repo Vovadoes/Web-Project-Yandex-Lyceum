@@ -19,4 +19,4 @@ class Article(SqlAlchemyBase, UserMixin):
     image_blocks = relationship("ImageBlock")
     tags = relationship("Tag", secondary=association_table, back_populates="articles")
     sources = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    sequence = relationship("Sequence", back_populates="article_id")
+    sequence = relationship("Sequence", backref="articles")
