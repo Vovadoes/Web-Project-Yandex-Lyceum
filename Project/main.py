@@ -13,6 +13,10 @@ from data.User import User
 
 from werkzeug.utils import redirect
 
+from settings import path_db
+
+# Если используешь Pycharm то убрать из settings "Project"
+
 app = Flask(__name__)
 app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(days=365)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -110,6 +114,6 @@ def not_found(error):
 
 
 if __name__ == '__main__':
-    db_session.global_init("db/db.db")
+    db_session.global_init(path_db)
     db_sess = db_session.create_session()
     app.run(port=8080, host='localhost', debug=True)
