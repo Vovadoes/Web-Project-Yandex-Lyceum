@@ -4,6 +4,7 @@ from flask import Flask
 from flask import request, make_response, session, render_template
 from flask_login import login_user, login_required, logout_user, LoginManager
 
+from apps.articles import app_articles
 from apps.home import app_home
 from apps.test import app_test
 from forms.RegisterForm import RegisterForm
@@ -22,6 +23,7 @@ app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(days=365)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 
 app.register_blueprint(app_home, url_prefix='/home')
+app.register_blueprint(app_articles, url_prefix='/article')
 app.register_blueprint(app_test, url_prefix='/test')
 
 login_manager = LoginManager()
