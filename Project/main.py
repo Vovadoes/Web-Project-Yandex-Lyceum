@@ -30,10 +30,10 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 
-@app.route("/")
-def hello_world():
-    return "<p>Hello, World!</p>"
-
+#
+# @app.route("/")
+# def hello_world():
+#     return "<p>Hello, World!</p>"
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -115,7 +115,6 @@ def logout():
 #     return render_template('Not_found.html')
 
 
-if __name__ == '__main__':
-    db_session.global_init(path_db)
-    db_sess = db_session.create_session()
-    app.run(port=8080, host='localhost', debug=True)
+db_session.global_init(path_db)
+# db_sess = db_session.create_session()
+# app.run(port=8080, host='localhost', debug=True)

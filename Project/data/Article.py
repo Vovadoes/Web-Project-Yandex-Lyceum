@@ -15,8 +15,8 @@ class Article(SqlAlchemyBase, UserMixin):
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
 
     heading = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    text_blocks = relationship("TextBlock")
-    image_blocks = relationship("ImageBlock")
+    # text_blocks = relationship("TextBlock")
+    # image_blocks = relationship("ImageBlock")
     tags = relationship("Tag", secondary=association_table, back_populates="articles")
     sources = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     sequences = relationship("Sequence", backref="articles")
