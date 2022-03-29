@@ -110,9 +110,9 @@ def logout():
     return redirect("/")
 
 
-# @app.errorhandler(404)
-# def not_found(error):
-#     return render_template('Not_found.html')
+@app.errorhandler(404)
+def not_found(error):
+    return render_template('Not_found.html')
 
 
 db_session.global_init(path_db)
