@@ -11,7 +11,7 @@ global_init(path_db)
 from Project.data.Blocks.Block import check
 from Project.data.Blocks.settings import Blocks_lst as Blocks
 
-print(Blocks)
+print('Зарегестрированные блоки: ', ', '.join([Block.__name__ for Block in Blocks]), ';')
 for block in Blocks:
     check(block)
 

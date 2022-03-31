@@ -12,4 +12,4 @@ class Sequence(SqlAlchemyBase, UserMixin):
 
     article_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey('articles.id'))
 
-    numder = sqlalchemy.Column(sqlalchemy.Integer)
+    number = sqlalchemy.Column(sqlalchemy.Integer)
