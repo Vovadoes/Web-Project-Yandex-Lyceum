@@ -17,3 +17,9 @@ class Tag(SqlAlchemyBase, UserMixin):
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
     name = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     articles = relationship("Article", secondary=association_table, back_populates="tags")
+
+    def __str__(self):
+        return f"<Project.data.Tag.Tag object, name = {self.name}>"
+
+    def __repr__(self):
+        return self.__str__()

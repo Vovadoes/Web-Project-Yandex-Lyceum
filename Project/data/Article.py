@@ -20,3 +20,5 @@ class Article(SqlAlchemyBase, UserMixin):
     tags = relationship("Tag", secondary=association_table, back_populates="articles")
     sources = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     sequences = relationship("Sequence", backref="articles")
+    MainIdeaBlockId = sqlalchemy.Column(sqlalchemy.Integer,
+                                        sqlalchemy.ForeignKey('MainIdea_Block.id'))
