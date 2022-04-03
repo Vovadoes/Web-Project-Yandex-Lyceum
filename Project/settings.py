@@ -9,4 +9,3 @@ set FLASK_APP=Project/main.py
 set FLASK_DEBUG=1
 cls & python -m flask run --host localhost --port 8080 --reload --debugger
 """
-

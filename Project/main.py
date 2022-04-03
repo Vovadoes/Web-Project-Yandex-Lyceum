@@ -2,7 +2,7 @@ import datetime
 
 from flask import Flask
 from flask import request, make_response, session, render_template
-from flask_login import login_user, login_required, logout_user, LoginManager
+from flask_login import login_user, login_required, logout_user, LoginManager, current_user
 
 from apps.articles import app_articles
 from apps.home import app_home
@@ -30,6 +30,7 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 
+
 #
 # @app.route("/")
 # def hello_world():
@@ -40,9 +41,11 @@ def load_user(user_id):
     db_sess = db_session.create_session()
     return db_sess.query(User).get(user_id)
 
+
 @app.route("/")
 def start():
     return render_template("main.html")
+
 
 @app.route("/cookie_test")
 def cookie_test():
@@ -91,7 +94,7 @@ def reqister():
     return render_template('register.html', title='Регистрация', form=form)
 
 
-@app.route('/test', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():

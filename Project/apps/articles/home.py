@@ -2,6 +2,8 @@ import collections
 import json
 import os
 
+import flask
+from flask_login import current_user
 from werkzeug.utils import redirect, secure_filename
 
 from . import app_articles, ALLOWED_EXTENSIONS
@@ -13,8 +15,8 @@ from Project.data.db_session import create_session
 from Project.data.Image import Image
 from Project.settings import work_dir
 from . import Blocks
-from Project.data.Tag import Tag
-from Project.data.Blocks.MainIdeaBlock import MainIdeaBlock
+from Project.fun import get_user
+from Project.forms.ArticleForm import ArticleForm
 
 
 def set_sequence(article_id: int):
@@ -45,10 +47,31 @@ def article(article_id: int):
                 "Обнаружен блок не входящей в начальный класс Sequence.article_id."
                 "Устранение: удаление связи Sequence и Blocks")
         sequences.append(sequence)
-    print(f"{blocks=}")
     db_sess.commit()
     blocks = sorted(blocks, key=lambda obj: sequences[blocks.index(obj)].number)
     return render_template("articles/article.html", blocks=blocks, article=article)
+
+
+@app_articles.route("/create/", methods=['GET', 'POST'])
+@get_user(required=False)
+def article_create(user, *args, **kwargs):
+    if flask.request.method == "POST":
+        form = ArticleForm()
+        if form.validate_on_submit():
+            db_sess = create_session()
+            article = Article()
+            # article.user_id = user.id
+            article.heading = form.heading.data
+            db_sess.add(article)
+            db_sess.commit()
+            return redirect(f"/article/{article.id}/")
+        else:
+            return {"result": "The form is not filled out correctly"}
+    elif flask.request.method == "GET":
+        article_form = ArticleForm()
+        return render_template("articles/create/article.html", form=article_form)
+    else:
+        return {"result": "Invalid method", "method": flask.request.method}
 
 
 @app_articles.route("/")

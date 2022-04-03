@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href={{ url_for('static', filename='bootstrap/5.0.1/css/bootstrap.min.css') }}/>
+        <title>Создание статьи</title>
+    </head>
+    <body>
+        <main role="main" class="container">
+            <form method="POST">
+                {{ form.csrf_token }}
+                <div class="mb-3">
+                    <label class="form-label" for="disabledTextInput">{{ form.heading.label }}</label>
+                    {{ form.heading }}
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </main>
+    </body>
+</html>
