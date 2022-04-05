@@ -2,7 +2,7 @@ import datetime
 
 from flask import Flask
 from flask import request, make_response, session, render_template
-from flask_login import login_user, login_required, logout_user, LoginManager, current_user
+from flask_login import login_user, login_required, logout_user, LoginManager
 
 from apps.articles import app_articles
 from apps.home import app_home
@@ -28,7 +28,6 @@ app.register_blueprint(app_test, url_prefix='/test')
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-
 
 
 #
@@ -84,13 +83,14 @@ def reqister():
             return render_template('register.html', title='Регистрация',
                                    form=form,
                                    message="Такой пользователь уже есть")
-        user = User()
-        user.email = form.email.data
-        user.name = form.name.data
+        user = User(
+            email=form.email.data,
+            name=form.name.data
+        )
         user.set_password(form.password.data)
         db_sess.add(user)
         db_sess.commit()
-        return redirect('/test')
+        return redirect('/')
     return render_template('register.html', title='Регистрация', form=form)
 
 
@@ -116,9 +116,9 @@ def logout():
     return redirect("/")
 
 
-@app.errorhandler(404)
-def not_found(error):
-    return render_template('Not_found.html')
+# @app.errorhandler(404)
+# def not_found(error):
+#     return render_template('Not_found.html')
 
 
 db_session.global_init(path_db)

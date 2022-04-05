@@ -17,6 +17,9 @@ from Project.settings import work_dir
 from . import Blocks
 from Project.fun import get_user
 from Project.forms.ArticleForm import ArticleForm
+from Project.data.Blocks.MainIdeaBlock import MainIdeaBlock
+from Project.data.Tag import Tag
+from Project.data.User import User
 
 
 def set_sequence(article_id: int):
@@ -30,10 +33,13 @@ def set_sequence(article_id: int):
 
 
 @app_articles.route("/<int:article_id>/")
-def article(article_id: int):
-    set_sequence(article_id)
+@get_user(required=False)
+def article(user, article_id: int, *args, **kwargs):
     db_sess = create_session()
     article: Article = db_sess.query(Article).filter(Article.id == article_id).first()
+    if article is None:
+        return {"res": "There is no article with this number"}
+    set_sequence(article_id)
     blocks = []
     for Block in Blocks:
         blocks_block: Block = db_sess.query(Block).filter(Block.article_id == article_id)
@@ -49,12 +55,14 @@ def article(article_id: int):
         sequences.append(sequence)
     db_sess.commit()
     blocks = sorted(blocks, key=lambda obj: sequences[blocks.index(obj)].number)
-    return render_template("articles/article.html", blocks=blocks, article=article)
+    author = db_sess.query(User).filter(User.id == article.user_id).first()
+    return render_template("articles/article.html", blocks=blocks, article=article, author=author,
+                           user=user)
 
 
 @app_articles.route("/create/", methods=['GET', 'POST'])
 @get_user(required=False)
-def article_create(user, *args, **kwargs):
+def article_create(*args, **kwargs):
     if flask.request.method == "POST":
         form = ArticleForm()
         if form.validate_on_submit():
@@ -74,14 +82,24 @@ def article_create(user, *args, **kwargs):
         return {"result": "Invalid method", "method": flask.request.method}
 
 
+@app_articles.route("/<int:article_id>/edit", methods=['GET', 'POST'])
+@get_user(required=False)
+def edit_article(user, *args, **kwargs):
+    if flask.request.method == "POST":
+        pass
+    elif flask.request.method == "GET":
+        article_form = ArticleForm()
+        pass
+
+
 @app_articles.route("/")
 def test():
     return {"res": True}
 
 
 # код для формирования базы данных
-"""
-db_sess = create_session()
+def reset_the_database():
+    db_sess = create_session()
     path = os.path.join(work_dir, 'apps', 'articles', 'files')
     js2: dict = json.load(open(os.path.join(path, "js2.json"), encoding="UTF-8"))
     words: dict = json.load(open(os.path.join(path, "js.json"), encoding="UTF-8"))
@@ -130,7 +148,7 @@ db_sess = create_session()
         # print(f"{lst=}")
         article.tags = article.tags + [tags[name] for name in js[article_json_id]]
     db_sess.commit()
-"""
+
 
 """
 path = os.path.join(work_dir, 'apps', 'articles', 'files')

@@ -7,7 +7,7 @@ from Project.data.db_session import create_session
 
 def get_user(required=True, is_super_user=False):
     def get_user_f(function):
-        def finished_function(*args, **kwargs):
+        def my_finished_function(*args, **kwargs):
             user = None
             db_sess = create_session()
             user_id = current_user.get_id()
@@ -17,11 +17,11 @@ def get_user(required=True, is_super_user=False):
             else:
                 user = db_sess.query(User).filter().first(User.id == user_id)
                 if is_super_user:
-                    # if not current_user.is_superuser:
-                    #     return 'Недостаточно прав'
-                    pass
+                    if not user.super_user:
+                        return {"error": "Not enough rights"}
             return function(user=user, *args, **kwargs)
 
-        return finished_function
+        my_finished_function.__name__ = function.__name__
+        return my_finished_function
 
     return get_user_f
