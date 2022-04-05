@@ -41,6 +41,11 @@ def load_user(user_id):
     return db_sess.query(User).get(user_id)
 
 
+@app.route("/")
+def start():
+    return render_template("main.html")
+
+
 @app.route("/cookie_test")
 def cookie_test():
     visits_count = int(request.cookies.get("visits_count", 0))
@@ -78,17 +83,18 @@ def reqister():
             return render_template('register.html', title='Регистрация',
                                    form=form,
                                    message="Такой пользователь уже есть")
-        user = User()
-        user.email = form.email.data
-        user.name = form.name.data
+        user = User(
+            email=form.email.data,
+            name=form.name.data
+        )
         user.set_password(form.password.data)
         db_sess.add(user)
         db_sess.commit()
-        return redirect('/test')
+        return redirect('/')
     return render_template('register.html', title='Регистрация', form=form)
 
 
-@app.route('/test', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
@@ -110,9 +116,9 @@ def logout():
     return redirect("/")
 
 
-@app.errorhandler(404)
-def not_found(error):
-    return render_template('Not_found.html')
+# @app.errorhandler(404)
+# def not_found(error):
+#     return render_template('Not_found.html')
 
 
 db_session.global_init(path_db)

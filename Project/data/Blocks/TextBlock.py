@@ -12,5 +12,4 @@ class TextBlock(Block):
     text = sqlalchemy.Column(sqlalchemy.String, nullable=True)
 
 
-
 Blocks_lst.append(TextBlock)

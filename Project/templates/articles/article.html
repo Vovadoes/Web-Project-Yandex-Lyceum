@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href={{ url_for('static', filename='bootstrap/5.0.1/css/bootstrap.min.css') }}/>
+        <title>{{ article.heading }}</title>
+    </head>
+    <body>
+        <main role="main" class="container">
+            {% if author == user %}<a href="">Редактировать</a>{% endif %}
+            <h1>{{ article.heading }}</h1>
+            {% for block in blocks %}
+                {% with block=block %}
+                    {% include 'Blocks/' + block.__class__.__name__+ '.html'  %}
+                {% endwith %}
+            {% endfor %}
+        </main>
+    </body>
+</html>

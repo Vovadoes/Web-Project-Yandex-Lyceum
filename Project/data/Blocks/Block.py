@@ -24,12 +24,13 @@ class Block(SqlAlchemyBase):
 
     def get_html(self):
         path = os.path.join(work_dir, 'templates', 'Blocks')
-        return open(os.path.join(path, f'{self.__class__.__name__}.html'), 'w+', encoding="UTF-8")
+        return open(os.path.join(path, f'{self.__class__.__name__}.html'), 'r',
+                    encoding="UTF-8").read()
 
 
 def check(obj):
     path = os.path.join(work_dir, 'templates', 'Blocks')
     if not os.path.isdir(path):
         os.makedirs(path)
-    if os.path.exists(path):
+    if not os.path.isdir(path):
         open(os.path.join(path, f'{obj.__name__}.html'), 'w+', encoding="UTF-8").close()
