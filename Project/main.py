@@ -116,5 +116,5 @@ def not_found(error):
 
 
 db_session.global_init(path_db)
-# db_sess = db_session.create_session()
-# app.run(port=8080, host='localhost', debug=True)
+db_sess = db_session.create_session()
+app.run(port=8080, host='localhost', debug=True)
