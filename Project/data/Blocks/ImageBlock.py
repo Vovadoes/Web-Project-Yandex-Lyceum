@@ -4,6 +4,7 @@ from flask_login import UserMixin
 from .settings import Blocks_lst
 
 from .Block import Block
+from Project.forms.ImageForm import ImageForm
 
 
 class ImageBlock(Block):
@@ -12,6 +13,10 @@ class ImageBlock(Block):
 
     heading = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     image_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey('images.id'))
+
+    @staticmethod
+    def getForm():
+        return ImageForm
 
     @staticmethod
     def label_block():

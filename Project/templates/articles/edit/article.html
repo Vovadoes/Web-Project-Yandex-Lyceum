@@ -18,7 +18,7 @@
                     <br>
                     {% for error in form.heading.errors %}<div class="alert alert-danger" role="alert">{{ error }}</div>{% endfor %}
                 </p>
-                <button type="button" class="btn btn-success">Сохранить</button>
+                <button type="submit" class="btn btn-success">Сохранить</button>
             </form>
             <a class="btn btn-primary"
                href="/article/{{ article.id }}/edit/add/block/place/1"

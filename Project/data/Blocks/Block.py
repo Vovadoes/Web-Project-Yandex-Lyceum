@@ -4,6 +4,7 @@ from sqlalchemy.orm import declared_attr
 from Project.settings import work_dir
 
 from Project.data.db_session import SqlAlchemyBase
+from Project.forms.Form import Form
 
 
 class Block(SqlAlchemyBase):
@@ -16,11 +17,22 @@ class Block(SqlAlchemyBase):
 
     def __init__(self, **kwargs):
         super().__init__()
-        for i in kwargs:
-            if i in self.__class__.__dict__.keys():
-                setattr(self, i, kwargs[i])
-            else:
-                print(f'Error Key: {i} in class: {self.__class__.__name__}')
+        self.import_class_dict()
+
+    def import_class_dict(self, **kwargs):
+        if kwargs is not None:
+            for i in kwargs:
+                if i in self.__class__.__dict__.keys():
+                    setattr(self, i, kwargs[i])
+                else:
+                    print(f'Error Key: {i} in class: {self.__class__.__name__}')
+
+    def loading_data(self, request, **kwargs):
+        self.import_class_dict()
+
+    @staticmethod
+    def getForm():
+        return Form
 
     @staticmethod
     def label_block():
@@ -41,8 +53,13 @@ class Block(SqlAlchemyBase):
 
 
 def check(obj):
-    path = os.path.join(work_dir, 'templates', 'Blocks')
-    if not os.path.isdir(path):
-        os.makedirs(path)
-    if not os.path.isdir(path):
-        open(os.path.join(path, f'{obj.__name__}.html'), 'w+', encoding="UTF-8").close()
+    pathes = [
+        os.path.join(work_dir, 'templates', 'Blocks'),
+        os.path.join(work_dir, 'templates', 'Blocks', 'create')
+    ]
+    for path in pathes:
+        if not os.path.isdir(path):
+            os.makedirs(path)
+        path_file = os.path.join(path, f'{obj.__name__}.html')
+        if not os.path.isfile(path_file):
+            open(path_file, 'w+', encoding="UTF-8").close()

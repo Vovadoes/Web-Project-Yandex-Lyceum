@@ -2,6 +2,7 @@ import sqlalchemy
 
 from .Block import Block
 from .settings import Blocks_lst
+from Project.forms.TextFrom import TextForm
 
 
 class TextBlock(Block):
@@ -10,6 +11,10 @@ class TextBlock(Block):
 
     heading = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     text = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+
+    @staticmethod
+    def getForm():
+        return TextForm
 
     @staticmethod
     def label_block():

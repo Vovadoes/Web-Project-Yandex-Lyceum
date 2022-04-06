@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href={{ url_for('static', filename='bootstrap/5.0.1/css/bootstrap.min.css') }}/>
+        <title>{{ article.heading }}</title>
+    </head>
+    <body>
+        <main role="main" class="container">
+            <div class="list-group">
+                {% for Block in Blocks %}
+                    <a href="/article/{{ article.id }}/edit/add/block/place/{{ number }}/block/{{ loop.index - 1 }}"
+                       class="list-group-item list-group-item-action">{{ Block.label_block()}}</a>
+                {% endfor %}
+            </div>
+        </main>
+    </body>
+</html>

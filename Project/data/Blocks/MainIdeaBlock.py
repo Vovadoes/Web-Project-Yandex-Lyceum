@@ -4,6 +4,7 @@ from sqlalchemy.orm import declared_attr
 
 from .Block import Block
 from .settings import Blocks_lst
+from Project.forms.MainIdeaForm import MainIdeaForm
 
 
 class MainIdeaBlock(Block):
@@ -11,6 +12,10 @@ class MainIdeaBlock(Block):
     __table_args__ = {'extend_existing': True}
 
     idea = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+
+    @staticmethod
+    def getForm():
+        return MainIdeaForm
 
     @staticmethod
     def label_block():

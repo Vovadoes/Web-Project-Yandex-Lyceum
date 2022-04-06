@@ -1,8 +1,10 @@
 from pprint import pprint
+from loguru import logger
 
 import flask
 from flask_login import current_user
 from requests import Session
+from werkzeug.exceptions import abort
 from werkzeug.utils import redirect
 
 from . import app_articles
@@ -20,6 +22,7 @@ from Project.data.Tag import Tag
 from Project.data.User import User
 
 
+@logger.catch
 def set_sequence(article_id: int, db_sess: Session = None):
     if db_sess is None:
         db_sess = create_session()
@@ -31,6 +34,7 @@ def set_sequence(article_id: int, db_sess: Session = None):
     db_sess.commit()
 
 
+@logger.catch
 def get_sort_blocks(article: Article, db_sess: Session = None):
     if db_sess is None:
         db_sess = create_session()
@@ -43,6 +47,8 @@ def get_sort_blocks(article: Article, db_sess: Session = None):
         sequence = db_sess.query(Sequence).filter(Sequence.id == block.sequence_id).first()
         if sequence not in article.sequences:
             db_sess.delete(sequence)
+            logger.error("Обнаружен блок не входящей в начальный класс Sequence.article_id."
+                         "Устранение: удаление связи Sequence и Blocks")
             raise ValueError(
                 "Обнаружен блок не входящей в начальный класс Sequence.article_id."
                 "Устранение: удаление связи Sequence и Blocks")
@@ -105,11 +111,14 @@ def article_create(*args, **kwargs):
 @user_is_author(required=False)  # Пока выключим проверку
 def edit_article(user: User, article_id: int, *args, **kwargs):
     if flask.request.method == "POST":
+        print('123')
         article_form = ArticleForm()
         if article_form.validate_on_submit():
             db_sess = create_session()
             article = db_sess.query(Article).filter(Article.id == article_id).first()
             article.heading = article_form.heading.data
+            db_sess.commit()
+            return redirect(f"/article/{article.id}/")
     elif flask.request.method == "GET":
         db_sess = create_session()
         set_sequence(article_id, db_sess)
@@ -118,14 +127,35 @@ def edit_article(user: User, article_id: int, *args, **kwargs):
         article_form = ArticleForm(article)
         return render_template("articles/edit/article.html", form=article_form, article=article,
                                blocks=blocks)
-    return {"res": True}
+    else:
+        return abort(404)
 
 
-@app_articles.route("/<int:article_id>/edit/add/block/place/<int:number>", methods=['GET', 'POST'])
+@app_articles.route("/<int:article_id>/edit/add/block/place/<int:number>", methods=['GET'])
 @get_user(required=True)
 @user_is_author(required=False)  # Пока выключим проверку
 def choosing_create_block(user: User, article_id: int, number: int, *args, **kwargs):
-    return {"res": True}
+    db_sess = create_session()
+    article = db_sess.query(Article).filter(Article.id == article_id).first()
+    return render_template("articles/create/Choose_block.html", user=user, article=article,
+                           number=number, Blocks=Blocks)
+
+
+@app_articles.route("/<int:article_id>/edit/add/block/place/<int:number>/block/<int:number_block>",
+                    methods=['GET', 'POST'])
+@get_user(required=True)
+@user_is_author(required=False)  # Пока выключим проверку
+def create_block(user: User, article_id: int, number: int, number_block: int, *args, **kwargs):
+    if flask.request.method == "POST":
+        pass
+    elif flask.request.method == "GET":
+        if 0 <= number_block < len(Blocks):
+            form = Blocks[number_block].getForm()()
+            return render_template(f"Blocks/create/{Blocks[number_block].__name__}.html", form=form)
+        else:
+            return abort(404)
+    else:
+        return {"res": True}
 
 
 @app_articles.route("/")
