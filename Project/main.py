@@ -4,6 +4,9 @@ from flask import Flask
 from flask import request, make_response, session, render_template
 from flask_login import login_user, login_required, logout_user, LoginManager
 
+from Project.data.Article import Article
+from Project.data.Blocks.TextBlock import TextBlock
+from Project.data.Sequence import Sequence
 from apps.articles import app_articles
 from apps.home import app_home
 from apps.test import app_test
@@ -106,7 +109,7 @@ def login():
         return render_template('test.html',
                                message="Неправильный логин или пароль",
                                form=form)
-    return render_template('test.html', title='Авторизация', form=form)
+    return render_template('login.html', title='Авторизация', form=form)
 
 
 @app.route('/logout')
@@ -122,5 +125,32 @@ def logout():
 
 
 db_session.global_init(path_db)
-# db_sess = db_session.create_session()
+db_sess = db_session.create_session()
+user = db_sess.query(User).filter(User.email == 'dereviannykh.v@gmail.com').first()
+if user is None:
+    user = User(
+        email='dereviannykh.v@gmail.com',
+        name='Vovik48rus',
+        super_user=True,
+    )
+    user.set_password("Vovik48rus123")
+    db_sess.add(user)
+    db_sess.commit()
+    article = Article(heading="Test_1_Vovik", )
+    article.user_id = user.id
+    article.sources = "https://ru.wikipedia.org/wiki"
+    db_sess.add(article)
+    db_sess.commit()
+    sequence = Sequence()
+    sequence.article_id = article.id
+    sequence.number = 1
+    db_sess.add(sequence)
+    db_sess.commit()
+    text_block = TextBlock()
+    text_block.article_id = article.id
+    text_block.text = "Text: vovik"
+    text_block.heading = "Test1"
+    text_block.sequence_id = sequence.id
+    db_sess.add(text_block)
+    db_sess.commit()
 # app.run(port=8080, host='localhost', debug=True)

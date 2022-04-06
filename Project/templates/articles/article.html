@@ -9,7 +9,7 @@
     </head>
     <body>
         <main role="main" class="container">
-            {% if author == user %}<a href="">Редактировать</a>{% endif %}
+            {% if author == user %}<a href="/article/{{ article.id }}/edit">Редактировать</a>{% endif %}
             <h1>{{ article.heading }}</h1>
             {% for block in blocks %}
                 {% with block=block %}

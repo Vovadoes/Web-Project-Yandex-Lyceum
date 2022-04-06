@@ -12,5 +12,9 @@ class MainIdeaBlock(Block):
 
     idea = sqlalchemy.Column(sqlalchemy.String, nullable=True)
 
+    @staticmethod
+    def label_block():
+        return 'Блок с главной идеей'
+
 
 Blocks_lst.append(MainIdeaBlock)

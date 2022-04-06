@@ -13,15 +13,23 @@ class Image(SqlAlchemyBase):
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
     path = sqlalchemy.Column(sqlalchemy.String, unique=True)
 
-    def copy_image(self, image_path):
-        path_dir = os.path.join(work_dir, 'media')
-        with NamedTemporaryFile(dir=path_dir) as tf:
-            filename, file_extension = os.path.splitext(image_path)
-            name_new_file = tf.name
-            with open(os.path.join(path_dir, name_new_file + file_extension), 'w+') as f2:
-                with open(image_path, 'rb') as f1:
-                    f2.write(f1.read())
-                    self.path = os.path.join(name_new_file + file_extension)
+    def __init__(self, **kwargs):
+        super().__init__()
+        for i in kwargs:
+            if i in self.__class__.__dict__.keys():
+                setattr(self, i, kwargs[i])
+            else:
+                print(f'Error Key: {i} in class: {self.__class__.__name__}')
+
+    # def copy_image(self, image_path):
+    #     path_dir = os.path.join(work_dir, 'media')
+    #     with NamedTemporaryFile(dir=path_dir) as tf:
+    #         filename, file_extension = os.path.splitext(image_path)
+    #         name_new_file = tf.name
+    #         with open(os.path.join(path_dir, name_new_file + file_extension), 'w+') as f2:
+    #             with open(image_path, 'rb') as f1:
+    #                 f2.write(f1.read())
+    #                 self.path = os.path.join(name_new_file + file_extension)
 
     def generate_path(self, name, set_path=False):
         path_dir = os.path.join(work_dir, 'media')

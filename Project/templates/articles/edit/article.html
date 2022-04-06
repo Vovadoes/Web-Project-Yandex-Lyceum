@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href={{ url_for('static', filename='bootstrap/5.0.1/css/bootstrap.min.css') }}/>
+        <title>{{ article.heading }}</title>
+    </head>
+    <body>
+        <main role="main" class="container">
+            <form action="" method="post">
+                {{ form.hidden_tag() }}
+                <p>
+                    {{ form.heading.label }}
+                    <br>
+                    {{ form.heading(class="form-control", type="text") }}
+                    <br>
+                    {% for error in form.heading.errors %}<div class="alert alert-danger" role="alert">{{ error }}</div>{% endfor %}
+                </p>
+                <button type="button" class="btn btn-success">Сохранить</button>
+            </form>
+            <a class="btn btn-primary"
+               href="/article/{{ article.id }}/edit/add/block/place/1"
+               role="button">Добавить блок</a>
+            {% for block in blocks %}
+                {% with block=block %}
+                    {% include 'Blocks/' + block.__class__.__name__+ '.html'  %}
+                {% endwith %}
+                <a class="btn btn-primary"
+                   href="/article/{{ article.id }}/edit/add/block/place/{{ loop.index + 1 }}"
+                   role="button">Добавить блок</a>
+                <a class="btn btn-primary" href="#" role="button">Редактировать</a>
+            {% endfor %}
+        </main>
+    </body>
+</html>

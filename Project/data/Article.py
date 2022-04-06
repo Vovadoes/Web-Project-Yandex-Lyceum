@@ -32,3 +32,11 @@ class Article(SqlAlchemyBase, UserMixin):
     tags = relationship("Tag", secondary=association_table_article_tag, back_populates="articles")
     sources = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     sequences = relationship("Sequence", backref="articles")
+
+    def __init__(self, **kwargs):
+        super().__init__()
+        for i in kwargs:
+            if i in self.__class__.__dict__.keys():
+                setattr(self, i, kwargs[i])
+            else:
+                print(f'Error Key: {i} in class: {self.__class__.__name__}')

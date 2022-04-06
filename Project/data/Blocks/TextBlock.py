@@ -11,5 +11,9 @@ class TextBlock(Block):
     heading = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     text = sqlalchemy.Column(sqlalchemy.String, nullable=True)
 
+    @staticmethod
+    def label_block():
+        return 'Блок с текстом'
+
 
 Blocks_lst.append(TextBlock)

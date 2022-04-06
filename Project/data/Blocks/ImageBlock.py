@@ -13,5 +13,9 @@ class ImageBlock(Block):
     heading = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     image_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey('images.id'))
 
+    @staticmethod
+    def label_block():
+        return 'Блок c изображением'
+
 
 Blocks_lst.append(ImageBlock)

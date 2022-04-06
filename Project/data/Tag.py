@@ -21,6 +21,14 @@ class Tag(SqlAlchemyBase, UserMixin):
     articles = relationship("Article", secondary=association_table_article_tag,
                             back_populates="tags")
 
+    def __init__(self, **kwargs):
+        super().__init__()
+        for i in kwargs:
+            if i in self.__class__.__dict__.keys():
+                setattr(self, i, kwargs[i])
+            else:
+                print(f'Error Key: {i} in class: {self.__class__.__name__}')
+
     def __str__(self):
         return f"<Project.data.Tag.Tag object, name = {self.name}>"
 

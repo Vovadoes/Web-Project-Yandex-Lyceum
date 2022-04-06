@@ -35,7 +35,7 @@ class User(SqlAlchemyBase, UserMixin):
             if i in User.__dict__.keys():
                 setattr(self, i, kwargs[i])
             else:
-                print(f'Error Key: {i}')
+                print(f'Error Key: {i} in class: {self.__class__.__name__}')
 
     def set_password(self, password):
         self.hashed_password = generate_password_hash(password)

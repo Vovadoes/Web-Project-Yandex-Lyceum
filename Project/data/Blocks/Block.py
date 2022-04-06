@@ -14,6 +14,18 @@ class Block(SqlAlchemyBase):
     # article_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey('articles.id'))
     # sequence_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey('sequences.id'))
 
+    def __init__(self, **kwargs):
+        super().__init__()
+        for i in kwargs:
+            if i in self.__class__.__dict__.keys():
+                setattr(self, i, kwargs[i])
+            else:
+                print(f'Error Key: {i} in class: {self.__class__.__name__}')
+
+    @staticmethod
+    def label_block():
+        return 'Блок'
+
     @declared_attr
     def article_id(self):
         return sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey('articles.id'))
