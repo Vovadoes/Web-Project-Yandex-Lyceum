@@ -4,6 +4,10 @@
     <title>{{ search_engine_name }}</title>  <!-- Это абзац слева -->
     <meta charset="utf-8">
     <style>
+        body {
+   	   background: #f5f6fa;;
+   	   font-family: comic sans ms;
+   	   }
         #content {
             padding-left: 20px;
             width: 640px;
@@ -50,9 +54,109 @@
         input:focus {
             outline: none;
         }
-        div input{
-             display:inline-block;
-        }
+body {
+  font-family: algerian;
+  background-color: #5E5E5E;
+  margin: 0px;
+  padding: 30px;
+}
+
+.search {
+  position: relative;
+}
+
+.input-search {
+  background-color: transparent;
+  border: 2px solid #fff;
+  height: 30px;
+  width: 30px;
+  padding: 0 0px;
+  font-size: 1.1em;
+  font-weight: lighter;
+  color: #fff;
+  border-radius: 24px;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+
+.input-search:focus {
+  width: 300px;
+  padding: 0 12px;
+  outline:none;
+}
+
+.input-search+.search:after {
+  content: '';
+  border-top: 3px solid #fff;
+  width: 15px;
+  display: block;
+  position: absolute;
+  right: -6px;
+  bottom: -8px;
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+.input-search+.search:before {
+  content: '';
+  border-top: 3px solid #fff;
+  width: 0px;
+  position: absolute;
+  right: -2px;
+  bottom: 19px;
+  -ms-transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+  -webkit-transition-delay: 0s; /* Safari */
+    transition-delay: 0s;
+}
+
+.input-search:focus+.search:after {
+  content: '';
+  border-top: 3px solid #fff;
+  right: 10px;
+  bottom: 9px;
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.input-search:focus+.search:before {
+  right: 10px;
+  bottom: 9px;
+  width: 15px;
+  -webkit-transition: all 0.1s;
+  transition: all 0.1s;
+  -webkit-transition-timing-function: ease-in;
+  transition-timing-function: ease-in;
+  -webkit-transition-delay: 0.2s; /* Safari */
+    transition-delay: 0.2s;
+}
+a.button8 {
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  user-select: none;
+  outline: none;
+  align-items: center;
+  border: 2px solid;
+  border-radius: 1px;
+  transition: 0.2s;
+  height:35px;
+  width:120px;
+}
+a.button8:hover { background: rgba(255,255,255,.2); }
+a.button8:active { background: white; }
 
 
     </style>
@@ -67,24 +171,20 @@
     <!-- Это где мы вводим текст и кнопка искать -->
     <form style='padding: 4px; padding-top: 18px;' method='POST'>
 
-        <input type='text'
-               style='border-radius: 12px; border: 1px solid lightgrey; width:530px; font-size: 20px; padding: 2px; padding-left: 8px;'
-               name='query' value='{{ query }}'>
-        <button><input type='submit'
-               style='font-size: 20px; border-radius: 12px; border: 1px solid lightgrey; background: #F9F9F9;'
-               value='Search'></button>
 
+       <div class="row" style="display:flex;"> <input type="text" class="input-search" id="input-search"/>
+        <label class="search" for="input-search">
+        </label>
+
+            <div style="padding-top:4px;">
+            <a href="#" class="button8">search</a>
+            <a href="#" class="button8">write new</a>
+            <a href="#" class="button8">profile</a></div></div>
     </form>
-    <!-- Создание новой статьи -->
-    <input type="button"
-           style='font-size: 20px; border-radius: 12px; border: 1px solid lightgrey; background: #F9F9F9;'
-           value="Write new">
-    <!-- Профиль -->
-    <input type="button"
-           style='font-size: 20px; border-radius: 12px; border: 1px solid lightgrey; background: #F9F9F9;'
-           value="Profile">
 
-    <hr style='border: none; border-bottom: 1px solid lightgrey;'>
+
+
+
 
     <h3>Заголовок первого уровня</h3>
 
