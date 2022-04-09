@@ -167,8 +167,8 @@ a.button8:active { background: white; }
 <a href="#"><div id='title'>{{ search_engine_name }}</div></a>  <!-- Это абзац слева -->
 <!-- Надо сделать в кнопку для перехода на начальный экран -->
 <div style="padding-left:1650px; position: absolute;">
-            <a href="#" class="button8">write new</a>
-            <a href="#" class="button8">profile</a></div>
+            <a class="button8">write new</a>
+            <a class="button8">profile</a></div>
 
 <div id="content">
     <!-- Это где мы вводим текст и кнопка искать -->
@@ -178,7 +178,8 @@ a.button8:active { background: white; }
         <input type="text" class="input-search" id="input-search"/>
         <label class="search" for="input-search">
         </label>
-            <a href="#" class="button8" style="margin-left:10px;">search</a>
+            <input type="hidden" name="param1" value="val" />
+             <a class="button8" style="margin-left:10px;" onclick="this.parentNode.submit()">search</a>
     </form>
 
 
