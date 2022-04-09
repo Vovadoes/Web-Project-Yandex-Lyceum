@@ -6,7 +6,7 @@
     <style>
         body {
    	   background: #f5f6fa;;
-   	   font-family: comic sans ms;
+   	   font-family: corbel;
    	   }
         #content {
             padding-left: 20px;
@@ -55,7 +55,7 @@
             outline: none;
         }
 body {
-  font-family: algerian;
+  font-family: corbel;
   background-color: #5E5E5E;
   margin: 0px;
   padding: 30px;
@@ -82,7 +82,7 @@ body {
 }
 
 .input-search:focus {
-  width: 300px;
+  width: 400px;
   padding: 0 12px;
   outline:none;
 }
@@ -143,20 +143,21 @@ body {
     transition-delay: 0.2s;
 }
 a.button8 {
+  display: inline-block;
   color: white;
-  font-weight: 600;
+  font-weight: 500;
   text-decoration: none;
   user-select: none;
+  padding: .2em 1em;
   outline: none;
-  align-items: center;
   border: 2px solid;
   border-radius: 1px;
   transition: 0.2s;
-  height:35px;
-  width:120px;
+
 }
 a.button8:hover { background: rgba(255,255,255,.2); }
 a.button8:active { background: white; }
+
 
 
     </style>
@@ -172,7 +173,7 @@ a.button8:active { background: white; }
 <div id="content">
     <!-- Это где мы вводим текст и кнопка искать -->
 
-    <form style='padding: 4px; padding-top: 18px;' method='POST'>
+    <form style='padding: 4px; padding-top: 18px; position: fixed;' method='POST'>
 
         <input type="text" class="input-search" id="input-search"/>
         <label class="search" for="input-search">
@@ -186,7 +187,7 @@ a.button8:active { background: white; }
 
 
 
-
+    <div style="padding-top:100px;">
     <h3>Заголовок первого уровня</h3>
 
     {% for title, annotation, score, id in results %}
@@ -200,6 +201,7 @@ a.button8:active { background: white; }
 
     <h3>Заголовок первого уровня</h3>
 
+
     {% for title, annotation, score, id in results %}
     <!-- Это перечесление всех найденных документов -->
     <div class='result'>
@@ -208,6 +210,7 @@ a.button8:active { background: white; }
         <div class='annotation'>{{ annotation | replace('\n', ' / '|safe) }}</div>
     </div>
     {% endfor %}
+    </div>
 </div>
 
 </body>
