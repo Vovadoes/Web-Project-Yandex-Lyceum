@@ -163,24 +163,25 @@ a.button8:active { background: white; }
 </head>
 <body>
 
-<div id='title'>{{ search_engine_name }}</div>  <!-- Это абзац слева -->
+<a href="#"><div id='title'>{{ search_engine_name }}</div></a>  <!-- Это абзац слева -->
 <!-- Надо сделать в кнопку для перехода на начальный экран -->
-
+<div style="padding-left:1650px; position: absolute;">
+            <a href="#" class="button8">write new</a>
+            <a href="#" class="button8">profile</a></div>
 
 <div id="content">
     <!-- Это где мы вводим текст и кнопка искать -->
+
     <form style='padding: 4px; padding-top: 18px;' method='POST'>
 
-
-       <div class="row" style="display:flex;"> <input type="text" class="input-search" id="input-search"/>
+        <input type="text" class="input-search" id="input-search"/>
         <label class="search" for="input-search">
         </label>
-
-            <div style="padding-top:4px;">
-            <a href="#" class="button8">search</a>
-            <a href="#" class="button8">write new</a>
-            <a href="#" class="button8">profile</a></div></div>
+            <a href="#" class="button8" style="margin-left:10px;">search</a>
     </form>
+
+
+
 
 
 
