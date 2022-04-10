@@ -68,12 +68,11 @@ def article(user, article_id: int, *args, **kwargs):
     del res
     db_sess = create_session()
     article: Article = db_sess.query(Article).filter(Article.id == article_id).first()
-    user: User = db_sess.query(User).filter(Article.id == article_id).first()
+    user = db_sess.query(User).filter(User.id == user.id).first()
     if article is None:
         return {"res": "There is no article with this number"}
     blocks = get_sort_blocks(article, db_sess)
     if user is not None:
-        print(f"{article.id=}\n{user.views=}")
         if article.id not in user.views:
             user.views.append(article)
             article.views.append(user)
@@ -111,7 +110,6 @@ def article_create(*args, **kwargs):
 @user_is_author(required=False)  # Пока выключим проверку
 def edit_article(user: User, article_id: int, *args, **kwargs):
     if flask.request.method == "POST":
-        print('123')
         article_form = ArticleForm()
         if article_form.validate_on_submit():
             db_sess = create_session()
@@ -146,8 +144,30 @@ def choosing_create_block(user: User, article_id: int, number: int, *args, **kwa
 @get_user(required=True)
 @user_is_author(required=False)  # Пока выключим проверку
 def create_block(user: User, article_id: int, number: int, number_block: int, *args, **kwargs):
+    if not (0 <= number_block < len(Blocks)):
+        return abort(404)
     if flask.request.method == "POST":
-        pass
+        form = Blocks[number_block].getForm()()
+        if form.validate_on_submit():
+            db_sess = create_session()
+            set_sequence(article_id, db_sess)
+            article = db_sess.query(Article).filter(Article.id == article_id).first()
+            blocks = get_sort_blocks(article, db_sess)
+            for i in range(number+1, len(blocks)):
+                sequence = db_sess.query(Sequence).filter(Sequence.id == blocks[i-1].sequence_id).first()
+                sequence.number += 1
+            sequence = Sequence()
+            sequence.article_id = article.id
+            sequence.number = number_block
+            db_sess.add(sequence)
+            db_sess.commit()
+            block = Blocks[number_block]()
+            block.loading_data(request=flask.request, **form.__dict__)
+            block.sequence_id = sequence.id
+            block.article_id = article.id
+            db_sess.add(block)
+            db_sess.commit()
+            return redirect(f"/article/{article.id}/")
     elif flask.request.method == "GET":
         if 0 <= number_block < len(Blocks):
             form = Blocks[number_block].getForm()()

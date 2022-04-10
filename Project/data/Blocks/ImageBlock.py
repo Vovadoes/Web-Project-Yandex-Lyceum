@@ -1,10 +1,8 @@
 import sqlalchemy
-from Project.data.db_session import SqlAlchemyBase
-from flask_login import UserMixin
 from .settings import Blocks_lst
 
 from .Block import Block
-from Project.forms.ImageForm import ImageForm
+from Project.forms.Blocks.ImageForm import ImageForm
 
 
 class ImageBlock(Block):

@@ -1,206 +1,52 @@
-
 <!doctype html>
-<html>
-<head>
-    <title>{{ search_engine_name }}</title>  <!-- Это абзац слева -->
-    <meta charset="utf-8">
-    <style>
-    body {
-   	   background: #f5f6fa;;
-   	   font-family: corbel;
-   	   }
-        #content {
-            padding-left: 20px;
-            width: 640px;
-            display: inline-block;
-        }
-        a {
-            color: #1a0dab;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        body {
-            font-size: 24px;
-            padding: 12px;
-            font: Helvetica, sans-serif;
-        }
-        #title {
-            background-image: linear-gradient(to right, blue, red, orange, blue, green, red);
-            -webkit-background-clip: text;
-            color: transparent;
-            display: inline-block;
-            float: left;
-            font-size: 48px;
-            margin-bottom: 40px;
-        }
-        .result {
-            padding: 20px;
-            padding-bottom: 0px;
-        }
-        .headline {
-
-        }
-        .annotation {
-            font-size: 18px;
-        }
-        .score {
-            font-size: 14px;
-            float: right;
-        }
-        input[type=submit]:hover {
-            cursor: pointer;
-        }
-        input:focus {
-            outline: none;
-        }
-body {
-  font-family: corbel;
-  background-color: #5E5E5E;
-  margin: 0px;
-  padding: 30px;
-}
-
-.search {
-  position: relative;
-}
-
-.input-search {
-  background-color: transparent;
-  border: 2px solid #fff;
-  height: 30px;
-  width: 30px;
-  padding: 0 0px;
-  font-size: 1.1em;
-  font-weight: lighter;
-  color: #fff;
-  border-radius: 24px;
-  -webkit-transition: all 0.4s;
-  transition: all 0.4s;
-  -webkit-transition-timing-function: ease-out;
-  transition-timing-function: ease-out;
-}
-
-.input-search:focus {
-  width: 400px;
-  padding: 0 12px;
-  outline:none;
-}
-
-.input-search+.search:after {
-  content: '';
-  border-top: 3px solid #fff;
-  width: 15px;
-  display: block;
-  position: absolute;
-  right: -6px;
-  bottom: -8px;
-  -ms-transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-  -webkit-transition: all 0.2s;
-  transition: all 0.2s;
-  -webkit-transition-timing-function: ease-out;
-  transition-timing-function: ease-out;
-}
-.input-search+.search:before {
-  content: '';
-  border-top: 3px solid #fff;
-  width: 0px;
-  position: absolute;
-  right: -2px;
-  bottom: 19px;
-  -ms-transform: rotate(-45deg);
-  -webkit-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-  -webkit-transition: all 0.2s;
-  transition: all 0.2s;
-  -webkit-transition-timing-function: ease-out;
-  transition-timing-function: ease-out;
-  -webkit-transition-delay: 0s; /* Safari */
-    transition-delay: 0s;
-}
-
-.input-search:focus+.search:after {
-  content: '';
-  border-top: 3px solid #fff;
-  right: 10px;
-  bottom: 9px;
-  -ms-transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-}
-
-.input-search:focus+.search:before {
-  right: 10px;
-  bottom: 9px;
-  width: 15px;
-  -webkit-transition: all 0.1s;
-  transition: all 0.1s;
-  -webkit-transition-timing-function: ease-in;
-  transition-timing-function: ease-in;
-  -webkit-transition-delay: 0.2s; /* Safari */
-    transition-delay: 0.2s;
-}
-a.button8 {
-  display: inline-block;
-  color: white;
-  font-weight: 500;
-  text-decoration: none;
-  user-select: none;
-  padding: .2em 1em;
-  outline: none;
-  border: 2px solid;
-  border-radius: 1px;
-  transition: 0.2s;
-
-}
-a.button8:hover { background: rgba(255,255,255,.2); }
-a.button8:active { background: white; }
-
-
-    </style>
-    <link rel="stylesheet" type="text/css" href="style.css">
-</head>
-<body>
-
-<a href="#"><div id='title'>{{ search_engine_name }}</div></a>  <!-- Это абзац слева -->
-<!-- Надо сделать в кнопку для перехода на начальный экран -->
-<div style="padding-left:1650px; position: absolute;">
+<html lang="ru">
+    <head>
+        <title>{{ search_engine_name }}</title>  <!-- Это абзац слева -->
+        <meta charset="utf-8">
+        <meta charset="utf-8">
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href={{ url_for('static', filename='bootstrap/5.0.1/css/bootstrap.min.css') }}/>
+        <link rel="stylesheet" href={{ url_for('static', filename='css/home.css') }}/>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <a href="#">
+            <div id='title'>{{ search_engine_name }}</div>
+        </a>
+        <div style="padding-left:1650px; position: absolute;">
             <a href="#" class="button8">write new</a>
-            <a href="#" class="button8">profile</a></div>
-
-<div id="content">
-    <!-- Это где мы вводим текст и кнопка искать -->
-
-    <form style='padding: 4px; padding-top: 18px; position: fixed;' method='POST'>
-
-        <input type="text" class="input-search" id="input-search"/>
-        <label class="search" for="input-search">
-        </label>
-            <a href="#" class="button8" style="margin-left:10px;">search</a>
-    </form>
-
-    <div style="padding-top:100px;">
-
-    <hr style='border: none; border-bottom: 1px solid lightgrey;'>
-
-    <!-- Сколько документов найденно + время -->
-    {% if query != '' %}
-    <div style='font-size:16px; text-align: right; padding-right: 10px;'>Found {{ results|length}} documents in {{ time }} seconds.</div>
-    {% endif %}
-
-
-    {% for title, annotation, score, id in results %}  <!-- Это перечесление всех найденных документов -->
-        <div class='result'>
-            <div class='score'>{{ score }} </div>
-            <div class='headline'><a href='article/{{id}}/'>{{ title }}</a></div>
-            <div class='annotation'>{{ annotation | replace('\n', ' / '|safe) }}</div>
+            <a href="#" class="button8">profile</a>
         </div>
-    {% endfor %}
-    </div>
-</div>
-
-</body>
+        <div id="content">
+            <!-- Это где мы вводим текст и кнопка искать -->
+            <form style='padding: 4px;
+                         padding-top: 18px;
+                         position: fixed;'
+                  method='POST'>
+                <input type="text" class="input-search" id="input-search"/>
+                <label class="search" for="input-search"></label>
+                <a href="#" class="button8" style="margin-left:10px;">search</a>
+            </form>
+            <div style="padding-top:100px;">
+                <hr style='border: none; border-bottom: 1px solid lightgrey;'>
+                <!-- Сколько документов найденно + время -->
+                {% if query != '' %}
+                    <div style='font-size:16px; text-align: right; padding-right: 10px;'>
+                        Found {{ results|length }} documents in {{ time }} seconds.
+                    </div>
+                {% endif %}
+                {% for title, annotation, score, id in results %}
+                    <!-- Это перечесление всех найденных документов -->
+                    <div class='result'>
+                        <div class='score'>{{ score }}</div>
+                        <div class='headline'>
+                            <a href='article/{{ id }}/'>{{ title }}</a>
+                        </div>
+                        <div class='annotation'>{{ annotation | replace('\n', ' / '|safe) }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </body>
 </html>

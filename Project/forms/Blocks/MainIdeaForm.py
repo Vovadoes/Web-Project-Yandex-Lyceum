@@ -1,4 +1,4 @@
-from .Form import Form
+from Project.forms.Form import Form
 
 
 class MainIdeaForm(Form):

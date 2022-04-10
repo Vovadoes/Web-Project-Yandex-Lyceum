@@ -1,10 +1,8 @@
 import sqlalchemy
-from sqlalchemy import orm
-from sqlalchemy.orm import declared_attr
 
 from .Block import Block
 from .settings import Blocks_lst
-from Project.forms.MainIdeaForm import MainIdeaForm
+from Project.forms.Blocks.MainIdeaForm import MainIdeaForm
 
 
 class MainIdeaBlock(Block):

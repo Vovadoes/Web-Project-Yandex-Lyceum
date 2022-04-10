@@ -1,3 +1,26 @@
-<p>
-    {{ form.__class__.__name__ }} Форма для создания
-</p>
+{% extends "Blocks/create/BaseBlock.html" %}
+{% block headblock %}<title>Создать блок теста</title>{% endblock %}
+{% block content %}
+    <h1>Создание блока с текстом</h1>
+    <form action="" method="POST">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.heading.label }}
+            <br>
+            {{ form.heading(class="form-control", type="text") }}
+            <br>
+            {% for error in form.heading.errors %}<div class="alert alert-danger" role="alert">{{ error }}</div>{% endfor %}
+        </p>
+        <p>
+            {{ form.text.label }}
+            <br>
+            {{ form.text(class="form-control", type="text") }}
+            <br>
+            {% for error in form.text.errors %}<div class="alert alert-danger" role="alert">{{ error }}</div>{% endfor %}
+        </p>
+        <p>
+            <button type="submit" class="btn btn-primary">Создать</button>
+        </p>
+        <div>{{ message }}</div>
+    </form>
+{% endblock %}

@@ -2,7 +2,7 @@ import sqlalchemy
 
 from .Block import Block
 from .settings import Blocks_lst
-from Project.forms.TextFrom import TextForm
+from Project.forms.Blocks.TextFrom import TextForm
 
 
 class TextBlock(Block):

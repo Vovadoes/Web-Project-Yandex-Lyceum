@@ -23,12 +23,12 @@ class Block(SqlAlchemyBase):
         if kwargs is not None:
             for i in kwargs:
                 if i in self.__class__.__dict__.keys():
-                    setattr(self, i, kwargs[i])
+                    setattr(self, i, kwargs[i].data)
                 else:
                     print(f'Error Key: {i} in class: {self.__class__.__name__}')
 
     def loading_data(self, request, **kwargs):
-        self.import_class_dict()
+        self.import_class_dict(**kwargs)
 
     @staticmethod
     def getForm():
