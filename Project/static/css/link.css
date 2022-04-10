@@ -1,7 +1,8 @@
 .nav-link {
     color: white;
-    static:right;
+    font-family: corbel;
+    font-size:15pt;
+    margin-right:50px;
 }
-.about {
- display:inline-block;
-}
+.nav-link:hover{
+color: #7D7D7D;}

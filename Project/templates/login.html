@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Авторизация</h1>
+<div style="font-family: corbel;"><h2>Авторизация</h2></div>
     <form action="" method="post">
         {{ form.hidden_tag() }}
         <p>
-            {{ form.email.label }}
+            <h1 class="home-title"><span>Логин</span></h1>
             <br>
-            {{ form.email(class="form-control", type="email") }}
+            {{ form.email(class="form-control", type="email", style="border: none; border-bottom: 1px solid gray;outline: none; box-shadow: none;") }}
             <br>
             {% for error in form.email.errors %}<div class="alert alert-danger" role="alert">{{ error }}</div>{% endfor %}
         </p>
         <p>
-            {{ form.password.label }}
+            <h1 class="home-title"><span>Пароль</span></h1>
             <br>
-            {{ form.password(class="form-control", type="password") }}
+            {{ form.password(class="form-control", type="password", style="border: none; border-bottom: 1px solid gray;outline: none; box-shadow: none;") }}
             <br>
             {% for error in form.password.errors %}<div class="alert alert-danger" role="alert">{{ error }}</div>{% endfor %}
         </p>
@@ -21,7 +21,7 @@
             {{ form.remember_me() }} {{ form.remember_me.label }}
         </p>
         <p>
-            {{ form.submit(type="submit", class="btn btn-primary") }}
+            {{ form.submit(type="submit", class="btn btn-primary",style="background: #212121; border:none;") }}
         </p>
         <div>{{ message }}</div>
     </form>
