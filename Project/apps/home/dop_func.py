@@ -4,7 +4,10 @@ from nltk.corpus import stopwords
 from nltk.stem.snowball import SnowballStemmer
 from nltk.corpus import wordnet
 from nltk import WordNetLemmatizer, pos_tag
+from . import path_db
 import os
+
+from Project.settings import path_db_danila
 
 dler = nltk.downloader.Downloader()
 nltk.download('stopwords')
@@ -60,7 +63,7 @@ def find_id_articles(s: list, k=100):
     import sqlite3
     # os.path.join(os.getcwd(), 'Project', 'db', 'db.db')
     # Подключение к БД
-    con = sqlite3.connect(r'db.db')
+    con = sqlite3.connect(path_db_danila)
 
     # Создание курсора
     cur = con.cursor()
@@ -70,6 +73,7 @@ def find_id_articles(s: list, k=100):
     id_word = []
     id_articls = []
     for i in s:
+        print("-----------------------", f'{s=}')
         result = cur.execute("""SELECT id FROM tags
                 WHERE name like ?""", (i,)).fetchall()
         if len(result) != 0:

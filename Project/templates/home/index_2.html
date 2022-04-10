@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+    <head>
+        <title>{{ search_engine_name }}</title>
+        <!-- Это абзац слева -->
+        <meta charset="utf-8">
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href={{ url_for('static', filename='bootstrap/5.0.1/css/bootstrap.min.css') }}/>
+        <link rel="stylesheet" href={{ url_for('static', filename='css/home.css') }}/>
+    </head>
+    <body>
+        <a href="#">
+            <div id='title'>{{ search_engine_name }}</div>
+        </a>
+        <!-- Это абзац слева -->
+        <!-- Надо сделать в кнопку для перехода на начальный экран -->
+        <div style="padding-left:1650px; position: absolute;">
+            <a class="button8">write new</a>
+            <a class="button8">profile</a>
+        </div>
+        <div id="content">
+            <!-- Это где мы вводим текст и кнопка искать -->
+            <form style='padding: 4px;
+                         padding-top: 18px;
+                         position: fixed;'
+                  method='POST'>
+                <input type="text" class="input-search" id="input-search" name="query"/>
+                <label class="search" for="input-search"></label>
+                <input type="hidden" name="param1" value="val" />
+                <a class="button8"
+                   style="margin-left:10px;"
+                   onclick="this.parentNode.submit()">search</a>
+            </form>
+            <div style="padding-top:100px;">
+                <h3>Заголовок первого уровня</h3>
+                {% for title, annotation, score, id in results %}
+                    <!-- Это перечесление всех найденных документов -->
+                    <div class='result'>
+                        <div class='score'>{{ score }}</div>
+                        <div class='headline'>
+                            <a href='/article/{{ id }}'>{{ title }}</a>
+                        </div>
+                        <div class='annotation'>{{ annotation | replace('\n', ' / '|safe) }}</div>
+                    </div>
+                {% endfor %}
+                <h3>Заголовок первого уровня</h3>
+                {% for title, annotation, score, id in results %}
+                    <!-- Это перечесление всех найденных документов -->
+                    <div class='result'>
+                        <div class='score'>{{ score }}</div>
+                        <div class='headline'>
+                            <a href='/article/{{ id }}'>{{ title }}</a>
+                        </div>
+                        <div class='annotation'>{{ annotation | replace('\n', ' / '|safe) }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,24 +1,18 @@
-from pprint import pprint
 from loguru import logger
 
-import flask
-from flask_login import current_user
 from requests import Session
 from werkzeug.exceptions import abort
 from werkzeug.utils import redirect
 
 from . import app_articles
 
-from flask import render_template, request, url_for
+from flask import render_template, request
 from Project.data.Article import Article
 from Project.data.Sequence import Sequence
 from Project.data.db_session import create_session
-from Project.data.Image import Image
 from . import Blocks
 from Project.fun import get_user, user_is_author, get_article_id
 from Project.forms.ArticleForm import ArticleForm
-from Project.data.Blocks.MainIdeaBlock import MainIdeaBlock
-from Project.data.Tag import Tag
 from Project.data.User import User
 
 
@@ -68,12 +62,11 @@ def article(user, article_id: int, *args, **kwargs):
     del res
     db_sess = create_session()
     article: Article = db_sess.query(Article).filter(Article.id == article_id).first()
-    user: User = db_sess.query(User).filter(Article.id == article_id).first()
+    user = db_sess.query(User).filter(User.id == user.id).first()
     if article is None:
         return {"res": "There is no article with this number"}
     blocks = get_sort_blocks(article, db_sess)
     if user is not None:
-        print(f"{article.id=}\n{user.views=}")
         if article.id not in user.views:
             user.views.append(article)
             article.views.append(user)
@@ -85,24 +78,24 @@ def article(user, article_id: int, *args, **kwargs):
 
 @app_articles.route("/create/", methods=['GET', 'POST'])
 @get_user(required=False)
-def article_create(*args, **kwargs):
-    if flask.request.method == "POST":
+def article_create(user, *args, **kwargs):
+    if request.method == "POST":
         form = ArticleForm()
         if form.validate_on_submit():
             db_sess = create_session()
             article = Article()
-            # article.user_id = user.id
+            article.user_id = user.id
             article.heading = form.heading.data
             db_sess.add(article)
             db_sess.commit()
             return redirect(f"/article/{article.id}/")
         else:
             return {"result": "The form is not filled out correctly"}
-    elif flask.request.method == "GET":
+    elif request.method == "GET":
         article_form = ArticleForm()
         return render_template("articles/create/article.html", form=article_form)
     else:
-        return {"result": "Invalid method", "method": flask.request.method}
+        return {"result": "Invalid method", "method": request.method}
 
 
 @app_articles.route("/<int:article_id>/edit", methods=['GET', 'POST'])
@@ -110,8 +103,7 @@ def article_create(*args, **kwargs):
 @get_user(required=True)
 @user_is_author(required=False)  # Пока выключим проверку
 def edit_article(user: User, article_id: int, *args, **kwargs):
-    if flask.request.method == "POST":
-        print('123')
+    if request.method == "POST":
         article_form = ArticleForm()
         if article_form.validate_on_submit():
             db_sess = create_session()
@@ -119,7 +111,7 @@ def edit_article(user: User, article_id: int, *args, **kwargs):
             article.heading = article_form.heading.data
             db_sess.commit()
             return redirect(f"/article/{article.id}/")
-    elif flask.request.method == "GET":
+    elif request.method == "GET":
         db_sess = create_session()
         set_sequence(article_id, db_sess)
         article = db_sess.query(Article).filter(Article.id == article_id).first()
@@ -146,9 +138,32 @@ def choosing_create_block(user: User, article_id: int, number: int, *args, **kwa
 @get_user(required=True)
 @user_is_author(required=False)  # Пока выключим проверку
 def create_block(user: User, article_id: int, number: int, number_block: int, *args, **kwargs):
-    if flask.request.method == "POST":
-        pass
-    elif flask.request.method == "GET":
+    if not (0 <= number_block < len(Blocks)):
+        return abort(404)
+    if request.method == "POST":
+        form = Blocks[number_block].getForm()()
+        if form.validate_on_submit():
+            db_sess = create_session()
+            set_sequence(article_id, db_sess)
+            article = db_sess.query(Article).filter(Article.id == article_id).first()
+            blocks = get_sort_blocks(article, db_sess)
+            for i in range(number + 1, len(blocks)):
+                sequence = db_sess.query(Sequence).filter(
+                    Sequence.id == blocks[i - 1].sequence_id).first()
+                sequence.number += 1
+            sequence = Sequence()
+            sequence.article_id = article.id
+            sequence.number = number_block
+            db_sess.add(sequence)
+            db_sess.commit()
+            block = Blocks[number_block]()
+            block.loading_data(request=request, **form.__dict__)
+            block.sequence_id = sequence.id
+            block.article_id = article.id
+            db_sess.add(block)
+            db_sess.commit()
+            return redirect(f"/article/{article.id}/")
+    elif request.method == "GET":
         if 0 <= number_block < len(Blocks):
             form = Blocks[number_block].getForm()()
             return render_template(f"Blocks/create/{Blocks[number_block].__name__}.html", form=form)

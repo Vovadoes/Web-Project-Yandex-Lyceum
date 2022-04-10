@@ -5,6 +5,14 @@ work_dir = 'Project'
 
 path_db = os.path.join(os.getcwd(), 'Project', 'db', 'db.db')
 
+path_db_danila = os.path.join(os.getcwd(), 'Project', 'db', 'db_danila.db')
+
+# При первом запуске
+"""
+python -m nltk.downloader omw-1.4
+"""
+
+# Чтобы запустить проект
 """
 set FLASK_APP=Project/main.py
 set FLASK_DEBUG=1
