@@ -8,7 +8,7 @@ from Project.data.Article import Article
 from Project.data.Blocks.TextBlock import TextBlock
 from Project.data.Sequence import Sequence
 from apps.articles import app_articles
-# from apps.home import app_home
+from apps.home import app_home
 from apps.test import app_test
 from forms.RegisterForm import RegisterForm
 from forms.UserForm import LoginForm
@@ -25,7 +25,7 @@ app = Flask(__name__)
 app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(days=365)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 
-# app.register_blueprint(app_home, url_prefix='/home')
+app.register_blueprint(app_home, url_prefix='/home')
 app.register_blueprint(app_articles, url_prefix='/article')
 app.register_blueprint(app_test, url_prefix='/test')
 
