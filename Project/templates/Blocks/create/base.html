@@ -20,15 +20,12 @@
                     <div class="row">
                         <div class="col-sm-8">
                             <a class="navbar-brand">
-                                <a class="nav-link" href="/" style="font-size:30pt;">Home edition<span class="sr-only">(current)</span></a>
+                                <div style="margin-top:15px;"><h2>Home edition</h2></div>
                             </a>
                         </div>
                         <div class="col-sm-4">
                             {% if current_user.is_authenticated %}
-                            <div class="btn-group" role="group" style="marginL10xp">
-                                <div class="row"><h4 style="color: white; font-family: corbel; display: inline-block; padding-top:30px;">Зравствуйте {{ current_user.name }}</h4></div>
-                                <a class="nav-link" href="/logout" style="padding-top:45px;">Выйти<span class="sr-only">(current)</span></a>
-                            </div>
+                                <h4>Зравствуйте {{ current_user.name }}</h4>
                             {% else %}
                             <li class="nav-item active">
                                 <div class="btn-group" role="group" aria-label="Basic example">

@@ -9,7 +9,7 @@ Distributor: http://bootstraptema.ru/
     General setting
 -------------------- */
 *{
-    font-family: 'Raleway', Helvetica, Arial, sans-serif;
+    font-family: 'corbel;', Helvetica, Arial, sans-serif;
     font-weight: 300;
 }
 html{
@@ -22,7 +22,7 @@ body{
 }
 
 h1, h2, h3, h5, h6{
-    color: #ffffff;
+    color: white;
 }
 
 p{
