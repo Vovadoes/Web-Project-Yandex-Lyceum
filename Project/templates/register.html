@@ -4,7 +4,7 @@
     <form action="" method="post">
         {{ form.hidden_tag() }}
         <p>
-            <h1 class="home-title"><span>Почта</span></h1>
+            <h1 class="home-title"><span >Почта</span></h1>
             <br style="color:red;">
             {{ form.email(class="form-control", type="email", style="border: none; border-bottom: 1px solid gray;outline: none; box-shadow: none;") }}
             <br>
@@ -47,9 +47,9 @@
                 </p>
             {% endfor %}
         </p>
-        <p>
-            {{ form.submit(type="submit", class="btn btn-primary",style="background: #212121; border:none;") }}
-        </p>
+        <div class="frame">
+                <button class="custom-btn btn-7">Зарегестрироваться</button>
+            </div>
         {{ message }}
     </form>
 {% endblock %}

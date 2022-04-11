@@ -21,7 +21,9 @@
             {{ form.remember_me() }} {{ form.remember_me.label }}
         </p>
         <p>
-            {{ form.submit(type="submit", class="btn btn-primary",style="background: #212121; border:none;") }}
+            <div class="frame">
+                <button class="custom-btn btn-6"><span>Войти</span></button>
+            </div>
         </p>
         <div>{{ message }}</div>
     </form>
