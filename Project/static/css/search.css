@@ -1,0 +1,210 @@
+/* ---------------------------------------------
+    Assets
+--------------------------------------------- */
+
+@import "bourbon"; // http://bourbon.io/
+
+/* ---------------------------------------------
+    Colors
+--------------------------------------------- */
+
+$black: #000000;
+$white: #ffffff;
+
+$dark-gray: #344760;
+$light-gray: #b7bcc3;
+
+$main: #44a8fd;
+
+/* ---------------------------------------------
+    Fonts
+--------------------------------------------- */
+
+$roboto: 'Roboto Condensed', sans-serif; // https://www.google.com/fonts/specimen/Roboto+Condensed
+
+/* ---------------------------------------------
+    Stylings
+--------------------------------------------- */
+
+html, body {
+  height: 100%;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  @include display(flex);
+  @include justify-content(center);
+  @include align-items(center);
+  font-family: $roboto;
+  background-color: darken($white, 13%);
+}
+
+/* ---------------------------------------------
+    Search Style Attributes
+--------------------------------------------- */
+
+.search {
+  position: relative;
+  z-index: 10;
+
+  &:before, &:after {
+    content: "";
+    height: 60px;
+    width: 5px;
+    background-color: $main;
+    @include position(absolute, 0 null null null);
+  }
+
+  &:before {
+    left: -5px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+
+  &:after {
+    right: -5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
+  .open-button {
+    @include position(absolute, 0 null null -5px);
+    width: calc(100% + 10px);
+    height: 100%;
+    z-index: 4;
+    border-radius: 5px;
+
+    &:hover {
+      cusor: pointer;
+    }
+  }
+
+  form {
+    input, button {
+      float: left;
+      border: 0;
+      height: 60px;
+      @include box-sizing(border-box);
+      outline: none;
+    }
+
+    input {
+      width: 0px;
+      background: $white;
+      @include transition(all .4s ease);
+      font-family: $roboto;
+      font-size: 18px;
+      letter-spacing: .5px;
+      color: $dark-gray;
+
+      @include placeholder {
+        color: darken($white, 13%);
+      }
+    }
+
+    button {
+      width: 55px;
+      background-color: $main;
+      border: 0;
+      padding: 0;
+      position: relative;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      i {
+        @include position(absolute, 0 null null 0);
+        width: 60px;
+        height: 60px;
+        @include transition(transform .6s ease);
+
+        &:before, &:after {
+          content: "";
+          position: absolute;
+        }
+
+        &:before {
+          width: 20px;
+          height: 20px;
+          border: 3px solid $white;
+          border-radius: 50%;
+          top: 50%;
+          left: 50%;
+          @include margin(-14px null null -16px);
+          background-color: $main;
+          z-index: 2;
+        }
+
+        &:after {
+          width: 3px;
+          height: 20px;
+          background-color: $white;
+          @include transform(rotate(130deg));
+          left: 34px;
+          top: 27px;
+          border-radius: 5px;
+          z-index: 1;
+        }
+      }
+    }
+  }
+
+  &.active {
+    form {
+      input {
+        width: 245px;
+        @include padding(20px 30px);
+      }
+
+      button {
+        i {
+          @include transform(rotate(360deg));
+        }
+      }
+    }
+
+    .open-button {
+      display: none;
+    }
+  }
+}
+
+/* ---------------------------------------------
+    Overlay Attributes
+--------------------------------------------- */
+
+.overlay {
+  @include position(absolute, 0 null null 0);
+  width: 100%;
+  height: 100%;
+  z-index: 9;
+  display: block;
+
+  &.hidden {
+    display: none;
+  }
+}
+
+/* ---------------------------------------------
+    Title Style Attributes
+--------------------------------------------- */
+
+.title {
+  @include position(absolute, 0 null null 0);
+  height: 100%;
+  width: 100%;
+  @include display(flex);
+  @include justify-content(center);
+  @include align-items(center);
+  z-index: -1;
+
+  h1 {
+    @include margin(0 null);
+    color: darken($white, 15%);
+    text-transform: uppercase;
+    font-size: 151px;
+    letter-spacing: 10px;
+  }
+}
