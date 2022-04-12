@@ -1,25 +1,27 @@
 {% extends "Blocks/create/BaseBlock.html" %}
 {% block headblock %}<title>Создать блок теста</title>{% endblock %}
 {% block content %}
-    <h1>Создание блока с текстом</h1>
+    <h1 style="font-family:corbel;">Создание блока с текстом</h1>
     <form action="" method="POST">
         {{ form.hidden_tag() }}
         <p>
-            {{ form.heading.label }}
+            <h1 class="home-title" style="font-size:30pt;"><span>Заголовок</span></h1>
             <br>
-            {{ form.heading(class="form-control", type="text") }}
+            {{ form.heading(class="form-control", type="text", style="border: none; border-bottom: 1px solid gray;outline: none; box-shadow: none;") }}
             <br>
             {% for error in form.heading.errors %}<div class="alert alert-danger" role="alert">{{ error }}</div>{% endfor %}
         </p>
         <p>
-            {{ form.text.label }}
+            <h1 class="home-title" style="font-size:30pt;"><span>Текст</span></h1>
             <br>
-            {{ form.text(class="form-control", type="text") }}
+            {{ form.text(class="form-control", type="text", style="border: none; border-bottom: 1px solid gray;outline: none; box-shadow: none;") }}
             <br>
             {% for error in form.text.errors %}<div class="alert alert-danger" role="alert">{{ error }}</div>{% endfor %}
         </p>
         <p>
-            <button type="submit" class="btn btn-primary">Создать</button>
+            <div class="frame">
+                <button class="custom-btn btn-6"><span>Создать</span></button>
+            </div>
         </p>
         <div>{{ message }}</div>
     </form>

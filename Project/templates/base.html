@@ -19,6 +19,7 @@
         <title>{{ title }}</title>
     </head>
     <body>
+    <script src={{ url_for('static', filename='js/ser.js') }}></script>
         <header>
             <nav class="navbar navbar-dark bg-dark" style="margin-bottom:50px;">
                 <div class="container-fluid">
@@ -51,6 +52,10 @@
         </header>
         <!-- Begin page content -->
 
+
+
+
+        <div class="overlay hidden"></div>
         <div class="overlay hidden"></div>
         <main role="main" class="container">
             {% block content %}{% endblock %}
