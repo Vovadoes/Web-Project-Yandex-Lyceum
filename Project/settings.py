@@ -1,6 +1,8 @@
 import os.path
 from loguru import logger
 
+# Если используешь Pycharm то убрать из settings "Project"
+
 work_dir = 'Project'
 
 path_db = os.path.join(os.getcwd(), 'Project', 'db', 'db.db')
