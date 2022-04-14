@@ -62,11 +62,11 @@ def article(user, article_id: int, *args, **kwargs):
     del res
     db_sess = create_session()
     article: Article = db_sess.query(Article).filter(Article.id == article_id).first()
-    user = db_sess.query(User).filter(User.id == user.id).first()
     if article is None:
         return {"res": "There is no article with this number"}
     blocks = get_sort_blocks(article, db_sess)
     if user is not None:
+        user = db_sess.query(User).filter(User.id == user.id).first()
         if article.id not in user.views:
             user.views.append(article)
             article.views.append(user)
