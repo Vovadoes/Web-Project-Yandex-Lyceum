@@ -16,4 +16,5 @@ print('Зарегестрированные блоки: ', ', '.join([Block.__na
 for block in Blocks:
     check(block)
 
-from .home import *
+# from .home import *
+from .resetting_my_database import *
