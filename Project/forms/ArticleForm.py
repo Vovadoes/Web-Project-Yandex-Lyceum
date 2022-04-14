@@ -9,8 +9,13 @@ class ArticleForm(FlaskForm):
     def __init__(self, model: object = None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if model is not None:
-            model_keys = set(model.__class__.__dict__.keys()) & \
-                         model.__dict__['_sa_instance_state'].__dict__["expired_attributes"] & \
-                         self.__dict__.keys()
-            for i in model_keys:
-                self.__dict__[i].data = getattr(model, i)
+            print(f"{model=}")
+            model_keys = model.__dict__.keys()
+            print(f"{model.__dict__['_sa_instance_state'].__dict__=}")
+            print(f"{vars(model)}")
+            for i in self.__dict__:
+                print(f"{i=}, {model_keys=}")
+                if i in model_keys:
+                    self.__dict__[i].data = model.__dict__[i]
+                    print(f"{model.__dict__[i]=}")
+                    # setattr(self, i, model.__dict__[i])
