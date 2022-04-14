@@ -2,6 +2,7 @@ from flask_login import current_user
 from werkzeug.exceptions import abort
 from werkzeug.utils import redirect
 
+from Project.apps.articles import ALLOWED_EXTENSIONS
 from Project.data.Article import Article
 from Project.data.User import User
 from Project.data.db_session import create_session
@@ -48,6 +49,8 @@ def user_is_author(required: bool = True):
 def get_article_id(required: bool = True):
     def get_user_f(function):
         def my_finished_function(article_id, *args, **kwargs):
+            if len(str(article_id)) > 20:
+                return abort(404)
             db_sess = create_session()
             article: Article = db_sess.query(Article).filter(Article.id == article_id).first()
             if article is None and required:
