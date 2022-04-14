@@ -5,7 +5,7 @@ work_dir = 'Project'
 
 path_db = os.path.join(os.getcwd(), 'Project', 'db', 'db.db')
 
-path_db_danila = os.path.join(os.getcwd(), 'Project', 'db', 'db_danila.db')
+# path_db_danila = os.path.join(os.getcwd(), 'Project', 'db', 'db_danila.db')
 
 # При первом запуске
 """
