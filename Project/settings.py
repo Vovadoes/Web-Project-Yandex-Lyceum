@@ -1,4 +1,4 @@
-import os.path
+import os
 from loguru import logger
 
 # Если используешь Pycharm то убрать из settings "Project"

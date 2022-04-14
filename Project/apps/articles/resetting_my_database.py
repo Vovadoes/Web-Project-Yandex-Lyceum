@@ -1,24 +1,21 @@
 import json
 import os
 
-from flask_login import current_user
-
-from flask import render_template, request, url_for
-
-from Project.apps.articles import app_articles
+from . import app_articles
 from Project.data.Article import Article
 from Project.data.Sequence import Sequence
 from Project.data.db_session import create_session
-from Project.fun import get_user
 from Project.settings import work_dir
 from Project.data.Blocks.MainIdeaBlock import MainIdeaBlock
 from Project.data.Tag import Tag
 
 
 # код для формирования базы данных
-@app_articles.route("/reset_database/")
-@get_user(required=True, is_super_user=True)
-def reset_the_database():
+from Project.data.User import User
+
+
+@app_articles.route("/resetting_my_database/")
+def resetting_my_database():
     db_sess = create_session()
     path = os.path.join(work_dir, 'apps', 'articles', 'files')
     js2: dict = json.load(open(os.path.join(path, "js2.json"), encoding="UTF-8"))
@@ -50,6 +47,7 @@ def reset_the_database():
                              "Sequence": sequence, "Article": article})
     db_sess.commit()
     # print(srt_idea_lst)
+    user_id = db_sess.query(User).filter(User.email == "dereviannykh.v@gmail.com").first().id
     for dct in srt_idea_lst:
         article = dct["Article"]
         sequence = dct["Sequence"]
@@ -63,11 +61,13 @@ def reset_the_database():
         main_idea_block.article_id = article.id
 
         article.MainIdeaBlockId = main_idea_block.id
+        article.user_id = user_id
         # print(f"{article_json_id=}")
         # lst = [tags[name] for name in js[article_json_id]]
         # print(f"{lst=}")
         article.tags = article.tags + [tags[name] for name in js[article_json_id]]
     db_sess.commit()
+
 
 
 """

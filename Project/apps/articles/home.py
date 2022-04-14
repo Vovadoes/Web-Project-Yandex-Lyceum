@@ -174,6 +174,3 @@ def create_block(user: User, article_id: int, number: int, number_block: int, *a
         return {"res": True}
 
 
-@app_articles.route("/")
-def test():
-    return {"res": True}
