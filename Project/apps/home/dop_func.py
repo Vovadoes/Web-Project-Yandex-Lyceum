@@ -9,7 +9,6 @@ from Project.data.Tag import Tag
 from . import path_db
 import os
 
-from Project.settings import path_db_danila
 from Project.data.Article import Article
 from Project.data.Blocks.MainIdeaBlock import MainIdeaBlock
 
