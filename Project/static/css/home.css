@@ -1,5 +1,4 @@
 body {
-  background: #f5f6fa;;
   font-family: corbel;
   }
   #content {
@@ -8,7 +7,7 @@ body {
       display: inline-block;
   }
   a {
-      color: #1a0dab;
+      color: black;
       text-decoration: none;
   }
   a:hover {
@@ -16,14 +15,12 @@ body {
   }
   body {
       font-size: 24px;
-      padding: 12px;
       font: Helvetica, sans-serif;
   }
   #title {
       background-image: linear-gradient(to right, blue, red, orange, blue, green, red);
       -webkit-background-clip: text;
-      color: transparent;
-      display: inline-block;
+      color: black;
       float: left;
       font-size: 48px;
       margin-bottom: 40px;
@@ -31,9 +28,6 @@ body {
   .result {
       padding: 20px;
       padding-bottom: 0px;
-  }
-  .headline {
-
   }
   .annotation {
       font-size: 18px;
@@ -50,24 +44,25 @@ body {
   }
 body {
 font-family: corbel;
-background-color: #5E5E5E;
 margin: 0px;
-padding: 30px;
 }
 
 .search {
+border-color:black;
 position: relative;
+background:black;
 }
 
 .input-search {
-background-color: transparent;
+border-color:black;
+color
 border: 2px solid #fff;
 height: 30px;
 width: 30px;
 padding: 0 0px;
 font-size: 1.1em;
 font-weight: lighter;
-color: #fff;
+color: black;
 border-radius: 24px;
 -webkit-transition: all 0.4s;
 transition: all 0.4s;
@@ -76,12 +71,15 @@ transition-timing-function: ease-out;
 }
 
 .input-search:focus {
+border-color:black;
 width: 400px;
 padding: 0 12px;
 outline:none;
 }
 
 .input-search+.search:after {
+border-color:black;
+color
 content: '';
 border-top: 3px solid #fff;
 width: 15px;
@@ -98,6 +96,8 @@ transition: all 0.2s;
 transition-timing-function: ease-out;
 }
 .input-search+.search:before {
+border-color:black;
+color
 content: '';
 border-top: 3px solid #fff;
 width: 0px;
@@ -115,15 +115,6 @@ transition-timing-function: ease-out;
 transition-delay: 0s;
 }
 
-.input-search:focus+.search:after {
-content: '';
-border-top: 3px solid #fff;
-right: 10px;
-bottom: 9px;
--ms-transform: rotate(45deg);
--webkit-transform: rotate(45deg);
-transform: rotate(45deg);
-}
 
 .input-search:focus+.search:before {
 right: 10px;
@@ -137,8 +128,7 @@ transition-timing-function: ease-in;
 transition-delay: 0.2s;
 }
 a.button8 {
-display: inline-block;
-color: white;
+color: black;
 font-weight: 500;
 text-decoration: none;
 user-select: none;
@@ -150,4 +140,4 @@ transition: 0.2s;
 
 }
 a.button8:hover { background: rgba(255,255,255,.2); }
-a.button8:active { background: white; }
+a.button8:active { background: black; }
