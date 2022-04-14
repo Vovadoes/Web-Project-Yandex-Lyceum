@@ -124,6 +124,7 @@ def edit_article(user: User, article_id: int, *args, **kwargs):
 
 
 @app_articles.route("/<int:article_id>/edit/add/block/place/<int:number>", methods=['GET'])
+@get_article_id()
 @get_user(required=True)
 @user_is_author(required=False)  # Пока выключим проверку
 def choosing_create_block(user: User, article_id: int, number: int, *args, **kwargs):
@@ -135,10 +136,13 @@ def choosing_create_block(user: User, article_id: int, number: int, *args, **kwa
 
 @app_articles.route("/<int:article_id>/edit/add/block/place/<int:number>/block/<int:number_block>",
                     methods=['GET', 'POST'])
+@get_article_id()
 @get_user(required=True)
 @user_is_author(required=False)  # Пока выключим проверку
 def create_block(user: User, article_id: int, number: int, number_block: int, *args, **kwargs):
-    if not (0 <= number_block < len(Blocks)):
+    if not (0 <= number_block < len(Blocks)) or len(str(number_block)) > 1000000000:
+        return abort(404)
+    if len(str(number)) > 1000000000:
         return abort(404)
     if request.method == "POST":
         form = Blocks[number_block].getForm()()
@@ -171,5 +175,3 @@ def create_block(user: User, article_id: int, number: int, number_block: int, *a
             return abort(404)
     else:
         return {"res": True}
-
-

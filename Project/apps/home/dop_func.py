@@ -81,9 +81,9 @@ def find_id_articles(s: list, k=100):
         print("-----------------------", f'{s=}')
         # result = cur.execute("""SELECT id FROM tags
         #         WHERE name like ?""", (i,)).fetchall()
-        result = db_sess.query(Tag).filter(Tag.name == i).first().id
+        result = db_sess.query(Tag).filter(Tag.name == i).first()
         if result is not None:
-            id_word.append(result)
+            id_word.append(result.id)
     for i in id_word:
         # result = cur.execute("""SELECT article_id FROM association_Tag_Article
         #                 WHERE tag_id = ?""", (i,)).fetchall()
