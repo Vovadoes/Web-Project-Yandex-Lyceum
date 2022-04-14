@@ -24,9 +24,12 @@
                          padding-top: 18px;
                          position: fixed;'
                   method='POST'>
-                <input type="text" class="input-search" id="input-search"/>
+                <input type="text" class="input-search" id="input-search" name="query"/>
                 <label class="search" for="input-search"></label>
-                <a href="#" class="button8" style="margin-left:10px;">search</a>
+                <input type="hidden" name="param1" value="val" />
+                <a class="button8"
+                   style="margin-left:10px;"
+                   onclick="this.parentNode.submit()">search</a>
             </form>
             <div style="padding-top:100px;">
                 <hr style='border: none; border-bottom: 1px solid lightgrey;'>

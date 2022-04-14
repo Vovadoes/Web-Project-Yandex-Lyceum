@@ -117,6 +117,7 @@ def edit_article(user: User, article_id: int, *args, **kwargs):
         article = db_sess.query(Article).filter(Article.id == article_id).first()
         blocks = get_sort_blocks(article, db_sess)
         article_form = ArticleForm(article)
+        print(article.heading, article_form.heading.data)
         return render_template("articles/edit/article.html", form=article_form, article=article,
                                blocks=blocks)
     else:
