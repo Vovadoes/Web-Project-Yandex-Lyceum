@@ -15,12 +15,16 @@
         <link rel="stylesheet" href={{ url_for('static', filename='css/button.css') }}/>
         <link rel="stylesheet" href={{ url_for('static', filename='css/search.css') }}/>
         <link rel="stylesheet" href={{ url_for('static', filename='css/home.css') }}/>
+        <link rel="stylesheet" href={{ url_for('static', filename='css/zagol.css') }}/>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
         <script src="/static/js/ser.js"></script>
         {% block headblock %}{% endblock %}
         <title>{{ title }}</title>
     </head>
     <body>
     <script src={{ url_for('static', filename='js/ser.js') }}></script>
+    <script src={{ url_for('static', filename='js/like.js') }}></script>
         <header>
             <nav class="navbar navbar-dark bg-dark" style="margin-bottom:50px;">
                 <div class="container-fluid">
