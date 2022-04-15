@@ -5,4 +5,4 @@ from Project.forms.Form import Form
 
 
 class ImageForm(Form):
-    heading = wtforms.StringField("heading", validators=[DataRequired()])
+    heading = wtforms.StringField("heading", validators=[])

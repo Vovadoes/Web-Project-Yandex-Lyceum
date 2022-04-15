@@ -27,10 +27,10 @@ class Block(SqlAlchemyBase):
                 else:
                     print(f'Error Key: {i} in class: {self.__class__.__name__}')
 
-    def loading_data(self, request, db_sess, **kwargs):
-        self.import_class_dict(**kwargs)
+    def loading_data(self, request, db_sess, form, **kwargs):
+        self.import_class_dict(dct=form.__dict__)
 
-    def change_db(self, db_sess=None, *args, **kwargs):
+    def change_db(self, db_sess, result, *args, **kwargs):
         pass
 
     @staticmethod

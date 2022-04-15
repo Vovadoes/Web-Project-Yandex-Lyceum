@@ -1,3 +1,4 @@
+import werkzeug
 from loguru import logger
 
 from requests import Session
@@ -152,22 +153,29 @@ def create_block(user: User, article_id: int, number: int, number_block: int, *a
             set_sequence(article_id, db_sess)
             article = db_sess.query(Article).filter(Article.id == article_id).first()
             blocks = get_sort_blocks(article, db_sess)
-            for i in range(number + 1, len(blocks)):
+            for i in range(number, len(blocks)):
                 sequence = db_sess.query(Sequence).filter(
-                    Sequence.id == blocks[i - 1].sequence_id).first()
+                    Sequence.id == blocks[i].sequence_id).first()
                 sequence.number += 1
             sequence = Sequence()
             sequence.article_id = article.id
-            sequence.number = number_block
+            sequence.number = number
             db_sess.add(sequence)
             db_sess.commit()
             block = Blocks[number_block]()
-            res = block.loading_data(request=request, db_sess=db_sess, dct=form.__dict__)
             block.sequence_id = sequence.id
             block.article_id = article.id
+            try:
+                result = block.loading_data(request=request, db_sess=db_sess, form=form)
+            except werkzeug.exceptions.NotFound:
+                db_sess.delete(sequence)
+                db_sess.commit()
+                return abort(404)
             db_sess.add(block)
             db_sess.commit()
-            block.change_db(db_sess, result=res)
+            result = block.change_db(db_sess=db_sess, result=result)
+            if result is not None:
+                return result
             return redirect(f"/article/{article.id}/")
     elif request.method == "GET":
         if 0 <= number_block < len(Blocks):

@@ -26,8 +26,8 @@ class ImageBlock(Block):
         db_sess = create_session()
         return db_sess.query(Image).filter(Image.id == self.image_id).first()
 
-    def loading_data(self, request, db_sess, **kwargs):
-        self.import_class_dict(**kwargs)
+    def loading_data(self, request, db_sess, form, **kwargs):
+        super(ImageBlock, self).loading_data(request, db_sess, form, **kwargs)
         file = request.files['file']
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)

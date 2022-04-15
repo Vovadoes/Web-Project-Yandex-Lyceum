@@ -1,6 +1,10 @@
 {% extends "Blocks/create/BaseBlock.html" %}
-{% block headblock %}<title></title>{% endblock %}
+{% block headblock %}
+    {{ super() }}
+    <title></title>
+{% endblock %}
 {% block content %}
+    {{ super() }}
     <h1 style="font-family:corbel;">Создание блока с текстом</h1>
     <h1>Upload new File</h1>
     <form method=post enctype=multipart/form-data>
