@@ -1,6 +1,9 @@
 import os
 
 import sqlalchemy
+from sqlalchemy import orm
+from sqlalchemy.orm import Session
+
 from .settings import Blocks_lst
 
 from .Block import Block
@@ -9,7 +12,7 @@ from Project.data.db_session import create_session
 from Project.apps.articles.upload_file import allowed_file
 from Project.apps.articles.upload_file import secure_filename
 from Project.data.Image import Image
-from Project.settings import work_dir
+from Project.settings import work_dir, media_path
 
 
 class ImageBlock(Block):
@@ -19,17 +22,24 @@ class ImageBlock(Block):
     heading = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     image_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey('images.id'))
 
-    def loading_data(self, request, **kwargs):
-        self.import_class_dict(**kwargs)
+    def get_image(self):
         db_sess = create_session()
+        return db_sess.query(Image).filter(Image.id == self.image_id).first()
+
+    def loading_data(self, request, db_sess, **kwargs):
+        self.import_class_dict(**kwargs)
         file = request.files['file']
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             img = Image()
             path = img.generate_path(filename, set_path=True)
-            file.save(os.path.join(os.path.join(work_dir, 'media'), path))
+            file.save(os.path.join(os.path.join(work_dir, 'static', media_path), path))
             db_sess.add(img)
-            db_sess.commit()
+            return img
+
+    def change_db(self, db_sess: Session = None, result: Image = None, *args, **kwargs):
+        self.image_id = result.id
+        db_sess.commit()
 
     @staticmethod
     def getForm():

@@ -162,11 +162,12 @@ def create_block(user: User, article_id: int, number: int, number_block: int, *a
             db_sess.add(sequence)
             db_sess.commit()
             block = Blocks[number_block]()
-            block.loading_data(request=request, **form.__dict__)
+            res = block.loading_data(request=request, db_sess=db_sess, dct=form.__dict__)
             block.sequence_id = sequence.id
             block.article_id = article.id
             db_sess.add(block)
             db_sess.commit()
+            block.change_db(db_sess, result=res)
             return redirect(f"/article/{article.id}/")
     elif request.method == "GET":
         if 0 <= number_block < len(Blocks):

@@ -1,3 +1,4 @@
-<p>
-    {{ block.__class__.__name__ }}
-</p>
+{% set image = block.get_image() %}
+{% if image != none %}
+    <img src={{ url_for('static', filename=image.get_path() ) }} alt="альтернативный текст">
+{% endif %}
