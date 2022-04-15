@@ -1,0 +1,7 @@
+.ex3 h1:after {content: "";
+position: absolute;
+height: 22px;
+width: 5px;
+background:rgb(81, 227, 213);
+top: 9%;
+left: 21%;}
