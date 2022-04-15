@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-            {% if author == user %}<a href="/article/{{ article.id }}/edit">Редактировать</a>{% endif %}
-            <h1>{{ article.heading }}</h1>
-            {% for block in blocks %}
-                {% with block=block %}
-                    {% include 'Blocks/' + block.__class__.__name__+ '.html'  %}
-                {% endwith %}
-            {% endfor %}
+    {% if author == user %}<a href="/article/{{ article.id }}/edit">Редактировать</a>{% endif %}
+    <h1>{{ article.heading }}</h1>
+    {% for block in blocks %}
+        {% with block=block %}
+            {% include 'Blocks/' + block.__class__.__name__+ '.html'  %}
+        {% endwith %}
+    {% endfor %}
 {% endblock %}

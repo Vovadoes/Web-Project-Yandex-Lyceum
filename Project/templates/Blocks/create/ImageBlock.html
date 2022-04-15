@@ -1,3 +1,21 @@
-<p>
-    {{ form.__class__.__name__ }} Форма для создания
-</p>
+{% extends "Blocks/create/BaseBlock.html" %}
+{% block headblock %}<title></title>{% endblock %}
+{% block content %}
+    <h1 style="font-family:corbel;">Создание блока с текстом</h1>
+    <h1>Upload new File</h1>
+    <form method=post enctype=multipart/form-data>
+        {{ form.hidden_tag() }}
+        <p>
+            <h1 class="home-title" style="font-size:30pt;">
+                <span>Заголовок</span>
+            </h1>
+            <br>
+            {{ form.heading(class="form-control", type="text", style="border: none; border-bottom: 1px solid gray;outline: none; box-shadow: none;") }}
+            <br>
+            {% for error in form.heading.errors %}<div class="alert alert-danger" role="alert">{{ error }}</div>{% endfor %}
+        </p>
+        <input type=file name=file>
+        <input type=submit value=Upload>
+        <div>{{ message }}</div>
+    </form>
+{% endblock %}

@@ -4,7 +4,7 @@ from typing import Union, Any
 
 import sqlalchemy
 from .db_session import SqlAlchemyBase
-from Project.settings import work_dir
+from Project.settings import work_dir, media_path
 
 
 class Image(SqlAlchemyBase):
@@ -12,6 +12,9 @@ class Image(SqlAlchemyBase):
 
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
     path = sqlalchemy.Column(sqlalchemy.String, unique=True)
+
+    def get_path(self):
+        return os.path.join(media_path, self.path).replace('\\', '/')
 
     def __init__(self, **kwargs):
         super().__init__()
@@ -32,7 +35,7 @@ class Image(SqlAlchemyBase):
     #                 self.path = os.path.join(name_new_file + file_extension)
 
     def generate_path(self, name, set_path=False):
-        path_dir = os.path.join(work_dir, 'media')
+        path_dir = os.path.join(work_dir, 'static', media_path)
         filename, file_extension = os.path.splitext(name)
         tf = NamedTemporaryFile(dir=path_dir)
         name = os.path.basename(tf.name)
