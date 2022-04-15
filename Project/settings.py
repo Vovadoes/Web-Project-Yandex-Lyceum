@@ -6,6 +6,8 @@ from loguru import logger
 work_dir = 'Project'
 
 path_db = os.path.join(os.getcwd(), 'Project', 'db', 'db.db')
+# Всегда в static
+media_path = 'media'
 
 # path_db_danila = os.path.join(os.getcwd(), 'Project', 'db', 'db_danila.db')
 
