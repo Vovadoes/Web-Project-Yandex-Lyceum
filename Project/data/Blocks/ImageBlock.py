@@ -41,6 +41,13 @@ class ImageBlock(Block):
         self.image_id = result.id
         db_sess.commit()
 
+    def preparing_for_deletion(self, db_sess: Session = None, *args, **kwargs):
+        super(ImageBlock, self).preparing_for_deletion(db_sess=db_sess, *args, **kwargs)
+        image = db_sess.query(Image).filter(Image.id == self.image_id).first()
+        os.remove(os.path.join(os.path.join(work_dir, 'static', media_path), image.path))
+        db_sess.delete(image)
+
+
     @staticmethod
     def getForm():
         return ImageForm

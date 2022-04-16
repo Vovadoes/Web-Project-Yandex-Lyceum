@@ -207,3 +207,24 @@ def delete_block(user: User, article_id: int, number_block: int, block_id: int, 
         return redirect(f"/article/{article.id}/edit")
     elif request.method == "GET":
         return render_template('Blocks/delete/Block.html', article=article, block=block)
+
+
+# @app_articles.route("/<int:article_id>/edit/block/edit/<int:block_id>/Block/<int:number_block>",
+#                     methods=['GET', 'POST'])
+# @get_article_id()
+# @get_block()
+# @get_user(required=True)
+# @user_is_author(required=False)  # Пока выключим проверку
+# def edit_block(user: User, article_id: int, number_block: int, block_id: int, *args, **kwargs):
+#     db_sess = create_session()
+#     block = db_sess.query(Blocks[number_block]).filter(Blocks[number_block].id == block_id).first()
+#     article = db_sess.query(Article).filter(Article.id == article_id).first()
+#     if request.method == "POST":
+#         sequence = block.get_sequence(db_sess)
+#         block.preparing_for_deletion(db_sess=db_sess)
+#         db_sess.delete(block)
+#         db_sess.delete(sequence)
+#         db_sess.commit()
+#         return redirect(f"/article/{article.id}/edit")
+#     elif request.method == "GET":
+#         return render_template('Blocks/delete/Block.html', article=article, block=block)
