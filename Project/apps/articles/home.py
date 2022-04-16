@@ -2,6 +2,7 @@ import werkzeug
 from loguru import logger
 
 from requests import Session
+from werkzeug import Response
 from werkzeug.exceptions import abort
 from werkzeug.utils import redirect
 
@@ -12,7 +13,7 @@ from Project.data.Article import Article
 from Project.data.Sequence import Sequence
 from Project.data.db_session import create_session
 from . import Blocks
-from Project.fun import get_user, user_is_author, get_article_id
+from Project.fun import get_user, user_is_author, get_article_id, get_block
 from Project.forms.ArticleForm import ArticleForm
 from Project.data.User import User
 
@@ -74,7 +75,7 @@ def article(user, article_id: int, *args, **kwargs):
             db_sess.commit()
     author = db_sess.query(User).filter(User.id == article.user_id).first()
     return render_template("articles/article.html", blocks=blocks, article=article, author=author,
-                           user=user)
+                           user=user, Blocks=Blocks)
 
 
 @app_articles.route("/create/", methods=['GET', 'POST'])
@@ -120,7 +121,7 @@ def edit_article(user: User, article_id: int, *args, **kwargs):
         article_form = ArticleForm(article)
         print(article.heading, article_form.heading.data)
         return render_template("articles/edit/article.html", form=article_form, article=article,
-                               blocks=blocks)
+                               blocks=blocks, Blocks=Blocks)
     else:
         return abort(404)
 
@@ -185,3 +186,24 @@ def create_block(user: User, article_id: int, number: int, number_block: int, *a
             return abort(404)
     else:
         return {"res": True}
+
+
+@app_articles.route("/<int:article_id>/edit/delete/block/<int:block_id>/Block/<int:number_block>",
+                    methods=['GET', 'POST'])
+@get_article_id()
+@get_block()
+@get_user(required=True)
+@user_is_author(required=False)  # Пока выключим проверку
+def delete_block(user: User, article_id: int, number_block: int, block_id: int, *args, **kwargs):
+    db_sess = create_session()
+    block = db_sess.query(Blocks[number_block]).filter(Blocks[number_block].id == block_id).first()
+    article = db_sess.query(Article).filter(Article.id == article_id).first()
+    if request.method == "POST":
+        sequence = block.get_sequence(db_sess)
+        block.preparing_for_deletion(db_sess=db_sess)
+        db_sess.delete(block)
+        db_sess.delete(sequence)
+        db_sess.commit()
+        return redirect(f"/article/{article.id}/edit")
+    elif request.method == "GET":
+        return render_template('Blocks/delete/Block.html', article=article, block=block)

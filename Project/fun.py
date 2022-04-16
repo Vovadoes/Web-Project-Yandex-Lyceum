@@ -1,4 +1,5 @@
 from flask_login import current_user
+from werkzeug import Response
 from werkzeug.exceptions import abort
 from werkzeug.utils import redirect
 
@@ -6,6 +7,7 @@ from Project.apps.articles import ALLOWED_EXTENSIONS
 from Project.data.Article import Article
 from Project.data.User import User
 from Project.data.db_session import create_session
+from Project.data.Blocks.settings import Blocks_lst
 
 
 def get_user(required=True, is_super_user=False):
@@ -56,6 +58,27 @@ def get_article_id(required: bool = True):
             if article is None and required:
                 return {"res": "There is no article with this number"}
             return function(article_id=article_id, *args, **kwargs)
+
+        my_finished_function.__name__ = function.__name__
+        return my_finished_function
+
+    return get_user_f
+
+
+def get_block(required: bool = True):
+    def get_user_f(function):
+        def my_finished_function(block_id, number_block, *args, **kwargs):
+            db_sess = create_session()
+            if not (0 <= number_block < len(Blocks_lst)) or len(str(number_block)) > 1000000000:
+                return abort(404)
+            if len(str(block_id)) > 1000000000:
+                return abort(404)
+            block = db_sess.query(Blocks_lst[number_block]).filter(
+                Blocks_lst[number_block].id == block_id
+            ).first()
+            if block is None and required:
+                return abort(Response("Block not found"))
+            return function(block_id=block_id, number_block=number_block, *args, **kwargs)
 
         my_finished_function.__name__ = function.__name__
         return my_finished_function

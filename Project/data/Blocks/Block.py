@@ -1,9 +1,13 @@
+from pprint import pprint
+
 import sqlalchemy
 import os
 from sqlalchemy.orm import declared_attr
+
+from Project.data.Sequence import Sequence
 from Project.settings import work_dir
 
-from Project.data.db_session import SqlAlchemyBase
+from Project.data.db_session import SqlAlchemyBase, create_session
 from Project.forms.Form import Form
 
 
@@ -33,6 +37,16 @@ class Block(SqlAlchemyBase):
     def change_db(self, db_sess, result, *args, **kwargs):
         pass
 
+    def get_sequence(self, db_sess=None):
+        if db_sess is None:
+            db_sess = create_session()
+        try:
+            sequence = db_sess.query(Sequence).filter(Sequence.id == self.sequence_id).first()
+            return sequence
+        except Exception as error:
+            pprint(error)
+            return None
+
     @staticmethod
     def getForm():
         return Form
@@ -40,6 +54,9 @@ class Block(SqlAlchemyBase):
     @staticmethod
     def label_block():
         return 'Блок'
+
+    def preparing_for_deletion(self, db_sess, *args, **kwargs):
+        pass
 
     @declared_attr
     def article_id(self):
