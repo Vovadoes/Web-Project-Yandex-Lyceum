@@ -1,3 +1,5 @@
+from pprint import pprint
+
 from flask_wtf import FlaskForm
 import wtforms.fields
 from wtforms.validators import DataRequired
@@ -8,7 +10,7 @@ class Form(FlaskForm):
         super().__init__(*args, **kwargs)
         if model is not None:
             model_keys = set(model.__class__.__dict__.keys()) & \
-                         model.__dict__['_sa_instance_state'].__dict__["expired_attributes"] & \
+                         model.__dict__['_sa_instance_state'].__dict__['manager'].keys() & \
                          self.__dict__.keys()
             for i in model_keys:
                 self.__dict__[i].data = getattr(model, i)

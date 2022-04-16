@@ -75,7 +75,8 @@ class Block(SqlAlchemyBase):
 def check(obj):
     pathes = [
         os.path.join(work_dir, 'templates', 'Blocks'),
-        os.path.join(work_dir, 'templates', 'Blocks', 'create')
+        os.path.join(work_dir, 'templates', 'Blocks', 'create'),
+        os.path.join(work_dir, 'templates', 'Blocks', 'edit')
     ]
     for path in pathes:
         if not os.path.isdir(path):
