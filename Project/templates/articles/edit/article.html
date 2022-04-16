@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-        <title>{{ article.heading }}</title>
+    <title>{{ article.heading }}</title>
     <body>
         <main role="main" class="container">
             <form action="" method="post">
@@ -15,14 +15,14 @@
                 <button type="submit" class="btn btn-success">Сохранить</button>
             </form>
             <a class="btn btn-primary"
-               href="/article/{{ article.id }}/edit/add/block/place/1"
+               href="/article/{{ article.id }}/edit/add/block/place/0"
                role="button">Добавить блок</a>
             {% for block in blocks %}
                 {% with block=block %}
                     {% include 'Blocks/' + block.__class__.__name__+ '.html'  %}
                 {% endwith %}
                 <a class="btn btn-primary"
-                   href="/article/{{ article.id }}/edit/add/block/place/{{ loop.index + 1 }}"
+                   href="/article/{{ article.id }}/edit/add/block/place/{{ loop.index }}"
                    role="button">Добавить блок</a>
                 <a class="btn btn-primary" href="#" role="button">Редактировать</a>
             {% endfor %}

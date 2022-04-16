@@ -3,6 +3,7 @@ import datetime
 from flask import Flask
 from flask import request, make_response, session, render_template
 from flask_login import login_user, login_required, logout_user, LoginManager
+from werkzeug.exceptions import abort
 
 from Project.data.Article import Article
 from Project.data.Blocks.TextBlock import TextBlock
@@ -141,7 +142,7 @@ if user is None:
     db_sess.commit()
     sequence = Sequence()
     sequence.article_id = article.id
-    sequence.number = 1
+    sequence.number = 0
     db_sess.add(sequence)
     db_sess.commit()
     text_block = TextBlock()

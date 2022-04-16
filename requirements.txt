@@ -7,3 +7,5 @@ requests==2.27.1
 SQLAlchemy==1.4.32
 Werkzeug==2.0.3
 WTForms==3.0.1
+flask_login
+flask_wtf

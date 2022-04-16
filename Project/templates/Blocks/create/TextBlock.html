@@ -5,14 +5,18 @@
     <form action="" method="POST">
         {{ form.hidden_tag() }}
         <p>
-            <h1 class="home-title" style="font-size:30pt;"><span>Заголовок</span></h1>
+            <h1 class="home-title" style="font-size:30pt;">
+                <span>Заголовок</span>
+            </h1>
             <br>
             {{ form.heading(class="form-control", type="text", style="border: none; border-bottom: 1px solid gray;outline: none; box-shadow: none;") }}
             <br>
             {% for error in form.heading.errors %}<div class="alert alert-danger" role="alert">{{ error }}</div>{% endfor %}
         </p>
         <p>
-            <h1 class="home-title" style="font-size:30pt;"><span>Текст</span></h1>
+            <h1 class="home-title" style="font-size:30pt;">
+                <span>Текст</span>
+            </h1>
             <br>
             {{ form.text(class="form-control", type="text", style="border: none; border-bottom: 1px solid gray;outline: none; box-shadow: none;") }}
             <br>
@@ -20,7 +24,9 @@
         </p>
         <p>
             <div class="frame">
-                <button class="custom-btn btn-6"><span>Создать</span></button>
+                <button class="custom-btn btn-6">
+                    <span>Создать</span>
+                </button>
             </div>
         </p>
         <div>{{ message }}</div>
