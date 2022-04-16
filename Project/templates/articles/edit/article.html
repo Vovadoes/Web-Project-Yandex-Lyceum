@@ -12,19 +12,13 @@
                     <br>
                     {% for error in form.heading.errors %}<div class="alert alert-danger" role="alert">{{ error }}</div>{% endfor %}
                 </p>
-                <button type="submit" class="btn btn-success">Сохранить</button>
+                <button class="custom-btn btn-3"><span>Сохранить</span></button>
             </form>
-            <a class="btn btn-primary"
-               href="/article/{{ article.id }}/edit/add/block/place/0"
-               role="button">Добавить блок</a>
+            <a href="/article/{{ article.id }}/edit/add/block/place/0" style="margin-top:20px;"><button class="custom-btn btn-9">Добавить блок</button></a>
             {% for block in blocks %}
                 {% with block=block %}
                     {% include 'Blocks/' + block.__class__.__name__+ '.html'  %}
                 {% endwith %}
-                <a class="btn btn-primary"
-                   href="/article/{{ article.id }}/edit/add/block/place/{{ loop.index }}"
-                   role="button">Добавить блок</a>
-                <a class="btn btn-primary" href="#" role="button">Редактировать</a>
             {% endfor %}
         </main>
     </body>
