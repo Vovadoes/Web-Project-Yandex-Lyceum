@@ -1,0 +1,25 @@
+{% extends "Blocks/edit/BaseBlock.html" %}
+{% block headblock %}<title>Создать блок теста</title>{% endblock %}
+{% block content %}
+    <h1 style="font-family:corbel;">Изменение блока с текстом</h1>
+    <form action="" method="POST">
+        {{ form.hidden_tag() }}
+        <p>
+            <h1 class="home-title" style="font-size:30pt;">
+                <span>{{ form.idea.label }}</span>
+            </h1>
+            <br>
+            {{ form.idea(class="form-control", type="text", style="border: none; border-bottom: 1px solid gray;outline: none; box-shadow: none;") }}
+            <br>
+            {% for error in form.idea.errors %}<div class="alert alert-danger" role="alert">{{ error }}</div>{% endfor %}
+        </p>
+        <p>
+            <div class="frame">
+                <button class="custom-btn btn-6">
+                    <span>Изменить</span>
+                </button>
+            </div>
+        </p>
+        <div>{{ message }}</div>
+    </form>
+{% endblock %}
