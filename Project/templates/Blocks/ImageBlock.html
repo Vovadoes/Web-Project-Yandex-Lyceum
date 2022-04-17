@@ -2,6 +2,6 @@
 <p style="text-align: center;">
     {% set image = block.get_image() %}
     {% if image != none %}
-        <img src={{ url_for('static', filename=image.get_path() ) }} alt="альтернативный текст" width="800" height="400">
+        <img src={{ url_for('static', filename=image.get_path() ) }} alt="альтернативный текст" width=40%>
     {% endif %}
 </p>
