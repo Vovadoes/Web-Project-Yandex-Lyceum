@@ -5,7 +5,7 @@
 {% endblock %}
 {% block content %}
     {{ super() }}
-    <h1 style="font-family:corbel;">Создание блока с текстом</h1>
+    <h1 style="font-family:corbel;">Изменение блока с текстом</h1>
     <h1>Upload new File</h1>
     <form method=post enctype=multipart/form-data>
         {{ form.hidden_tag() }}
@@ -23,7 +23,7 @@
             {% for error in form.heading.errors %}<div class="alert alert-danger" role="alert">{{ error }}</div>{% endfor %}
         </p>
         <input type=file name=file>
-        <input type=submit value=Upload>
+        <button type="submit" class="btn btn-success">Измененить</button>
         <div>{{ message }}</div>
     </form>
 {% endblock %}

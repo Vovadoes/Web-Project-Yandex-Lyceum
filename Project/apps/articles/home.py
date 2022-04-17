@@ -223,13 +223,17 @@ def edit_block(user: User, article_id: int, number_block: int, block_id: int, *a
     article = db_sess.query(Article).filter(Article.id == article_id).first()
     if request.method == "POST":
         sequence = block.get_sequence(db_sess)
+        form = Blocks[number_block].getForm()()
+        pprint(form.__dict__)
+        block.loading_data(request=request, db_sess=db_sess, form=form)
+        pprint(block.__dict__)
         db_sess.commit()
         return redirect(f"/article/{article.id}/edit")
     elif request.method == "GET":
         form = Blocks[number_block].getForm()(block)
         pprint(form.__dict__)
         return render_template(
-            f"Blocks/create/{Blocks[number_block].__name__}.html",
+            f"Blocks/edit/{Blocks[number_block].__name__}.html",
             form=form,
             article=article,
             block=block
