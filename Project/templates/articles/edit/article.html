@@ -3,7 +3,7 @@
     <title>{{ article.heading }}</title>
     <body>
         <main role="main" class="container">
-            <form action="" method="post">
+            <form action="" method="post" style="margin-right:300px">
                 {{ form.hidden_tag() }}
                 <p>
                     {{ form.heading.label }}
@@ -14,12 +14,14 @@
                 </p>
                 <button class="custom-btn btn-3"><span>Сохранить</span></button>
             </form>
-            <a href="/article/{{ article.id }}/edit/add/block/place/0" style="margin-top:20px;"><button class="custom-btn btn-9">Добавить блок</button></a>
+            <a href="/article/{{ article.id }}/edit/add/block/place/0" style="margin-top:20px;"><button class="custom-btn btn-9">Добавить блок</button></a><div style="margin-right:300px">
             {% for block in blocks %}
                 {% with block=block %}
+            <div style="margin-right:300px;">
                     {% include 'Blocks/' + block.__class__.__name__+ '.html'  %}
+            </div>
                 {% endwith %}
-            {% endfor %}
+            {% endfor %}</div>
         </main>
     </body>
 {% endblock %}
