@@ -32,6 +32,7 @@ pip install -r requirements.txt
 python -m nltk.downloader omw-1.4
 ```
 * Установите переменные виртуальной среды.
+## Запуск
 ```
 set FLASK_APP=Project/main.py
 set FLASK_DEBUG=1
