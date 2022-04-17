@@ -5,6 +5,7 @@ from flask import request, make_response, session, render_template
 from flask_login import login_user, login_required, logout_user, LoginManager
 from werkzeug.exceptions import abort
 
+from Project.CreateTags import create_tags
 from Project.data.Article import Article
 from Project.data.Blocks.TextBlock import TextBlock
 from Project.data.Sequence import Sequence
@@ -135,7 +136,7 @@ if user is None:
     user.set_password("Vovik48rus123")
     db_sess.add(user)
     db_sess.commit()
-    article = Article(heading="Test_1_Vovik", )
+    article = Article(heading="Test 1 vovik", )
     article.user_id = user.id
     article.sources = "https://ru.wikipedia.org/wiki"
     db_sess.add(article)
@@ -152,4 +153,5 @@ if user is None:
     text_block.sequence_id = sequence.id
     db_sess.add(text_block)
     db_sess.commit()
+    create_tags(article.heading, article=article, db_sess=db_sess)
 # app.run(port=8080, host='localhost', debug=True)

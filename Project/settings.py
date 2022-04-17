@@ -3,6 +3,12 @@ from loguru import logger
 
 # Если используешь Pycharm то убрать из settings "Project"
 
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
 work_dir = 'Project'
 way_db = os.path.join(os.getcwd(), 'Project', 'db')
 if not os.path.isdir(way_db):
