@@ -14,12 +14,32 @@
         <link rel="stylesheet" href={{ url_for('static', filename='css/back.css') }}/>
         <link rel="stylesheet" href={{ url_for('static', filename='css/button.css') }}/>
         <link rel="stylesheet" href={{ url_for('static', filename='css/search.css') }}/>
+        <link rel="stylesheet" href={{ url_for('static', filename='css/home.css') }}/>
+        <link rel="stylesheet" href={{ url_for('static', filename='css/zagol.css') }}/>
+        <link rel="stylesheet" href={{ url_for('static', filename='css/background.css') }}/>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
         <script src="/static/js/ser.js"></script>
         {% block headblock %}{% endblock %}
         <title>{{ title }}</title>
     </head>
+    <div class="area" style="position: absolute; top: 0; left: 0; position:fixed;">
+            <ul class="circles">
+                    <li style="position: absolute;"></li>
+                    <li style="position: absolute;"></li>
+                    <li style="position: absolute;"></li>
+                    <li style="position: absolute;"></li>
+                    <li style="position: absolute;"></li>
+                    <li style="position: absolute;"></li>
+                    <li style="position: absolute;"></li>
+                    <li style="position: absolute;"></li>
+                    <li style="position: absolute;"></li>
+                    <li style="position: absolute;"></li>
+            </ul>
+    </div >
     <body>
     <script src={{ url_for('static', filename='js/ser.js') }}></script>
+    <script src={{ url_for('static', filename='js/like.js') }}></script>
         <header>
             <nav class="navbar navbar-dark bg-dark" style="margin-bottom:50px;">
                 <div class="container-fluid">
@@ -30,6 +50,7 @@
                             </a>
                         </div>
                         <div class="col-sm-4">
+
                             {% if current_user.is_authenticated %}
                             <div class="btn-group" role="group" style="marginL10xp">
                                 <div class="row"><h4 style="color: white; font-family: corbel; display: inline-block; padding-top:30px;">Зравствуйте {{ current_user.name }}</h4></div>
@@ -45,20 +66,19 @@
                                 </div>
                             </li>
                             {% endif %}
+
                         </div>
                     </div>
                 </div>
             </nav>
         </header>
         <!-- Begin page content -->
-
-
-
-
         <div class="overlay hidden"></div>
         <div class="overlay hidden"></div>
         <main role="main" class="container">
+            <div style="position: absolute;">
             {% block content %}{% endblock %}
+            </div>
         </main>
     </body>
 </html>

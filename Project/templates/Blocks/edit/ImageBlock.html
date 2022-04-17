@@ -1,0 +1,29 @@
+{% extends "Blocks/edit/BaseBlock.html" %}
+{% block headblock %}
+    {{ super() }}
+    <title></title>
+{% endblock %}
+{% block content %}
+    {{ super() }}
+    <h1 style="font-family:corbel;">Изменение блока с текстом</h1>
+    <h1>Upload new File</h1>
+    <form method=post enctype=multipart/form-data>
+        {{ form.hidden_tag() }}
+        <p>
+            <h1 class="home-title" style="font-size:30pt;">
+                <span>Заголовок</span>
+            </h1>
+            {% set image = block.get_image() %}
+            {% if image != none %}
+                <img src={{ url_for('static', filename=image.get_path() ) }} alt="альтернативный текст">
+            {% endif %}
+            <br>
+            {{ form.heading(class="form-control", type="text", style="border: none; border-bottom: 1px solid gray;outline: none; box-shadow: none;") }}
+            <br>
+            {% for error in form.heading.errors %}<div class="alert alert-danger" role="alert">{{ error }}</div>{% endfor %}
+        </p>
+        <input type=file name=file>
+        <button type="submit" class="btn btn-success">Измененить</button>
+        <div>{{ message }}</div>
+    </form>
+{% endblock %}

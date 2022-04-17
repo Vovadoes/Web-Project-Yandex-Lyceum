@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block headblock %}{{ super() }}{% endblock %}
+{% block content %}
+    {{ super() }}
+    <p>
+        Удалить блок ?
+    </p>
+    {% with block=block %}
+        {% include 'Blocks/' + block.__class__.__name__+ '.html'  %}
+    {% endwith %}
+    <form class="form-group" method="post">
+        <button type="submit" class="btn btn-danger">Удалить</button>
+    </form>
+    <a type="button" class="btn btn-secondary" role="button" href="#">Назад</a>
+{% endblock %}

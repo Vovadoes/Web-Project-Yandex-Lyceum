@@ -1,9 +1,13 @@
+from pprint import pprint
+
 import sqlalchemy
 import os
 from sqlalchemy.orm import declared_attr
+
+from Project.data.Sequence import Sequence
 from Project.settings import work_dir
 
-from Project.data.db_session import SqlAlchemyBase
+from Project.data.db_session import SqlAlchemyBase, create_session
 from Project.forms.Form import Form
 
 
@@ -30,6 +34,16 @@ class Block(SqlAlchemyBase):
     def loading_data(self, request, **kwargs):
         self.import_class_dict(**kwargs)
 
+    def get_sequence(self, db_sess=None):
+        if db_sess is None:
+            db_sess = create_session()
+        try:
+            sequence = db_sess.query(Sequence).filter(Sequence.id == self.sequence_id).first()
+            return sequence
+        except Exception as error:
+            pprint(error)
+            return None
+
     @staticmethod
     def getForm():
         return Form
@@ -37,6 +51,9 @@ class Block(SqlAlchemyBase):
     @staticmethod
     def label_block():
         return 'Блок'
+
+    def preparing_for_deletion(self, db_sess, *args, **kwargs):
+        pass
 
     @declared_attr
     def article_id(self):
@@ -55,7 +72,8 @@ class Block(SqlAlchemyBase):
 def check(obj):
     pathes = [
         os.path.join(work_dir, 'templates', 'Blocks'),
-        os.path.join(work_dir, 'templates', 'Blocks', 'create')
+        os.path.join(work_dir, 'templates', 'Blocks', 'create'),
+        os.path.join(work_dir, 'templates', 'Blocks', 'edit')
     ]
     for path in pathes:
         if not os.path.isdir(path):
