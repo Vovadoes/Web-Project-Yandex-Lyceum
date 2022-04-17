@@ -52,6 +52,3 @@ def preprocessing(s: str):
     s = ' '.join(slave)
     s = my_lemmatizer(s)
     return s
-
-
-print(preprocessing('super women'))

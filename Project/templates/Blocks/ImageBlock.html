@@ -1,7 +1,7 @@
-<p>
-    {{ block.__class__.__name__ }}
+<p style="text-align: center; border-left:3px solid black; padding-left:10px; font-size:25pt;">{{block.heading}}</p>
+<p style="text-align: center;">
     {% set image = block.get_image() %}
     {% if image != none %}
-        <img src={{ url_for('static', filename=image.get_path() ) }} alt="альтернативный текст">
+        <img src={{ url_for('static', filename=image.get_path() ) }} alt="альтернативный текст" width=40%>
     {% endif %}
 </p>

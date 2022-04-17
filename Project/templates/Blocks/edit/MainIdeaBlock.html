@@ -9,7 +9,7 @@
                 <span>{{ form.idea.label }}</span>
             </h1>
             <br>
-            {{ form.idea(class="form-control", type="text", style="border: none; border-bottom: 1px solid gray;outline: none; box-shadow: none;") }}
+            {{ form.idea(class="form-control", type="text", style="border: none; border-bottom: 1px solid gray;outline: none; box-shadow: none; width: 1200px;") }}
             <br>
             {% for error in form.idea.errors %}<div class="alert alert-danger" role="alert">{{ error }}</div>{% endfor %}
         </p>

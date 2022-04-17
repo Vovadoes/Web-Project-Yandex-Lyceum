@@ -3,7 +3,7 @@ from werkzeug import Response
 from werkzeug.exceptions import abort
 from werkzeug.utils import redirect
 
-from Project.apps.articles import ALLOWED_EXTENSIONS
+from Project.settings import ALLOWED_EXTENSIONS
 from Project.data.Article import Article
 from Project.data.User import User
 from Project.data.db_session import create_session

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-        <title>{{ article.heading }}</title>
+    <title>{{ article.heading }}</title>
     <body>
         <main role="main" class="container">
             <form action="" method="post">
@@ -12,21 +12,18 @@
                     <br>
                     {% for error in form.heading.errors %}<div class="alert alert-danger" role="alert">{{ error }}</div>{% endfor %}
                 </p>
-                <button type="submit" class="btn btn-success">Сохранить</button>
+                <button class="custom-btn btn-9">Сохранить</button>
             </form>
-            <a class="btn btn-primary"
-               href="/article/{{ article.id }}/edit/add/block/place/1"
-               role="button">Добавить блок</a>
+            <a href="/article/{{ article.id }}/edit/add/block/place/0"><button class="custom-btn btn-3" style="margin-top:30px;"><span>Добавить блок</span></button></a>
             {% for block in blocks %}
                 {% with block=block %}
                     {% include 'Blocks/' + block.__class__.__name__+ '.html'  %}
                 {% endwith %}
-                <a class="btn btn-primary"
-                   href="/article/{{ article.id }}/edit/add/block/place/{{ loop.index + 1 }}"
-                   role="button">Добавить блок</a>
-                <a class="btn btn-primary" href="/article/{{article.id}}/edit/block/edit/{{block.id}}/Block/{{Blocks.index(block.__class__)}}" role="button">Редактировать</a>
-                <a class="btn btn-danger" href="/article/{{article.id}}/edit/delete/block/{{block.id}}/Block/{{Blocks.index(block.__class__)}}" role="button">Удалить</a>
+            <a href="/article/{{ article.id }}/edit/add/block/place/{{ loop.index }}"><button class="custom-btn btn-3"><span>Добавить блок</span></button></a>
+                <a href="/article/{{article.id}}/edit/block/edit/{{block.id}}/Block/{{Blocks.index(block.__class__)}}"><button class="custom-btn btn-4">Редактировать</button></a>
+            <a href="/article/{{article.id}}/edit/delete/block/{{block.id}}/Block/{{Blocks.index(block.__class__)}}"><button class="custom-btn btn-5"><span>Удалить</span></button></a>
             {% endfor %}
         </main>
     </body>
+
 {% endblock %}

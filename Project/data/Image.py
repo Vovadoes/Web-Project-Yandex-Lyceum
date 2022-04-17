@@ -1,6 +1,5 @@
 import os
 from tempfile import NamedTemporaryFile
-from typing import Union, Any
 
 import sqlalchemy
 from .db_session import SqlAlchemyBase

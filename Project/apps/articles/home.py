@@ -4,7 +4,6 @@ import werkzeug
 from loguru import logger
 
 from requests import Session
-from werkzeug import Response
 from werkzeug.exceptions import abort
 from werkzeug.utils import redirect
 
@@ -18,6 +17,9 @@ from . import Blocks
 from Project.fun import get_user, user_is_author, get_article_id, get_block
 from Project.forms.ArticleForm import ArticleForm
 from Project.data.User import User
+from Project.CreateTags import create_tags
+from Project.data.Blocks.MainIdeaBlock import MainIdeaBlock
+from Project.functions import recreate_tags
 
 
 @logger.catch
@@ -57,7 +59,7 @@ def get_sort_blocks(article: Article, db_sess: Session = None):
 
 
 @app_articles.route("/<int:article_id>/")
-@get_article_id()  # проверка статьи на существование
+@get_article_id()
 @get_user(required=False)
 def article(user, article_id: int, *args, **kwargs):
     res = set_sequence(article_id)
@@ -81,7 +83,7 @@ def article(user, article_id: int, *args, **kwargs):
 
 
 @app_articles.route("/create/", methods=['GET', 'POST'])
-@get_user(required=False)
+@get_user(required=True)
 def article_create(user, *args, **kwargs):
     if request.method == "POST":
         form = ArticleForm()
@@ -92,6 +94,7 @@ def article_create(user, *args, **kwargs):
             article.heading = form.heading.data
             db_sess.add(article)
             db_sess.commit()
+            create_tags(article.heading, article=article, db_sess=db_sess)
             return redirect(f"/article/{article.id}/")
         else:
             return {"result": "The form is not filled out correctly"}
@@ -103,9 +106,9 @@ def article_create(user, *args, **kwargs):
 
 
 @app_articles.route("/<int:article_id>/edit", methods=['GET', 'POST'])
-@get_article_id()  # проверка статьи на существование
+@get_article_id()
 @get_user(required=True)
-@user_is_author(required=False)  # Пока выключим проверку
+@user_is_author(required=True)
 def edit_article(user: User, article_id: int, *args, **kwargs):
     if request.method == "POST":
         article_form = ArticleForm()
@@ -113,7 +116,9 @@ def edit_article(user: User, article_id: int, *args, **kwargs):
             db_sess = create_session()
             article = db_sess.query(Article).filter(Article.id == article_id).first()
             article.heading = article_form.heading.data
+            article.tags = []
             db_sess.commit()
+            recreate_tags(article, db_sess)
             return redirect(f"/article/{article.id}/")
     elif request.method == "GET":
         db_sess = create_session()
@@ -131,7 +136,7 @@ def edit_article(user: User, article_id: int, *args, **kwargs):
 @app_articles.route("/<int:article_id>/edit/add/block/place/<int:number>", methods=['GET'])
 @get_article_id()
 @get_user(required=True)
-@user_is_author(required=False)  # Пока выключим проверку
+@user_is_author(required=True)
 def choosing_create_block(user: User, article_id: int, number: int, *args, **kwargs):
     db_sess = create_session()
     article = db_sess.query(Article).filter(Article.id == article_id).first()
@@ -143,7 +148,7 @@ def choosing_create_block(user: User, article_id: int, number: int, *args, **kwa
                     methods=['GET', 'POST'])
 @get_article_id()
 @get_user(required=True)
-@user_is_author(required=False)  # Пока выключим проверку
+@user_is_author(required=True)
 def create_block(user: User, article_id: int, number: int, number_block: int, *args, **kwargs):
     if not (0 <= number_block < len(Blocks)) or len(str(number_block)) > 1000000000:
         return abort(404)
@@ -179,6 +184,7 @@ def create_block(user: User, article_id: int, number: int, number_block: int, *a
             result = block.change_db(db_sess=db_sess, result=result)
             if result is not None:
                 return result
+            recreate_tags(article, db_sess)
             return redirect(f"/article/{article.id}/")
     elif request.method == "GET":
         if 0 <= number_block < len(Blocks):
@@ -195,7 +201,7 @@ def create_block(user: User, article_id: int, number: int, number_block: int, *a
 @get_article_id()
 @get_block()
 @get_user(required=True)
-@user_is_author(required=False)  # Пока выключим проверку
+@user_is_author(required=True)
 def delete_block(user: User, article_id: int, number_block: int, block_id: int, *args, **kwargs):
     db_sess = create_session()
     block = db_sess.query(Blocks[number_block]).filter(Blocks[number_block].id == block_id).first()
@@ -206,6 +212,7 @@ def delete_block(user: User, article_id: int, number_block: int, block_id: int, 
         db_sess.delete(block)
         db_sess.delete(sequence)
         db_sess.commit()
+        recreate_tags(article, db_sess)
         return redirect(f"/article/{article.id}/edit")
     elif request.method == "GET":
         return render_template('Blocks/delete/Block.html', article=article, block=block)
@@ -216,7 +223,7 @@ def delete_block(user: User, article_id: int, number_block: int, block_id: int, 
 @get_article_id()
 @get_block()
 @get_user(required=True)
-@user_is_author(required=False)  # Пока выключим проверку
+@user_is_author(required=True)
 def edit_block(user: User, article_id: int, number_block: int, block_id: int, *args, **kwargs):
     db_sess = create_session()
     block = db_sess.query(Blocks[number_block]).filter(Blocks[number_block].id == block_id).first()
@@ -225,7 +232,7 @@ def edit_block(user: User, article_id: int, number_block: int, block_id: int, *a
         sequence = block.get_sequence(db_sess)
         form = Blocks[number_block].getForm()()
         pprint(form.__dict__)
-        block.loading_data(request=request, db_sess=db_sess, form=form)
+        block.loading_data(request=request, db_sess=db_sess, form=form, is_create=False)
         pprint(block.__dict__)
         db_sess.commit()
         return redirect(f"/article/{article.id}/edit")

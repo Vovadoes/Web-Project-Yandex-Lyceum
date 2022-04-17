@@ -3,14 +3,15 @@ import os
 import sqlalchemy
 from sqlalchemy import orm
 from sqlalchemy.orm import Session
+from werkzeug.utils import secure_filename
 
 from .settings import Blocks_lst
 
 from .Block import Block
 from Project.forms.Blocks.ImageForm import ImageForm
 from Project.data.db_session import create_session
-from Project.apps.articles.upload_file import allowed_file
-from Project.apps.articles.upload_file import secure_filename
+from Project.settings import allowed_file
+
 from Project.data.Image import Image
 from Project.settings import work_dir, media_path
 

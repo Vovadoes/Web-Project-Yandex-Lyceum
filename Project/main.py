@@ -3,7 +3,9 @@ import datetime
 from flask import Flask
 from flask import request, make_response, session, render_template
 from flask_login import login_user, login_required, logout_user, LoginManager
+from werkzeug.exceptions import abort
 
+from Project.CreateTags import create_tags
 from Project.data.Article import Article
 from Project.data.Blocks.TextBlock import TextBlock
 from Project.data.Sequence import Sequence
@@ -18,8 +20,6 @@ from data.User import User
 from werkzeug.utils import redirect
 
 from settings import path_db
-
-# Если используешь Pycharm то убрать из settings "Project"
 
 app = Flask(__name__)
 app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(days=365)
@@ -46,7 +46,8 @@ def load_user(user_id):
 
 @app.route("/")
 def start():
-    return render_template("main.html")
+    return redirect("/home/")
+    # return render_template("main.html")
 
 
 @app.route("/cookie_test")
@@ -136,14 +137,14 @@ if user is None:
     user.set_password("Vovik48rus123")
     db_sess.add(user)
     db_sess.commit()
-    article = Article(heading="Test_1_Vovik", )
+    article = Article(heading="Test 1 vovik", )
     article.user_id = user.id
     article.sources = "https://ru.wikipedia.org/wiki"
     db_sess.add(article)
     db_sess.commit()
     sequence = Sequence()
     sequence.article_id = article.id
-    sequence.number = 1
+    sequence.number = 0
     db_sess.add(sequence)
     db_sess.commit()
     text_block = TextBlock()
@@ -153,4 +154,5 @@ if user is None:
     text_block.sequence_id = sequence.id
     db_sess.add(text_block)
     db_sess.commit()
+    create_tags(article.heading, article=article, db_sess=db_sess)
 # app.run(port=8080, host='localhost', debug=True)
