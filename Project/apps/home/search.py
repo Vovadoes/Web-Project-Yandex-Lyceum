@@ -1,4 +1,5 @@
-from Project.apps.home.dop_func import preprocessing, find_id_articles
+from Project.apps.home.dop_func import find_id_articles
+from .preprocessing import preprocessing
 
 
 def retrieve(query):  # принимает строку из поиска

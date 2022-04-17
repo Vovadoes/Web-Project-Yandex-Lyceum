@@ -13,55 +13,6 @@ from Project.data.Article import Article
 from Project.data.Blocks.MainIdeaBlock import MainIdeaBlock
 
 
-dler = nltk.downloader.Downloader()
-nltk.download('stopwords')
-sw_eng = set(stopwords.words('english'))
-stemmer = SnowballStemmer(language='english')
-dler.download('averaged_perceptron_tagger')
-dler.download('wordnet')
-
-
-def get_clean(x):
-    x = str(x).lower().replace('\\', '').replace('_', ' ')
-    x = re.sub("(.)\\1{2,}", "\\1", x)
-    x = re.sub(r'[^\w\s]', '', x)
-    return x
-
-
-def get_wordnet_pos(treebank_tag):
-    my_switch = {
-        'J': wordnet.ADJ,
-        'V': wordnet.VERB,
-        'N': wordnet.NOUN,
-        'R': wordnet.ADV,
-    }
-    for key, item in my_switch.items():
-        if treebank_tag.startswith(key):
-            return item
-    return wordnet.wordnet.NOUN
-
-
-def my_lemmatizer(sent):
-    lemmatizer = WordNetLemmatizer()
-    tokenized_sent = sent.split()
-    pos_tagged = [(word, get_wordnet_pos(tag))
-                  for word, tag in pos_tag(tokenized_sent)]
-    return ' '.join([lemmatizer.lemmatize(word, tag)
-                     for word, tag in pos_tagged])
-
-
-def preprocessing(s: str):
-    s = get_clean(s)
-    slave = []
-    for word in s.split():
-        if not word[0].isdigit():
-            if not word in sw_eng:
-                slave.append(word)
-    s = ' '.join(slave)
-    s = my_lemmatizer(s)
-    return s
-
-
 def find_id_articles(s: list, k=100):
     # Импорт библиотеки
     import sqlite3

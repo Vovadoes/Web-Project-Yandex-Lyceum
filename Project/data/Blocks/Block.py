@@ -21,15 +21,19 @@ class Block(SqlAlchemyBase):
 
     def __init__(self, **kwargs):
         super().__init__()
-        self.import_class_dict()
+        # self.import_class_dict()
+        for i in kwargs:
+            if i in self.__class__.__dict__.keys():
+                setattr(self, i, kwargs[i])
+            else:
+                print(f'Error Key: {i} in class: {self.__class__.__name__}')
 
     def import_class_dict(self, dct: dict = None, *args, **kwargs):
         if dct is not None:
             for i in dct:
                 if i in self.__class__.__dict__.keys():
                     setattr(self, i, dct[i].data)
-                else:
-                    print(f'Error Key: {i} in class: {self.__class__.__name__}')
+
 
     def loading_data(self, request, db_sess, form, **kwargs):
         self.import_class_dict(dct=form.__dict__)
