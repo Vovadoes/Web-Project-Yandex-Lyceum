@@ -10,6 +10,8 @@ if not os.path.isdir(way_db):
 path_db = os.path.join(way_db, 'db.db')
 # Всегда в static
 media_path = 'media'
+if not os.path.isdir(os.path.join(work_dir, 'static', media_path)):
+    os.makedirs(os.path.join(work_dir, 'static', media_path))
 
 # path_db_danila = os.path.join(os.getcwd(), 'Project', 'db', 'db_danila.db')
 
