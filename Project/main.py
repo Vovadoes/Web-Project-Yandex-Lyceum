@@ -46,7 +46,8 @@ def load_user(user_id):
 
 @app.route("/")
 def start():
-    return render_template("main.html")
+    return redirect("/home/")
+    # return render_template("main.html")
 
 
 @app.route("/cookie_test")
