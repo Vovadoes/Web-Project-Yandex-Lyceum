@@ -24,7 +24,8 @@
                 <a class="btn btn-primary"
                    href="/article/{{ article.id }}/edit/add/block/place/{{ loop.index }}"
                    role="button">Добавить блок</a>
-                <a class="btn btn-primary" href="#" role="button">Редактировать</a>
+                <a class="btn btn-primary" href="/article/{{article.id}}/edit/block/edit/{{block.id}}/Block/{{Blocks.index(block.__class__)}}" role="button">Редактировать</a>
+                <a class="btn btn-danger" href="/article/{{article.id}}/edit/delete/block/{{block.id}}/Block/{{Blocks.index(block.__class__)}}" role="button">Удалить</a>
             {% endfor %}
         </main>
     </body>
