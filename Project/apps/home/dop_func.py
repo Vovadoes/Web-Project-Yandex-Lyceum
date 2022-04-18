@@ -51,7 +51,11 @@ def find_id_articles(s: list, k=100):
         score = i[1]
         article = db_sess.query(Article).filter(Article.id == id).first()
         heading, id_text = article.heading, article.MainIdeaBlockId
-        main_text = db_sess.query(MainIdeaBlock).filter(MainIdeaBlock.id == id_text).first().idea
+        main_idea_block = db_sess.query(MainIdeaBlock).filter(MainIdeaBlock.id == id_text).first()
+        if main_idea_block is None:
+            main_text = ''
+        else:
+            main_text = main_idea_block.idea
         # main_text = cur.execute("""SELECT idea FROM MainIdea_Block
         #                 WHERE id = ?""", (id_text,)).fetchall()[0][0]
         if len(heading) > 40:
