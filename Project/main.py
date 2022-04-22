@@ -11,6 +11,7 @@ from Project.data.Blocks.TextBlock import TextBlock
 from Project.data.Sequence import Sequence
 from apps.articles import app_articles
 from apps.home import app_home
+from apps.profile import app_profile
 from apps.test import app_test
 from forms.RegisterForm import RegisterForm
 from forms.UserForm import LoginForm
@@ -26,6 +27,7 @@ app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(days=365)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 
 app.register_blueprint(app_home, url_prefix='/home')
+app.register_blueprint(app_profile, url_prefix='/profile')
 app.register_blueprint(app_articles, url_prefix='/article')
 app.register_blueprint(app_test, url_prefix='/test')
 
@@ -46,8 +48,8 @@ def load_user(user_id):
 
 @app.route("/")
 def start():
-    return redirect("/home/")
-    # return render_template("main.html")
+    # return redirect("/home/")
+    return render_template("main.html")
 
 
 @app.route("/cookie_test")
