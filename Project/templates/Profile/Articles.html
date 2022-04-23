@@ -1,3 +1,28 @@
 {% extends "Profile/base.html" %}
+{% block headblock %}
+    <style>
+    .card-a * {
+  /* Ссылка как карточка (.card + .d-block) */
+  text-decoration: none;
+}
+    </style>
+{% endblock %}
 {% block content %}
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        {% for article in articles %}
+            <a href={{ url_for("app_articles.article", article_id=article.id) }} style="text-decoration: none;" class="card">
+                <div class="col">
+                    <div class="card">
+                        <img src={{}} class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">{{article.heading}}</h5>
+                            <p class="card-text">
+                                This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
 {% endblock %}
