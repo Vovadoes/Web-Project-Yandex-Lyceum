@@ -2,7 +2,9 @@ from datetime import datetime
 
 import sqlalchemy
 from flask_login import UserMixin
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, Session
+from Project.data.db_session import create_session
+from Project.data.Image import Image
 
 from .db_session import SqlAlchemyBase
 
@@ -26,12 +28,31 @@ class Article(SqlAlchemyBase, UserMixin):
     user_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey('user.id'))
     MainIdeaBlockId = sqlalchemy.Column(sqlalchemy.Integer,
                                         sqlalchemy.ForeignKey('MainIdea_Block.id'))
+    image_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey('images.id'),
+                                 nullable=True)
 
     views = relationship("User", secondary=association_table_views, back_populates="views")
     user = relationship("User", back_populates="article")
     tags = relationship("Tag", secondary=association_table_article_tag, back_populates="articles")
     sources = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     sequences = relationship("Sequence", backref="articles")
+
+    def get_MainIdeaBlock(self, db_sess: Session = None):
+        from Project.data.Blocks.MainIdeaBlock import MainIdeaBlock
+        if db_sess is None:
+            db_sess = create_session()
+        if self.MainIdeaBlockId is not None:
+            main_idea_block = db_sess.query(MainIdeaBlock).filter(
+                MainIdeaBlock.id == self.MainIdeaBlockId).first()
+            return main_idea_block
+
+    def get_image(self, db_sess: Session = None):
+        if db_sess is None:
+            db_sess = create_session()
+        if self.image_id is not None:
+            print(self.image_id)
+            img = db_sess.query(Image).filter(Image.id == self.image_id).first()
+            return img
 
     def __init__(self, **kwargs):
         super().__init__()

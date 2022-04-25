@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-<head>
-    <style>
+    <head>
+        <style>
         .four {
   padding: 50px 20px;
   text-align: center;
@@ -38,13 +38,16 @@
     left: -20px;
   }
 }
-    </style>
-</head>
-            {% if author == user %}<a href="/article/{{ article.id }}/edit">Редактировать</a>{% endif %}
-            <div class="four" ><h1>{{ article.heading }}</h1></div>
-            {% for block in blocks %}
-                {% with block=block %}
-                        {% include 'Blocks/' + block.__class__.__name__+ '.html'  %}
-                {% endwith %}
-            {% endfor %}
+        </style>
+    </head>
+    {% if author == user %}<a href="/article/{{ article.id }}/edit">Редактировать</a>{% endif %}
+    <div class="four">
+        <h1>{{ article.heading }}</h1>
+    </div>
+    <img src={{ url_for('static', filename=article.get_image().get_path() )}} class="rounded mx-auto d-block" style="width: 30%">
+    {% for block in blocks %}
+        {% with block=block %}
+            {% include 'Blocks/' + block.__class__.__name__+ '.html'  %}
+        {% endwith %}
+    {% endfor %}
 {% endblock %}

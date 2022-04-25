@@ -5,9 +5,11 @@ from loguru import logger
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
+
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
 
 work_dir = 'Project'
 way_db = os.path.join(os.getcwd(), 'Project', 'db')
@@ -16,6 +18,7 @@ if not os.path.isdir(way_db):
 path_db = os.path.join(way_db, 'db.db')
 # Всегда в static
 media_path = 'media'
+default_image = os.path.join("static", "default", '1.jpg')
 if not os.path.isdir(os.path.join(work_dir, 'static', media_path)):
     os.makedirs(os.path.join(work_dir, 'static', media_path))
 

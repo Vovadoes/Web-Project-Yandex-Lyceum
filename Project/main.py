@@ -1,4 +1,6 @@
 import datetime
+import os
+import shutil
 
 from flask import Flask
 from flask import request, make_response, session, render_template
@@ -8,9 +10,11 @@ from werkzeug.exceptions import abort
 from Project.CreateTags import create_tags
 from Project.data.Article import Article
 from Project.data.Blocks.TextBlock import TextBlock
+from Project.data.Image import Image
 from Project.data.Sequence import Sequence
 from apps.articles import app_articles
 from apps.home import app_home
+from apps.profile import app_profile
 from apps.test import app_test
 from forms.RegisterForm import RegisterForm
 from forms.UserForm import LoginForm
@@ -19,13 +23,14 @@ from data.User import User
 
 from werkzeug.utils import redirect
 
-from settings import path_db
+from Project.settings import work_dir, media_path, path_db, default_image
 
 app = Flask(__name__)
 app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(days=365)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 
 app.register_blueprint(app_home, url_prefix='/home')
+app.register_blueprint(app_profile, url_prefix='/profile')
 app.register_blueprint(app_articles, url_prefix='/article')
 app.register_blueprint(app_test, url_prefix='/test')
 
@@ -33,7 +38,6 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 
-#
 # @app.route("/")
 # def hello_world():
 #     return "<p>Hello, World!</p>"
@@ -46,8 +50,8 @@ def load_user(user_id):
 
 @app.route("/")
 def start():
-    return redirect("/home/")
-    # return render_template("main.html")
+    # return redirect("/home/")
+    return render_template("main.html")
 
 
 @app.route("/cookie_test")
@@ -137,9 +141,17 @@ if user is None:
     user.set_password("Vovik48rus123")
     db_sess.add(user)
     db_sess.commit()
+    img = Image()
+    name = os.path.split(default_image)[1]
+    path = img.generate_path(name, set_path=True)
+    shutil.copyfile(os.path.join(work_dir, default_image),
+                    os.path.join(os.path.join(work_dir, 'static', media_path), path))
+    db_sess.add(img)
+    db_sess.commit()
     article = Article(heading="Test 1 vovik", )
     article.user_id = user.id
     article.sources = "https://ru.wikipedia.org/wiki"
+    article.image_id = img.id
     db_sess.add(article)
     db_sess.commit()
     sequence = Sequence()

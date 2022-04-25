@@ -1,19 +1,23 @@
 {% extends "base.html" %}
 {% block content %}
-        <title>Создание статьи</title>
+    <title>Создание статьи</title>
     <body>
         <main role="main" class="container">
-            <form method="POST">
+            <form method="POST" enctype="multipart/form-data">
                 {{ form.csrf_token }}
                 <div class="mb-3">
-                    <h1 class="home-title" style="font-size: 30pt;"><span>Заголовок</span></h1>
+                    <h1 class="home-title" style="font-size: 30pt;">
+                        <span>Заголовок</span>
+                    </h1>
                     {{ form.heading(style="border: none; border-bottom: 1px solid gray;outline: none; box-shadow: none;")}}
                 </div>
+                <div class="mb-3">
+                    <input type=file name=file>
+                </div>
                 <div class="frame">
-                <button class="custom-btn btn-16" style="margin-top:100px;">submit</button>
+                    <button class="custom-btn btn-16" style="margin-top:100px;">submit</button>
                 </div>
             </form>
         </main>
     </body>
-
 {% endblock %}
