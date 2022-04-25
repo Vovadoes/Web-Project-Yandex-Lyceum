@@ -1,5 +1,6 @@
 from pprint import pprint
 
+import requests
 import werkzeug
 from loguru import logger
 
@@ -18,8 +19,8 @@ from Project.fun import get_user, user_is_author, get_article_id, get_block
 from Project.forms.ArticleForm import ArticleForm
 from Project.data.User import User
 from Project.CreateTags import create_tags
-from Project.data.Blocks.MainIdeaBlock import MainIdeaBlock
 from Project.functions import recreate_tags
+from Project.data.Image import Image
 
 
 @logger.catch
@@ -89,9 +90,13 @@ def article_create(user, *args, **kwargs):
         form = ArticleForm()
         if form.validate_on_submit():
             db_sess = create_session()
+            img = Image.loading_from_request(request, default=True)
+            db_sess.add(img)
+            db_sess.commit()
             article = Article()
             article.user_id = user.id
             article.heading = form.heading.data
+            article.image_id = img.id
             db_sess.add(article)
             db_sess.commit()
             create_tags(article.heading, article=article, db_sess=db_sess)
@@ -118,6 +123,18 @@ def edit_article(user: User, article_id: int, *args, **kwargs):
             article.heading = article_form.heading.data
             article.tags = []
             db_sess.commit()
+            img_new = Image.loading_from_request(request, default=False)
+            print(f"{img_new=}")
+            if img_new is not None:
+                img = db_sess.query(Image).filter(Image.id == article.image_id).first()
+                if img is not None:
+                    article.image_id = None
+                    db_sess.delete(img)
+                del img
+                db_sess.add(img_new)
+                db_sess.commit()
+                article.image_id = img_new.id
+                db_sess.commit()
             recreate_tags(article, db_sess)
             return redirect(f"/article/{article.id}/")
     elif request.method == "GET":
@@ -127,8 +144,8 @@ def edit_article(user: User, article_id: int, *args, **kwargs):
         blocks = get_sort_blocks(article, db_sess)
         article_form = ArticleForm(article)
         print(article.heading, article_form.heading.data)
-        return render_template("articles/edit/article.html", form=article_form, article=article,
-                               blocks=blocks, Blocks=Blocks)
+        return render_template("articles/edit/article.html", user=user, form=article_form,
+                               article=article, blocks=blocks, Blocks=Blocks)
     else:
         return abort(404)
 
