@@ -7,26 +7,27 @@
         {% endblock %}
         <title>Title</title>
         {% block headblock %}{% endblock %}
+        <link rel="stylesheet" href={{ url_for('static', filename='css/background.css') }}/>
+        <link rel="stylesheet" href={{ url_for('static', filename='css/just.css') }}/>
+        <link rel="stylesheet" href={{ url_for('static', filename='css/abc.css') }}/>
     </head>
+    <div class="area" style="position: absolute; top: 0; left: 0; position:fixed;">
+            <ul class="circles">
+                    <li style="position: absolute;"></li>
+                    <li style="position: absolute;"></li>
+                    <li style="position: absolute;"></li>
+                    <li style="position: absolute;"></li>
+                    <li style="position: absolute;"></li>
+                    <li style="position: absolute;"></li>
+                    <li style="position: absolute;"></li>
+                    <li style="position: absolute;"></li>
+                    <li style="position: absolute;"></li>
+                    <li style="position: absolute;"></li>
+            </ul>
+    </div>
     <body>
-        <div class="container-fluid">
+        <div class="container-fluid" style="position: absolute;">
             <div class="row">
-                <header class="col-md-3">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href={{ url_for("app_profile.main") }}>Профиль</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href={{url_for("app_profile.articles")}}>Мои статьи</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/" tabindex="-1" aria-disabled="true">Домашняя страница</a>
-                        </li>
-                    </ul>
-                </header>
                 <!-- end header -->
                 <main class="col-md-9">
                     {% block content %}{% endblock %}
@@ -36,3 +37,6 @@
         </div>
     </body>
 </html>
+<a href="/home/" tabindex="-1" aria-disabled="true"><button class="button button--anthe" style="margin-top:400px; position:absolute; margin-left:20px; width: 300px;"><span>Вернутся</span></button></a>
+<a aria-current="page" href={{ url_for("app_profile.main") }}><button class="button button--greip" style="position:absolute; margin-top:220px; margin-left:20px; width: 300px;"><span><span>Профиль</span></span></button></a>
+<a href={{url_for("app_profile.articles")}}><button class="button button--mimas" style="margin-top:300px; margin-left:20px; width: 300px;"><span>Мои статьи</span></button></a>
