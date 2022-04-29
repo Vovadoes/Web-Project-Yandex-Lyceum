@@ -54,7 +54,7 @@
 
                             {% if current_user.is_authenticated %}
                             <div class="btn-group" role="group" style="marginL10xp">
-                                <div class="row"><h4 style="color: white; font-family: corbel; display: inline-block; padding-top:30px;">Зравствуйте {{ current_user.name }}</h4></div>
+                                <div class="row"><a href="/profile"><h4 style="color: white; font-family: corbel; display: inline-block; padding-top:30px;">Зравствуйте {{ current_user.name }}</h4></a></div>
                                 <a class="nav-link" href="/logout" style="padding-top:45px;">Выйти<span class="sr-only">(current)</span></a>
                             </div>
                             {% else %}
