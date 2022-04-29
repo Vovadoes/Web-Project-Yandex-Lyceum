@@ -24,6 +24,8 @@ if not os.path.isdir(os.path.join(work_dir, 'static', media_path)):
 
 # path_db_danila = os.path.join(os.getcwd(), 'Project', 'db', 'db_danila.db')
 
+replace_the_mat_with = "[xxx]"
+
 # При первом запуске
 """
 python -m nltk.downloader omw-1.4
