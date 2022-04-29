@@ -5,10 +5,11 @@ import os
 from sqlalchemy.orm import declared_attr
 
 from Project.data.Sequence import Sequence
-from Project.settings import work_dir
+from Project.settings import work_dir, replace_the_mat_with
 
 from Project.data.db_session import SqlAlchemyBase, create_session
 from Project.forms.Form import Form
+from Project.apps.home.delete_swear import RegexpProc
 
 
 class Block(SqlAlchemyBase):
@@ -24,7 +25,7 @@ class Block(SqlAlchemyBase):
         # self.import_class_dict()
         for i in kwargs:
             if i in self.__class__.__dict__.keys():
-                setattr(self, i, kwargs[i])
+                setattr(self, i, RegexpProc.replace(kwargs[i], repl=replace_the_mat_with))
             else:
                 print(f'Error Key: {i} in class: {self.__class__.__name__}')
 
@@ -32,8 +33,7 @@ class Block(SqlAlchemyBase):
         if dct is not None:
             for i in dct:
                 if i in self.__class__.__dict__.keys():
-                    setattr(self, i, dct[i].data)
-
+                    setattr(self, i, RegexpProc.replace(dct[i].data, repl=replace_the_mat_with))
 
     def loading_data(self, request, db_sess, form, **kwargs):
         self.import_class_dict(dct=form.__dict__)

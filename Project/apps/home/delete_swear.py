@@ -54,18 +54,21 @@ class RegexpProc(object):
         return RegexpProc.regexp.sub(repl, text)
 
     @staticmethod
-    def wrap(text, wrap=('<span style="color:red;">', '</span>',)):
-        words = {}
-        for word in re.findall(word_pattern, text):
-            if len(word) < 3:
-                continue
-            if RegexpProc.regexp.findall(word):
-                words[word] = u'%s%s%s' % (wrap[0], word, wrap[1],)
-        for word, wrapped in words.items():
-            text = text.replace(word, wrapped)
-        return text
+    def wrap(odj, wrap=('<span style="color:red;">', '</span>',)):
+        if type(odj) is str:
+            text = odj
+            words = {}
+            for word in re.findall(word_pattern, text):
+                if len(word) < 3:
+                    continue
+                if RegexpProc.regexp.findall(word):
+                    words[word] = u'%s%s%s' % (wrap[0], word, wrap[1],)
+            for word, wrapped in words.items():
+                text = text.replace(word, wrapped)
+            return text
+        else:
+            return odj
 
-
-without_slang = RegexpProc.replace(
-    u'блядина нахуй бля! идите в жопу сучка пиздючка хорошее настроение!', repl='[xxx]')
-print(without_slang)
+# without_slang = RegexpProc.replace(
+#     u'блядина нахуй бля! идите в жопу сучка пиздючка хорошее настроение!', repl='[xxx]')
+# print(without_slang)

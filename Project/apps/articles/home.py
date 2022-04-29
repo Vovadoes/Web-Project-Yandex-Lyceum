@@ -21,6 +21,8 @@ from Project.data.User import User
 from Project.CreateTags import create_tags
 from Project.functions import recreate_tags
 from Project.data.Image import Image
+from Project.apps.home.delete_swear import RegexpProc
+from Project.settings import replace_the_mat_with
 
 
 @logger.catch
@@ -95,7 +97,7 @@ def article_create(user, *args, **kwargs):
             db_sess.commit()
             article = Article()
             article.user_id = user.id
-            article.heading = form.heading.data
+            article.heading = RegexpProc.replace(form.heading.data, repl=replace_the_mat_with)
             article.image_id = img.id
             db_sess.add(article)
             db_sess.commit()
@@ -120,7 +122,8 @@ def edit_article(user: User, article_id: int, *args, **kwargs):
         if article_form.validate_on_submit():
             db_sess = create_session()
             article = db_sess.query(Article).filter(Article.id == article_id).first()
-            article.heading = article_form.heading.data
+            article.heading = RegexpProc.replace(article_form.heading.data, repl=replace_the_mat_with)
+
             article.tags = []
             db_sess.commit()
             img_new = Image.loading_from_request(request, default=False)
