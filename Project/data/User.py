@@ -27,6 +27,7 @@ class User(SqlAlchemyBase, UserMixin):
     date_create = sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.datetime.now)
 
     article = relationship("Article", back_populates="user")
+    comments = relationship("Comment", back_populates="user")
     views = relationship("Article", secondary=association_table_views, back_populates="views")
 
     def __init__(self, **kwargs):

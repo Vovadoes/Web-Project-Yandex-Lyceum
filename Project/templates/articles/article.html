@@ -50,4 +50,5 @@
             {% include 'Blocks/' + block.__class__.__name__+ '.html'  %}
         {% endwith %}
     {% endfor %}
+    <a class="btn btn-primary" href={{ url_for("app_comments.view_comments", article_id = article.id) }} role="button">Посмотреть комментарии</a>
 {% endblock %}

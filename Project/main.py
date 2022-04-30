@@ -12,18 +12,20 @@ from Project.data.Article import Article
 from Project.data.Blocks.TextBlock import TextBlock
 from Project.data.Image import Image
 from Project.data.Sequence import Sequence
+from Project.data.Comment import Comment
 from apps.articles import app_articles
 from apps.home import app_home
 from apps.profile import app_profile
+from apps.comments import app_comments
 from apps.test import app_test
 from forms.RegisterForm import RegisterForm
 from forms.UserForm import LoginForm
 from data import db_session
-from data.User import User
+from Project.data.User import User
 
 from werkzeug.utils import redirect
 
-from Project.settings import work_dir, media_path, path_db, default_image
+from Project.settings import work_dir, media_path, path_db, default_image, is_pycharm
 
 app = Flask(__name__)
 app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(days=365)
@@ -32,6 +34,7 @@ app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 app.register_blueprint(app_home, url_prefix='/home')
 app.register_blueprint(app_profile, url_prefix='/profile')
 app.register_blueprint(app_articles, url_prefix='/article')
+app.register_blueprint(app_comments, url_prefix='/comment')
 app.register_blueprint(app_test, url_prefix='/test')
 
 login_manager = LoginManager()
@@ -166,5 +169,13 @@ if user is None:
     text_block.sequence_id = sequence.id
     db_sess.add(text_block)
     db_sess.commit()
+    comment = Comment()
+    comment.text = 'Комментарий'
+    comment.article = article
+    comment.user = user
+    db_sess.add(comment)
+    db_sess.commit()
     create_tags(article.heading, article=article, db_sess=db_sess)
-# app.run(port=8080, host='localhost', debug=True)
+
+if is_pycharm:
+    app.run(port=8080, host='localhost', debug=True)

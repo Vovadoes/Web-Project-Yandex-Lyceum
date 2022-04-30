@@ -6,3 +6,4 @@ from .Blocks import TextBlock
 from .Blocks import ImageBlock
 from .Blocks import MainIdeaBlock
 from . import Image
+from . import Comment

@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block headblock %}{{ super() }}{% endblock %}
+{% block content %}
+    {{ super() }}
+    <a class="btn btn-primary" href={{ url_for("app_articles.article", article_id=article.id) }} role="button">К статье</a>
+{% endblock %}

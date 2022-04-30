@@ -11,8 +11,15 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 
-work_dir = 'Project'
-way_db = os.path.join(os.getcwd(), 'Project', 'db')
+is_pycharm = False
+
+if is_pycharm:
+    work_dir = ''
+    way_db = os.path.join(os.getcwd(), 'db')
+else:
+    work_dir = 'Project'
+    way_db = os.path.join(os.getcwd(), 'Project', 'db')
+
 if not os.path.isdir(way_db):
     os.makedirs(way_db)
 path_db = os.path.join(way_db, 'db.db')

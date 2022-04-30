@@ -9,8 +9,10 @@
               integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
               crossorigin="anonymous">
         <link rel="stylesheet" href="/static/css/link.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css" />
-<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@200&display=swap" rel="stylesheet" />
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css"/>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@200&display=swap"
+              rel="stylesheet"/>
         <link rel="stylesheet" href={{ url_for('static', filename='css/back.css') }}/>
         <link rel="stylesheet" href={{ url_for('static', filename='css/button.css') }}/>
         <link rel="stylesheet" href={{ url_for('static', filename='css/search.css') }}/>
@@ -19,28 +21,33 @@
         <link rel="stylesheet" href={{ url_for('static', filename='css/background.css') }}/>
         <link rel="stylesheet" href={{ url_for('static', filename='css/main.css') }}/>
         <link rel="preconnect" href="https://fonts.gstatic.com">
-     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
+              rel="stylesheet">
         <script src="/static/js/ser.js"></script>
         {% block headblock %}{% endblock %}
         <title>{{ title }}</title>
     </head>
-    <div class="area" style="position: absolute; top: 0; left: 0; position:fixed;">
-            <ul class="circles">
-                    <li style="position: absolute;"></li>
-                    <li style="position: absolute;"></li>
-                    <li style="position: absolute;"></li>
-                    <li style="position: absolute;"></li>
-                    <li style="position: absolute;"></li>
-                    <li style="position: absolute;"></li>
-                    <li style="position: absolute;"></li>
-                    <li style="position: absolute;"></li>
-                    <li style="position: absolute;"></li>
-                    <li style="position: absolute;"></li>
-            </ul>
+    <div class="area"
+         style="position: absolute;
+                top: 0;
+                left: 0;
+                position:fixed;">
+        <ul class="circles">
+            <li style="position: absolute;"></li>
+            <li style="position: absolute;"></li>
+            <li style="position: absolute;"></li>
+            <li style="position: absolute;"></li>
+            <li style="position: absolute;"></li>
+            <li style="position: absolute;"></li>
+            <li style="position: absolute;"></li>
+            <li style="position: absolute;"></li>
+            <li style="position: absolute;"></li>
+            <li style="position: absolute;"></li>
+        </ul>
     </div >
     <body>
-    <script src={{ url_for('static', filename='js/ser.js') }}></script>
-    <script src={{ url_for('static', filename='js/like.js') }}></script>
+        <script src={{ url_for('static', filename='js/ser.js') }}></script>
+        <script src={{ url_for('static', filename='js/like.js') }}></script>
         <header>
             <nav class="navbar navbar-dark bg-dark" style="margin-bottom:50px;">
                 <div class="container-fluid">
@@ -51,23 +58,30 @@
                             </a>
                         </div>
                         <div class="col-sm-4">
-
                             {% if current_user.is_authenticated %}
-                            <div class="btn-group" role="group" style="marginL10xp">
-                                <div class="row"><a href="/profile"><h4 style="color: white; font-family: corbel; display: inline-block; padding-top:30px;">Зравствуйте {{ current_user.name }}</h4></a></div>
-                                <a class="nav-link" href="/logout" style="padding-top:45px;">Выйти<span class="sr-only">(current)</span></a>
-                            </div>
-                            {% else %}
-                            <li class="nav-item active">
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <body>
-                                <a class="nav-link" href="/register" style="padding-top:25px;">Зарегистрироваться <span class="sr-only">(current)</span></a>
-                                    <a class="nav-link" href="/login" style="padding-top:25px;">Войти <span class="sr-only">(current)</span></a>
-                                    </body>
+                                <div class="btn-group" role="group" style="marginL10xp">
+                                    <div class="row">
+                                        <a href="/profile">
+                                            <h4 style="color: white;
+                                                       font-family: corbel;
+                                                       display: inline-block;
+                                                       padding-top:30px;">
+                                                Зравствуйте {{ current_user.name }}
+                                            </h4>
+                                        </a>
+                                    </div>
+                                    <a class="nav-link" href="/logout" style="padding-top:45px;">Выйти<span class="sr-only">(current)</span></a>
                                 </div>
-                            </li>
+                            {% else %}
+                                <li class="nav-item active">
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <body>
+                                            <a class="nav-link" href="/register" style="padding-top:25px;">Зарегистрироваться <span class="sr-only">(current)</span></a>
+                                            <a class="nav-link" href="/login" style="padding-top:25px;">Войти <span class="sr-only">(current)</span></a>
+                                        </body>
+                                    </div>
+                                </li>
                             {% endif %}
-
                         </div>
                     </div>
                 </div>
@@ -78,7 +92,7 @@
         <div class="overlay hidden"></div>
         <main role="main" class="container">
             <div style="position: absolute;">
-            {% block content %}{% endblock %}
+                {% block content %}{% endblock %}
             </div>
         </main>
     </body>

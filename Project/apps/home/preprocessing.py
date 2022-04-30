@@ -6,11 +6,11 @@ from nltk.corpus import wordnet
 from nltk import WordNetLemmatizer, pos_tag
 
 dler = nltk.downloader.Downloader()
-nltk.download('stopwords')
+nltk.download('stopwords', quiet=True)
 sw_eng = set(stopwords.words('english'))
 stemmer = SnowballStemmer(language='english')
-dler.download('averaged_perceptron_tagger')
-dler.download('wordnet')
+dler.download('averaged_perceptron_tagger', quiet=True)
+dler.download('wordnet', quiet=True)
 
 
 def get_clean(x):

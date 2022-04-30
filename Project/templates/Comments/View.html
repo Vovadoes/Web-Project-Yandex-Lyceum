@@ -1,0 +1,12 @@
+{% extends "Comments/base.html" %}
+{% block headblock %}{{ super() }}{% endblock %}
+{% block content %}
+    {{ super() }}
+    <div class="p-3 mb-2 bg-transparent text-dark">Комментарии</div>
+    <a class="btn btn-primary" href={{ url_for("app_comments.create_comments", article_id=article.id) }} role="button">Создать комметарий</a>
+    {% for comment in comments %}
+        <div class="card">
+            <div class="card-body">{{ comment.text }}</div>
+        </div>
+    {% endfor %}
+{% endblock %}
