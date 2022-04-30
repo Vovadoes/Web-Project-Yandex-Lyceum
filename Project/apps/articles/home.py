@@ -1,6 +1,5 @@
 from pprint import pprint
 
-import requests
 import werkzeug
 from loguru import logger
 
@@ -15,11 +14,12 @@ from Project.data.Article import Article
 from Project.data.Sequence import Sequence
 from Project.data.db_session import create_session
 from . import Blocks
-from Project.fun import get_user, user_is_author, get_article_id, get_block
+from Project.functions.articles.articles import user_is_author, get_article_id, get_block
+from Project.functions.profile.profile import get_user
 from Project.forms.ArticleForm import ArticleForm
 from Project.data.User import User
 from Project.CreateTags import create_tags
-from Project.functions import recreate_tags
+from Project.functions.articles.tags import recreate_tags
 from Project.data.Image import Image
 from Project.apps.home.delete_swear import RegexpProc
 from Project.settings import replace_the_mat_with

@@ -1,0 +1,25 @@
+{% extends "Profile/base.html" %}
+{% block headblock %}
+    <style>
+    .card-a * {
+  /* Ссылка как карточка (.card + .d-block) */
+  text-decoration: none;
+}
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="row row-cols-1 row-cols-md-2 g-4"
+         style="width:500px;
+                margin-top: 200px;
+                margin-left:500px;">
+        {% for comment in comments %}
+            <a href={{ url_for("app_articles.article", article_id=comment.article.id) }} style="text-decoration: none;" class="card">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">{{ comment.text }}</div>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}

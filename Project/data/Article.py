@@ -36,6 +36,7 @@ class Article(SqlAlchemyBase, UserMixin):
     tags = relationship("Tag", secondary=association_table_article_tag, back_populates="articles")
     sources = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     sequences = relationship("Sequence", backref="articles")
+    comments = relationship("Comment", back_populates="article")
 
     def get_MainIdeaBlock(self, db_sess: Session = None):
         from Project.data.Blocks.MainIdeaBlock import MainIdeaBlock

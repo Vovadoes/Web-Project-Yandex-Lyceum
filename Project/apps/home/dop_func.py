@@ -1,13 +1,5 @@
-import re
-import nltk
-from nltk.corpus import stopwords
-from nltk.stem.snowball import SnowballStemmer
-from nltk.corpus import wordnet
-from nltk import WordNetLemmatizer, pos_tag
 from Project.data.db_session import create_session
 from Project.data.Tag import Tag
-from . import path_db
-import os
 
 from Project.data.Article import Article
 from Project.data.Blocks.MainIdeaBlock import MainIdeaBlock
