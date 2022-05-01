@@ -8,7 +8,10 @@
     </style>
 {% endblock %}
 {% block content %}
-    <div class="row row-cols-1 row-cols-md-2 g-4" style="width:500px; margin-top: 200px; margin-left:500px;">
+    <div class="row row-cols-1 row-cols-md-2 g-4"
+         style="width:500px;
+                margin-top: 200px;
+                margin-left:500px;">
         {% for article in articles %}
             <a href={{ url_for("app_articles.article", article_id=article.id) }} style="text-decoration: none;" class="card">
                 <div class="col">
@@ -19,7 +22,7 @@
                             <p class="card-text">
                                 {% set main_idea_block = article.get_MainIdeaBlock() %}
                                 {% if main_idea_block == None %}
-                                Подробнее в статье.
+                                    Подробнее в статье.
                                 {% else %}
                                     {{ main_idea_block.idea }}
                                 {% endif %}
