@@ -2,7 +2,7 @@
 {% block headblock %}{{ super() }}{% endblock %}
 {% block content %}
     {{ super() }}
-    <div class="p-3 mb-2 bg-transparent text-dark">Создание комметария</div>
+<h2 style="margin-top:20px; margin-bottom:20px;">Создание комментария</h2>
     <form method='post'>
         {{ form.hidden_tag() }}
         <p>
@@ -14,6 +14,6 @@
             <br>
             {% for error in form.text.errors %}<div class="alert alert-danger" role="alert">{{ error }}</div>{% endfor %}
         </p>
-        <button type="submit" class="btn btn-primary">Создать</button>
+        <button class="custom-btn btn-14" style="width:30%">создать комментарий</button>
     </form>
 {% endblock %}
