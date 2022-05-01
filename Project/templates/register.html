@@ -2,35 +2,36 @@
 {% block content %}
 <div style="font-family: corbel;" xmlns="http://www.w3.org/1999/html"><h2>Регистрация</h2></div>
     <form action="" method="post">
-        {{ form.hidden_tag() }}
+        {{ register_form.hidden_tag() }}
+        {{ password_form.hidden_tag() }}
         <p>
-            <h1 class="home-title"><span >{{form.email.label}}</span></h1>
+            <h1 class="home-title"><span >{{register_form.email.label}}</span></h1>
             <br style="color:red;">
-            {{ form.email(class="form-control", type="email", style="border: none; border-bottom: 1px solid gray;outline: none; box-shadow: none; width: 1200px;") }}
+            {{ register_form.email(class="form-control", type="email", style="border: none; border-bottom: 1px solid gray;outline: none; box-shadow: none; width: 1200px;") }}
             <br>
-            {% for error in form.email.errors %}
+            {% for error in register_form.email.errors %}
                 <p class="alert alert-danger" role="alert">
                     {{ error }}
                 </p>
             {% endfor %}
         </p>
         <p>
-            <h1 class="home-title"><span >{{form.name.label}}</span></h1>
+            <h1 class="home-title"><span >{{register_form.name.label}}</span></h1>
             <br style="color:red;">
-            {{ form.name(class="form-control", type="name", style="border: none; border-bottom: 1px solid gray;outline: none; box-shadow: none; width: 1200px;") }}
+            {{ register_form.name(class="form-control", type="name", style="border: none; border-bottom: 1px solid gray;outline: none; box-shadow: none; width: 1200px;") }}
             <br>
-            {% for error in form.name.errors %}
+            {% for error in register_form.name.errors %}
                 <p class="alert alert-danger" role="alert">
                     {{ error }}
                 </p>
             {% endfor %}
         </p>
         <p>
-            <h1 class="home-title"><span >{{form.age.label}}</span></h1>
+            <h1 class="home-title"><span >{{register_form.age.label}}</span></h1>
             <br style="color:red;">
-            {{ form.age(class="form-control", type="age", style="border: none; border-bottom: 1px solid gray;outline: none; box-shadow: none; width: 1200px;") }}
+            {{ register_form.age(class="form-control", type="age", style="border: none; border-bottom: 1px solid gray;outline: none; box-shadow: none; width: 1200px;") }}
             <br>
-            {% for error in form.age.errors %}
+            {% for error in register_form.age.errors %}
                 <p class="alert alert-danger" role="alert">
                     {{ error }}
                 </p>
@@ -39,9 +40,9 @@
         <p>
             <h1 class="home-title"><span>Пароль</span></h1>
             <br>
-            {{ form.password(class="form-control", type="password", style="border: none; border-bottom: 1px solid gray;outline: none; box-shadow: none;") }}
+            {{ password_form.password(class="form-control", type="password", style="border: none; border-bottom: 1px solid gray;outline: none; box-shadow: none;") }}
             <br>
-            {% for error in form.password.errors %}
+            {% for error in password_form.password.errors %}
                 <p class="alert alert-danger" role="alert">
                     {{ error }}
                 </p>
@@ -50,9 +51,9 @@
         <p>
             <h1 class="home-title"><span>Повтор Пароля</span></h1>
             <br>
-            {{ form.password_again(class="form-control", type="password", style="border: none; border-bottom: 1px solid gray;outline: none; box-shadow: none;") }}
+            {{ password_form.password_again(class="form-control", type="password", style="border: none; border-bottom: 1px solid gray;outline: none; box-shadow: none;") }}
             <br>
-            {% for error in form.password_again.errors %}
+            {% for error in password_form.password_again.errors %}
                 <p class="alert alert-danger" role="alert">
                     {{ error }}
                 </p>

@@ -5,6 +5,7 @@ from flask import render_template, request
 from Project.data.db_session import create_session
 from Project.data.Article import Article
 from Project.data.User import User
+from Project.forms.PasswordForm import PasswordForm
 
 
 @app_profile.route("/")
@@ -36,6 +37,20 @@ def comments(user: User, *args, **kwargs):
 def edit(user, *args, **kwargs):
     db_sess = create_session()
     user = db_sess.query(User).filter(User.id == user.id).first()
+    if request.method == "POST":
+        pass
+    elif request.method == "GET":
+        pass
+
+
+
+
+@app_profile.route("/replace_password", methods=["GET", "POST"])
+@get_user()
+def replace_password(user, *args, **kwargs):
+    db_sess = create_session()
+    user = db_sess.query(User).filter(User.id == user.id).first()
+    form = PasswordForm()
     if request.method == "POST":
         pass
     elif request.method == "GET":
