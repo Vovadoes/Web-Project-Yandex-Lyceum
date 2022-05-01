@@ -7,7 +7,7 @@
         {{ form.hidden_tag() }}
         <p>
             <h1 class="home-title">
-                <span>Email</span>
+                <span>{{form.email.label}}</span>
             </h1>
             <br>
             {{ form.email(class="form-control", type="email", style="border: none; border-bottom: 1px solid gray;outline: none; box-shadow: none; width: 1200px;") }}
@@ -16,15 +16,12 @@
         </p>
         <p>
             <h1 class="home-title">
-                <span>Пароль</span>
+                <span>{{form.password.label}}</span>
             </h1>
             <br>
             {{ form.password(class="form-control", type="password", style="border: none; border-bottom: 1px solid gray;outline: none; box-shadow: none;") }}
             <br>
             {% for error in form.password.errors %}<div class="alert alert-danger" role="alert">{{ error }}</div>{% endfor %}
-        </p>
-        <p>
-            {{ form.remember_me() }} {{ form.remember_me.label }}
         </p>
         <p>
             <div class="frame">

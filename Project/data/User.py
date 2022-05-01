@@ -17,13 +17,12 @@ class User(SqlAlchemyBase, UserMixin):
                            primary_key=True, autoincrement=True)
     super_user = sqlalchemy.Column(sqlalchemy.Boolean, default=False)
 
-    surname = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    name = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    # surname = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    name = sqlalchemy.Column(sqlalchemy.String)
     age = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
-    address = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     email = sqlalchemy.Column(sqlalchemy.String,
-                              index=True, unique=True, nullable=True)
-    hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+                              index=True, unique=True)
+    hashed_password = sqlalchemy.Column(sqlalchemy.String)
     date_create = sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.datetime.now)
 
     article = relationship("Article", back_populates="user")
