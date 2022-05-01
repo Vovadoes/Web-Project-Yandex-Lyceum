@@ -2,15 +2,18 @@
 {% block content %}
     <body>
         <div class="frame"
-                 style="padding-left:1000px;
-                        position:absolute;
-                        font-family:corbel;">
-                <a href="/article/create/"><button class="custom-btn btn-6" style="width: 250px;">
+             style="padding-left:1000px;
+                    position:absolute;
+                    font-family:corbel;">
+            <a href="/article/create/">
+                <button class="custom-btn btn-6" style="width: 250px;">
                     <span>Write new</span>
-                </button></a>
-                <a href="/profile"><button class="custom-btn btn-8" style="margin-top:20px;">profile</button></a>
-            </div>
-
+                </button>
+            </a>
+            <a href="/profile">
+                <button class="custom-btn btn-8" style="margin-top:20px;">profile</button>
+            </a>
+        </div>
         <div id="content">
             <!-- Это где мы вводим текст и кнопка искать -->
             <form style='padding: 4px;
@@ -18,12 +21,19 @@
                          position: fixed;'
                   method='POST'>
                 <div style="display:flex;">
-                <input type="text" class="input-search" id="input-search" name="query" style="margin-top:6px;"/>
-                <label class="search" for="input-search"></label>
-                <input type="hidden" name="param1" value="val" />
-                <div class="frame" style=" display:inline-block;">
-                <button class="custom-btn btn-6" style="margin-left:30px;"><span>search</span></button>
-                </div></div>
+                    <input type="text"
+                           class="input-search"
+                           id="input-search"
+                           name="query"
+                           style="margin-top:6px;"/>
+                    <label class="search" for="input-search"></label>
+                    <input type="hidden" name="param1" value="val" />
+                    <div class="frame" style=" display:inline-block;">
+                        <button class="custom-btn btn-6" style="margin-left:30px;">
+                            <span>search</span>
+                        </button>
+                    </div>
+                </div>
             </form>
             <div style="padding-top:100px;">
                 <hr style='border: none; border-bottom: 1px solid lightgrey;'>

@@ -1,12 +1,10 @@
 import datetime
 import os
 import shutil
-from pprint import pprint
 
 from flask import Flask
-from flask import request, make_response, session, render_template
+from flask import request, render_template
 from flask_login import login_user, login_required, logout_user, LoginManager
-from werkzeug.exceptions import abort
 
 from Project.CreateTags import create_tags
 from Project.data.Article import Article
@@ -84,11 +82,11 @@ def start():
 
 
 @app.route('/register', methods=['GET', 'POST'])
-def reqister():
+def register():
     register_form = RegisterForm()
     password_form = PasswordForm()
     if request.method == "POST":
-        if register_form.is_submitted() and password_form.is_submitted():
+        if register_form.validate_on_submit() and password_form.validate_on_submit():
             if password_form.password.data != password_form.password_again.data:
                 return render_template(
                     'register.html', title='Регистрация',
@@ -107,7 +105,6 @@ def reqister():
                 age=register_form.age.data
             )
             user.set_password(password_form.password.data)
-            pprint(user.__dict__)
             db_sess.add(user)
             db_sess.commit()
             return redirect('/')

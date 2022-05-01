@@ -1,13 +1,18 @@
 {% extends "Profile/base.html" %}
 {% block content %}
-<div style="margin-top:280px;margin-left:500px; font-size:25pt; font-family:corbel;">
-    <p>
-        {{ user.name }}
-    </p>
-    <br>
-    <p>
-        {{ user.email }}
-    </p>
-    <br>
-</div>
+    <div style="margin-top:280px;
+                margin-left:500px;
+                font-size:25pt;
+                font-family:corbel;">
+        <p>
+            {{ user.name }}
+        </p>
+        <br>
+        <p>
+            {{ user.email }}
+        </p>
+        <br>
+        <a class="btn btn-primary" href={{ url_for("app_profile.edit") }} role="button">Редиктироваать профиль</a>
+        <a class="btn btn-primary" href={{ url_for("app_profile.replace_password") }} role="button">Сменить пароль</a>
+    </div>
 {% endblock %}

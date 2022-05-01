@@ -128,3 +128,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 /Как запустить.txt
+/Project/static/media/
+/Project/db/db.db

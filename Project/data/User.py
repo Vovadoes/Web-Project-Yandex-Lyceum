@@ -8,9 +8,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from .Article import association_table_views
 from .db_session import SqlAlchemyBase
+from .Base import Base
 
 
-class User(SqlAlchemyBase, UserMixin):
+class User(Base, SqlAlchemyBase, UserMixin):
     __tablename__ = 'user'
 
     id = sqlalchemy.Column(sqlalchemy.Integer,
@@ -36,6 +37,8 @@ class User(SqlAlchemyBase, UserMixin):
                 setattr(self, i, kwargs[i])
             else:
                 print(f'Error Key: {i} in class: {self.__class__.__name__}')
+
+
 
     def set_password(self, password):
         self.hashed_password = generate_password_hash(password)

@@ -1,11 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
-<div style="font-family: corbel;" xmlns="http://www.w3.org/1999/html"><h2>Регистрация</h2></div>
+    <div style="font-family: corbel;" xmlns="http://www.w3.org/1999/html">
+        <h2>Регистрация</h2>
+    </div>
     <form action="" method="post">
         {{ register_form.hidden_tag() }}
         {{ password_form.hidden_tag() }}
         <p>
-            <h1 class="home-title"><span >{{register_form.email.label}}</span></h1>
+            <h1 class="home-title">
+                <span >{{ register_form.email.label }}</span>
+            </h1>
             <br style="color:red;">
             {{ register_form.email(class="form-control", type="email", style="border: none; border-bottom: 1px solid gray;outline: none; box-shadow: none; width: 1200px;") }}
             <br>
@@ -16,7 +20,9 @@
             {% endfor %}
         </p>
         <p>
-            <h1 class="home-title"><span >{{register_form.name.label}}</span></h1>
+            <h1 class="home-title">
+                <span >{{ register_form.name.label }}</span>
+            </h1>
             <br style="color:red;">
             {{ register_form.name(class="form-control", type="name", style="border: none; border-bottom: 1px solid gray;outline: none; box-shadow: none; width: 1200px;") }}
             <br>
@@ -27,7 +33,9 @@
             {% endfor %}
         </p>
         <p>
-            <h1 class="home-title"><span >{{register_form.age.label}}</span></h1>
+            <h1 class="home-title">
+                <span >{{ register_form.age.label }}</span>
+            </h1>
             <br style="color:red;">
             {{ register_form.age(class="form-control", type="age", style="border: none; border-bottom: 1px solid gray;outline: none; box-shadow: none; width: 1200px;") }}
             <br>
@@ -38,7 +46,9 @@
             {% endfor %}
         </p>
         <p>
-            <h1 class="home-title"><span>Пароль</span></h1>
+            <h1 class="home-title">
+                <span>Пароль</span>
+            </h1>
             <br>
             {{ password_form.password(class="form-control", type="password", style="border: none; border-bottom: 1px solid gray;outline: none; box-shadow: none;") }}
             <br>
@@ -49,7 +59,9 @@
             {% endfor %}
         </p>
         <p>
-            <h1 class="home-title"><span>Повтор Пароля</span></h1>
+            <h1 class="home-title">
+                <span>Повтор Пароля</span>
+            </h1>
             <br>
             {{ password_form.password_again(class="form-control", type="password", style="border: none; border-bottom: 1px solid gray;outline: none; box-shadow: none;") }}
             <br>
@@ -60,8 +72,8 @@
             {% endfor %}
         </p>
         <div class="frame">
-                <button class="custom-btn btn-7">Зарегестрироваться</button>
-            </div>
+            <button class="custom-btn btn-7">Зарегестрироваться</button>
+        </div>
         {{ message }}
     </form>
 {% endblock %}
