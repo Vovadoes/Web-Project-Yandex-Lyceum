@@ -8,22 +8,22 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from .Article import association_table_views
 from .db_session import SqlAlchemyBase
+from .Base import Base
 
 
-class User(SqlAlchemyBase, UserMixin):
+class User(Base, SqlAlchemyBase, UserMixin):
     __tablename__ = 'user'
 
     id = sqlalchemy.Column(sqlalchemy.Integer,
                            primary_key=True, autoincrement=True)
     super_user = sqlalchemy.Column(sqlalchemy.Boolean, default=False)
 
-    surname = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    name = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    # surname = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    name = sqlalchemy.Column(sqlalchemy.String)
     age = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
-    address = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     email = sqlalchemy.Column(sqlalchemy.String,
-                              index=True, unique=True, nullable=True)
-    hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+                              index=True, unique=True)
+    hashed_password = sqlalchemy.Column(sqlalchemy.String)
     date_create = sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.datetime.now)
 
     article = relationship("Article", back_populates="user")
@@ -37,6 +37,8 @@ class User(SqlAlchemyBase, UserMixin):
                 setattr(self, i, kwargs[i])
             else:
                 print(f'Error Key: {i} in class: {self.__class__.__name__}')
+
+
 
     def set_password(self, password):
         self.hashed_password = generate_password_hash(password)

@@ -50,8 +50,10 @@ class RegexpProc(object):
         return bool(RegexpProc.regexp.findall(text))
 
     @staticmethod
-    def replace(text, repl='[censored]'):
-        return RegexpProc.regexp.sub(repl, text)
+    def replace(odj, repl='[censored]'):
+        if type(odj) is str:
+            return RegexpProc.regexp.sub(repl, odj)
+        return odj
 
     @staticmethod
     def wrap(odj, wrap=('<span style="color:red;">', '</span>',)):

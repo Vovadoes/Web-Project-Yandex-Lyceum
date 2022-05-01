@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+    <div style="font-family: corbel;">
+        <h2>Редактирование профиля</h2>
+    </div>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            <h1 class="home-title">
+                <span >{{ form.email.label }}</span>
+            </h1>
+            <br style="color:red;">
+            {{ form.email(class="form-control", type="email", style="border: none; border-bottom: 1px solid gray;outline: none; box-shadow: none; width: 1200px;") }}
+            <br>
+            {% for error in form.email.errors %}
+                <p class="alert alert-danger" role="alert">
+                    {{ error }}
+                </p>
+            {% endfor %}
+        </p>
+        <p>
+            <h1 class="home-title">
+                <span >{{ form.name.label }}</span>
+            </h1>
+            <br style="color:red;">
+            {{ form.name(class="form-control", type="name", style="border: none; border-bottom: 1px solid gray;outline: none; box-shadow: none; width: 1200px;") }}
+            <br>
+            {% for error in form.name.errors %}
+                <p class="alert alert-danger" role="alert">
+                    {{ error }}
+                </p>
+            {% endfor %}
+        </p>
+        <p>
+            <h1 class="home-title">
+                <span >{{ form.age.label }}</span>
+            </h1>
+            <br style="color:red;">
+            {{ form.age(class="form-control", type="age", style="border: none; border-bottom: 1px solid gray;outline: none; box-shadow: none; width: 1200px;") }}
+            <br>
+            {% for error in form.age.errors %}
+                <p class="alert alert-danger" role="alert">
+                    {{ error }}
+                </p>
+            {% endfor %}
+        </p>
+        <p>
+            <div class="frame">
+                <button class="custom-btn btn-6">
+                    <span>Изменить</span>
+                </button>
+            </div>
+        </p>
+        <div>{{ message }}</div>
+    </form>
+{% endblock %}

@@ -39,7 +39,8 @@ python -m nltk.downloader omw-1.4
 """
 
 # Чтобы запустить проект
-"""
+r"""
+venv\Scripts\activate.bat
 set FLASK_APP=Project/main.py
 set FLASK_DEBUG=1
 cls & python -m flask run --host localhost --port 8080 --reload --debugger

@@ -730,15 +730,14 @@ a:focus-visible {
 }
 
 .button--dione {
+    position:absolute;
 	background: none;
 	font-family: obvia, sans-serif;
 	font-weight: 500;
-	font-style: italic;
-	padding: 1.5rem 3rem;
+	font-style: corbel;
 }
 
 .button--dione span {
-	display: inline-block;
 	position: relative;
 	color: #fff;
 }
