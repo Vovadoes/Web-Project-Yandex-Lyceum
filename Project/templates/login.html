@@ -8,7 +8,7 @@
         {{ password_form.hidden_tag() }}
         <p>
             <h1 class="home-title">
-                <span>{{register_form.email.label}}</span>
+                <span>{{ register_form.email.label }}</span>
             </h1>
             <br>
             {{ register_form.email(class="form-control", type="email", style="border: none; border-bottom: 1px solid gray;outline: none; box-shadow: none; width: 1200px;") }}
@@ -17,12 +17,14 @@
         </p>
         <p>
             <h1 class="home-title">
-                <span>{{password_form.password.label}}</span>
+                <span>{{ password_form.password.label }}</span>
             </h1>
             <br>
             {{ password_form.password(class="form-control", type="password", style="border: none; border-bottom: 1px solid gray;outline: none; box-shadow: none;") }}
             <br>
-            {% for error in password_form.password.errors %}<div class="alert alert-danger" role="alert">{{ error }}</div>{% endfor %}
+            {% for error in password_form.password.errors %}
+                <div class="alert alert-danger" role="alert">{{ error }}</div>
+            {% endfor %}
         </p>
         <p>
             <div class="frame">
