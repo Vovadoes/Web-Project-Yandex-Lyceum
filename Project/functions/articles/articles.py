@@ -14,9 +14,7 @@ def user_is_author(required: bool = True):
             if article.user_id != user.id and required:
                 return abort(404)
             return function(user=user, article_id=article_id, *args, **kwargs)
-
-        get_user_f.__name__ += '-' + user_is_author.__name__
-        my_finished_function.__name__ += '-' + get_user_f.__name__ + '-' + function.__name__
+        my_finished_function.__name__ = function.__name__
         return my_finished_function
 
     return get_user_f
