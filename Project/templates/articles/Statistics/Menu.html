@@ -1,0 +1,8 @@
+{% extends "articles/Statistics/Base.html" %}
+{% block headblock %}{{ super() }}{% endblock %}
+{% block content %}
+    {{ super() }}
+    <a href={{ url_for("app_articles.statistics_views", article_id=article.id) }}>
+        <button class="custom-btn btn-13" style="width:250px;">Просмотры</button>
+    </a>
+{% endblock %}

@@ -81,8 +81,11 @@ def article(user, article_id: int, *args, **kwargs):
             article.views.append(user)
             db_sess.commit()
     author = db_sess.query(User).filter(User.id == article.user_id).first()
-    return render_template("articles/article.html", blocks=blocks, article=article, author=author,
-                           user=user, Blocks=Blocks)
+    views = len(article.views)
+    return render_template(
+        "articles/article.html",
+        blocks=blocks, article=article, author=author, user=user, Blocks=Blocks, views=views
+    )
 
 
 @app_articles.route("/create/", methods=['GET', 'POST'])
@@ -122,7 +125,8 @@ def edit_article(user: User, article_id: int, *args, **kwargs):
         if article_form.validate_on_submit():
             db_sess = create_session()
             article = db_sess.query(Article).filter(Article.id == article_id).first()
-            article.heading = RegexpProc.replace(article_form.heading.data, repl=replace_the_mat_with)
+            article.heading = RegexpProc.replace(article_form.heading.data,
+                                                 repl=replace_the_mat_with)
 
             article.tags = []
             db_sess.commit()
@@ -265,3 +269,29 @@ def edit_block(user: User, article_id: int, number_block: int, block_id: int, *a
             article=article,
             block=block
         )
+
+
+@app_articles.route("/<int:article_id>/statistics/", methods=['GET'])
+@get_article_id()
+@get_user(required=True)
+@user_is_author(required=True)
+def statistics(user: User, article_id: int):
+    db_sess = create_session()
+    article = db_sess.query(Article).filter(Article.id == article_id).first()
+    user = db_sess.query(User).filter(User.id == user.id).first()
+    return render_template("articles/Statistics/Menu.html", user=user, article=article)
+
+
+@app_articles.route("/<int:article_id>/statistics/views/", methods=['GET'])
+@get_article_id()
+@get_user(required=True)
+@user_is_author(required=True)
+def statistics_views(user: User, article_id: int):
+    db_sess = create_session()
+    article = db_sess.query(Article).filter(Article.id == article_id).first()
+    user = db_sess.query(User).filter(User.id == user.id).first()
+    users = article.views
+    return render_template(
+        "articles/Statistics/Views.html",
+        user=user, article=article, users=users
+    )

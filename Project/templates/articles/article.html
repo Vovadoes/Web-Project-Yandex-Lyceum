@@ -40,15 +40,25 @@
 }
         </style>
     </head>
-    {% if author == user %}<a href="/article/{{ article.id }}/edit">Редактировать</a>{% endif %}
+    {% if author == user %}
+        <a href="/article/{{ article.id }}/edit">Редактировать</a>
+        <a href={{ url_for("app_articles.statistics", article_id = article.id) }}>Статистика</a>
+    {% endif %}
     <div class="four">
         <h1>{{ article.heading }}</h1>
     </div>
+    <p>
+        Просмотры: {{ views }}
+    </p>
     <img src={{ url_for('static', filename=article.get_image().get_path() )}} class="rounded mx-auto d-block" style="width: 30%">
     {% for block in blocks %}
         {% with block=block %}
             {% include 'Blocks/' + block.__class__.__name__+ '.html'  %}
         {% endwith %}
     {% endfor %}
-    <a href={{ url_for("app_comments.view_comments", article_id = article.id) }}><button class="custom-btn btn-5"><span style="width:25%">смотреть комментрии</span></button></a>
+    <a href={{ url_for("app_comments.view_comments", article_id = article.id) }}>
+        <button class="custom-btn btn-5">
+            <span style="width:25%">смотреть комментрии</span>
+        </button>
+    </a>
 {% endblock %}
