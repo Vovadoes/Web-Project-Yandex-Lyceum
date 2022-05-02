@@ -1,4 +1,4 @@
-$(window).load(function() {
+$(window).load(function () {
 
     "use strict";
 
@@ -12,9 +12,9 @@ $(window).load(function() {
 
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
 
-    $('.sw_btn').on("click", function(){
+    $('.sw_btn').on("click", function () {
         $("body").toggleClass("light");
     });
 
