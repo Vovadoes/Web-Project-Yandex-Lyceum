@@ -15,7 +15,7 @@ class MainIdeaBlock(Block):
     idea = sqlalchemy.Column(sqlalchemy.String, nullable=True)
 
     def loading_data(self, request, db_sess: Session, form, is_create=True, **kwargs):
-        from Project.functions import recreate_tags
+        from Project.functions.articles.tags import recreate_tags
         super(MainIdeaBlock, self).loading_data(request, db_sess, form, **kwargs)
         article = db_sess.query(Article).filter(Article.id == self.article_id).first()
         if article.MainIdeaBlockId is None or not is_create:
