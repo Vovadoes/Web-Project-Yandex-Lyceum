@@ -32,7 +32,6 @@ class MainIdeaBlock(Block):
             article = db_sess.query(Article).filter(Article.id == self.article_id).first()
             article.MainIdeaBlockId = self.id
             db_sess.commit()
-            print(self.idea)
             create_tags(self.idea, article=article, db_sess=db_sess)
 
     def preparing_for_deletion(self, db_sess: Session, *args, **kwargs):
