@@ -40,27 +40,29 @@
             </form>
             <div style="padding-top:100px;">
                 <h3>Заголовок первого уровня</h3>
-                {% for title, annotation, score, id in results %}
-                    <!-- Это перечесление всех найденных документов -->
+                {% if articles|length == 0 %}
                     <div class='result'>
-                        <div class='score'>{{ score }}</div>
                         <div class='headline'>
-                            <a href='/article/{{ id }}'>{{ title }}</a>
+                            <a href='/article/{{ id }}'>Ничего не найденно</a>
                         </div>
-                        <div class='annotation'>{{ annotation | replace('\n', ' / '|safe) }}</div>
+                        <div class='annotation'>Пустота</div>
                     </div>
-                {% endfor %}
-                <h3>Заголовок первого уровня</h3>
-                {% for title, annotation, score, id in results %}
-                    <!-- Это перечесление всех найденных документов -->
-                    <div class='result'>
-                        <div class='score'>{{ score }}</div>
-                        <div class='headline'>
-                            <a href='/article/{{ id }}'>{{ title }}</a>
+                {% else %}
+                    {% for article in articles %}
+                        <!-- Это перечесление всех найденных документов -->
+                        <div class='result'>
+                            <div class='headline'>
+                                <a href='/article/{{ id }}'>{{ article.heading }}</a>
+                            </div>
+                            {% set mainIdea_block = article.get_MainIdeaBlock() %}
+                            {% if mainIdea_block == None %}
+                                <div class='annotation'>{{ article.heading | replace('\n', ' / '|safe) }}</div>
+                            {% else %}
+                                <div class='annotation'>{{ mainIdea_block | replace('\n', ' / '|safe) }}</div>
+                            {% endif %}
                         </div>
-                        <div class='annotation'>{{ annotation | replace('\n', ' / '|safe) }}</div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
     </body>
