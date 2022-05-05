@@ -42,7 +42,7 @@
     </head>
     {% if author == user %}
         <a href="/article/{{ article.id }}/edit">Редактировать</a>
-        <a href={{ url_for("app_articles.statistics", article_id = article.id) }}>Статистика</a>
+        <a style="margin-left:20px;" href={{ url_for("app_articles.statistics", article_id = article.id) }}>Статистика</a>
     {% endif %}
     <div class="four">
         <h1>{{ article.heading }}</h1>

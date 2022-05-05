@@ -41,37 +41,38 @@
         </div>
     </body>
 </html>
+<div style="display:flex;">
+<a href={{ url_for("app_profile.comments")}}>
+<button class="button button--dione" style="font-family:corbel; margin-top:400px; margin-left:20px; width: 15%; height:7%; text-align: center;"><span>Мои комментарии</span></button>
+</a>
 <a href="/home/" tabindex="-1" aria-disabled="true">
     <button class="button button--anthe"
-            style="margin-top:400px;
+            style="margin-top:500px;
                    position:absolute;
                    margin-left:20px;
-                   width: 300px;">
+                   width: 15%;
+height:7%;
+text-align: center">
         <span>Вернутся</span>
     </button>
-</a>
+</a><a href={{ url_for("app_profile.articles")}}>
+    <button class="button button--mimas"
+            style="margin-top:300px;
+                   margin-left:20px;
+                text-align: center;
+                    width:285px;
+                     text-family:corbel;">
+        <span>Мои статьи</span>
+    </button>
+</div>
 <a aria-current="page" href={{ url_for("app_profile.main") }}>
     <button class="button button--greip"
             style="position:absolute;
                    margin-top:220px;
                    margin-left:20px;
-                   width: 300px;">
+                   width: 15%;
+                    height:7%;
+                    text-align: center;">
         <span><span>Профиль</span></span>
-    </button>
-</a>
-<a href={{ url_for("app_profile.articles")}}>
-    <button class="button button--mimas"
-            style="margin-top:300px;
-                   margin-left:20px;
-                   width: 300px;">
-        <span>Мои статьи</span>
-    </button>
-
-<a href={{ url_for("app_profile.comments")}}>
-    <button class="button button--mimas"
-            style="margin-top:500px;
-                   margin-left:20px;
-                   width: 300px;">
-        <span>Мои комментарии</span>
     </button>
 </a>
