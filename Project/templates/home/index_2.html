@@ -23,20 +23,22 @@
                          position: fixed;
                          display:inline-block;'
                   method='POST'>
+                {{ search_form.hidden_tag() }}
+                {{ sort_form.hidden_tag() }}
                 <div style="display:flex;">
-                    <input type="text"
-                           class="input-search"
-                           id="input-search"
-                           name="query"
-                           style="margin-top:6px;"/>
+                    {{ search_form.query(type="text", class="input-search", style="margin-top:6px;") }}
                     <label class="search" for="input-search"></label>
                     <input type="hidden" name="param1" value="val" />
                     <div class="frame" style=" display:inline-block;">
-                        <button class="custom-btn btn-6" style="margin-left:30px;">
-                            <span>search</span>
-                        </button>
+                        {{ search_form.search(class="custom-btn btn-6", style="margin-left:30px;") }}
                     </div>
                 </div>
+                <p>
+                    {{ sort_form.populated(type="submit", class="btn btn-primary") }}
+                </p>
+                <p>
+                    {{ sort_form.time(type="submit", class="btn btn-primary") }}
+                </p>
             </form>
             <div style="padding-top:100px;">
                 <h3>Заголовок первого уровня</h3>
@@ -52,7 +54,7 @@
                         <!-- Это перечесление всех найденных документов -->
                         <div class='result'>
                             <div class='headline'>
-                                <a href='/article/{{ id }}'>{{ article.heading }}</a>
+                                <a href={{ url_for("app_articles.article", article_id = article.id )}}>{{ article.heading }}</a>
                             </div>
                             {% set mainIdea_block = article.get_MainIdeaBlock() %}
                             {% if mainIdea_block == None %}
