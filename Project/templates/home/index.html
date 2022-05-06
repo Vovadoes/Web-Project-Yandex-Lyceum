@@ -4,14 +4,15 @@
         <div class="frame"
              style="padding-left:1000px;
                     position:absolute;
-                    font-family:corbel;">
+                    font-family:corbel;
+                    padding-top:58px;">
             <a href="/article/create/">
                 <button class="custom-btn btn-6" style="width: 250px;">
                     <span>Write new</span>
                 </button>
             </a>
             <a href="/profile">
-                <button class="custom-btn btn-8" style="margin-top:20px;">profile</button>
+                <button class="custom-btn btn-8" style="margin-top:16px;">profile</button>
             </a>
         </div>
         <div id="content">
@@ -31,10 +32,10 @@
                     </div>
                 </div>
                 <p>
-                    {{ sort_form.populated(type="submit", class="btn btn-primary") }}
+                    {{ sort_form.populated(type="submit", class="custom-btn btn-6", style="width:250px; margin-left:700px;") }}
                 </p>
                 <p>
-                    {{ sort_form.time(type="submit", class="btn btn-primary") }}
+                    {{ sort_form.time(type="submit", class="custom-btn btn-6", style="width:250px; margin-left:700px;") }}
                 </p>
             </form>
             <div style="padding-top:100px;">

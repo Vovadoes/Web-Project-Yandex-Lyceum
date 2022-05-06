@@ -6,14 +6,15 @@
         <div class="frame"
              style="padding-left:1000px;
                     position:absolute;
-                    font-family:corbel;">
+                    font-family:corbel;
+                    padding-top:58px;">
             <a href="/article/create/">
                 <button class="custom-btn btn-6" style="width: 250px;">
                     <span>Write new</span>
                 </button>
             </a>
             <a href="/profile">
-                <button class="custom-btn btn-8" style="margin-top:20px;">profile</button>
+                <button class="custom-btn btn-8" style="margin-top:16px;">profile</button>
             </a>
         </div>
         <div id="content">
@@ -34,14 +35,14 @@
                     </div>
                 </div>
                 <p>
-                    {{ sort_form.populated(type="submit", class="btn btn-primary") }}
+                    {{ sort_form.populated(type="submit", class="custom-btn btn-6", style="width:250px; margin-left:700px;") }}
                 </p>
                 <p>
-                    {{ sort_form.time(type="submit", class="btn btn-primary") }}
+                    {{ sort_form.time(type="submit", class="custom-btn btn-6", style="width:250px; margin-left:700px;") }}
                 </p>
             </form>
             <div style="padding-top:100px;">
-                <h3>Заголовок первого уровня</h3>
+                 <hr style='border: none; border-bottom: 1px solid lightgrey;'>
                 {% if articles|length == 0 %}
                     <div class='result'>
                         <div class='headline'>
@@ -60,7 +61,7 @@
                             {% if mainIdea_block == None %}
                                 <div class='annotation'>{{ article.heading | replace('\n', ' / '|safe) }}</div>
                             {% else %}
-                                <div class='annotation'>{{ mainIdea_block | replace('\n', ' / '|safe) }}</div>
+                                <div class='annotation'>{{ mainIdea_block.idea | replace('\n', ' / '|safe) }}</div>
                             {% endif %}
                         </div>
                     {% endfor %}
