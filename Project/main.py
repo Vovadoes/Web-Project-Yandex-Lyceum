@@ -2,7 +2,7 @@ import datetime
 import os
 import shutil
 
-from flask import Flask
+from flask import Flask, url_for
 from flask import request, render_template
 from flask_login import login_user, login_required, logout_user, LoginManager
 
@@ -53,8 +53,8 @@ def load_user(user_id):
 
 @app.route("/")
 def start():
-    # return redirect("/home/")
-    return render_template("main.html")
+    return redirect(url_for("app_home.index"))
+    # return render_template("main.html")
 
 
 # @app.route("/cookie_test")
