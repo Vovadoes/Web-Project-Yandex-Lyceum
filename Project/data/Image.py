@@ -49,6 +49,18 @@ class Image(SqlAlchemyBase):
             # img.generate_path(name, set_path=True, path_dir=os.path.join(work_dir, path))
             return img
 
+    @staticmethod
+    def set_default():
+        img = Image()
+        name = os.path.split(default_image)[1]
+        path = img.generate_path(name, set_path=True)
+        shutil.copyfile(os.path.join(work_dir, default_image),
+                        os.path.join(os.path.join(work_dir, 'static', media_path), path))
+        # path, name = os.path.split(default_image)
+        # img.generate_path(name, set_path=True, path_dir=os.path.join(work_dir, path))
+        return img
+
+
     # def copy_image(self, image_path):
     #     path_dir = os.path.join(work_dir, 'media')
     #     with NamedTemporaryFile(dir=path_dir) as tf:

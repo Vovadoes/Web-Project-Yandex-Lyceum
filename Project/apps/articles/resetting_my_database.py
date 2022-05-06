@@ -15,6 +15,7 @@ from Project.data.Tag import Tag
 
 # код для формирования базы данных
 from Project.data.User import User
+from Project.data.Image import Image
 
 
 @app_articles.route("/resetting_my_database/")
@@ -37,8 +38,16 @@ def resetting_my_database():
     db_sess.commit()
     db_sess.query()
     srt_idea_lst = []
+    img_lst = []
+    for dct in numbers:
+        img = Image.set_default()
+        db_sess.add(img)
+        db_sess.commit()
+        img_lst.append(img)
+    i = 0
     for dct in numbers:
         article = Article()
+        article.image_id = img_lst[i].id
         article.heading = dct["title"]
         db_sess.add(article)
         main_idea_block = MainIdeaBlock()
@@ -48,6 +57,7 @@ def resetting_my_database():
         db_sess.add(sequence)
         srt_idea_lst.append({"article_json_id": dct["id"], "MainIdeaBlock": main_idea_block,
                              "Sequence": sequence, "Article": article})
+        i += 1
     db_sess.commit()
     # print(srt_idea_lst)
     user_id = db_sess.query(User).filter(User.email == "dereviannykh.v@gmail.com").first().id
