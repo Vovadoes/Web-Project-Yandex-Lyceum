@@ -41,3 +41,10 @@ set FLASK_DEBUG=1
 ```
 cls & python -m flask run --host localhost --port 8080 --reload --debugger
 ```
+
+## Запуск через PyCharm
+* Для того чтобы запустить прокт через pycharm необходимо в setting.py установить:
+```
+is_pycharm = True
+```
+И запустить как обычный проект выбрав точку входа Project/main.py
