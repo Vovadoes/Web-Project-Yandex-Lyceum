@@ -1,6 +1,9 @@
 import json
 import os
 
+from flask import url_for
+from werkzeug.utils import redirect
+
 from . import app_articles
 from Project.data.Article import Article
 from Project.data.Sequence import Sequence
@@ -67,6 +70,7 @@ def resetting_my_database():
         # print(f"{lst=}")
         article.tags = article.tags + [tags[name] for name in js[article_json_id]]
     db_sess.commit()
+    return redirect(url_for("start"))
 
 
 

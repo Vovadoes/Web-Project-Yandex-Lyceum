@@ -19,10 +19,10 @@
             <!-- Это где мы вводим текст и кнопка искать -->
             <form style='padding: 4px;
                          padding-top: 18px;
-                         position: fixed;'
+                         position: absolute;'
                   method='POST'>
-                  {{ search_form.hidden_tag() }}
-                  {{ sort_form.hidden_tag() }}
+                {{ search_form.hidden_tag() }}
+                {{ sort_form.hidden_tag() }}
                 <div style="display:flex;">
                     {{ search_form.query(type="text", class="input-search", style="margin-top:6px;") }}
                     <label class="search" for="input-search"></label>
@@ -47,15 +47,22 @@
                     </div>
                 {% endif %}
                 {% for article in dct_articles %}
-                <div class='result'>
+                    {% set heading = dct_articles[article]["heading"] %}
+                    {% if heading|length > 64 %}
+                        {% set heading = article.heading[:64] + "... ." %}
+                    {% endif %}
+                    <div class='result'>
                         <div class='score'>{{ dct_articles[article]["score"] }}</div>
                         <div class='headline'>
-                            <a href={{ url_for("app_articles.article", article_id = article.id ) }}>{{ dct_articles[article]["heading"] }}</a>
+                            <a href={{ url_for("app_articles.article", article_id = article.id ) }}>{{ heading }}</a>
                         </div>
-                        <div class='annotation'>{{ dct_articles[article]["main_text"] | replace('\n', ' / '|safe) }}</div>
+                        {% if dct_articles[article]["main_text"]|length > 128 %}
+                            <div class='annotation'>{{ dct_articles[article]["main_text"][:128] | replace('\n', ' / '|safe) }}... .</div>
+                        {% else %}
+                            <div class='annotation'>{{ dct_articles[article]["main_text"] | replace('\n', ' / '|safe) }}</div>
+                        {% endif %}
                     </div>
                 {% endfor %}
-
             </div>
         </div>
     </body>

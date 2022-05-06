@@ -15,4 +15,4 @@ for block in Blocks:
     check(block)
 
 from .home import *
-# from .resetting_my_database import *
+from .resetting_my_database import *
