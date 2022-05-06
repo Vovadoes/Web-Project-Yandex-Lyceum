@@ -42,26 +42,29 @@
     </body>
 </html>
 <div style="display:flex;">
-<a href={{ url_for("app_profile.comments")}}>
-<button class="button button--dione" style="font-family:corbel; margin-top:400px; margin-left:20px; width: 15%; height:7%; text-align: center;"><span>Мои комментарии</span></button>
-</a>
-<a href="/home/" tabindex="-1" aria-disabled="true">
-    <button class="button button--anthe"
-            style="margin-top:500px;
-                   position:absolute;
-                   margin-left:20px;
-                   width: 15%;
-height:7%;
-text-align: center">
-        <span>Вернутся</span>
-    </button>
-</a><a href={{ url_for("app_profile.articles")}}>
+    <a href={{ url_for("app_profile.comments")}}>
+        <button class="button button--dione"
+                style="font-family:corbel;
+                       margin-top:400px;
+                       margin-left:20px;
+                       width: 15%;
+                       height:7%;
+                       text-align: center;">
+            <span>Мои Комментарии</span>
+        </button>
+    </a>
+    <a href="/home/" tabindex="-1" aria-disabled="true">
+        <button class="button button--anthe"
+                style="margin-top:500px; position:absolute; margin-left:20px; width: 15%; height:7%; text-align: center">
+            <span>Вернутся</span>
+        </button>
+    </a><a href={{ url_for("app_profile.articles")}}>
     <button class="button button--mimas"
             style="margin-top:300px;
                    margin-left:20px;
-                text-align: center;
-                    width:285px;
-                     text-family:corbel;">
+                   text-align: center;
+                   width:285px;
+                   text-family:corbel;">
         <span>Мои статьи</span>
     </button>
 </div>
@@ -71,8 +74,8 @@ text-align: center">
                    margin-top:220px;
                    margin-left:20px;
                    width: 15%;
-                    height:7%;
-                    text-align: center;">
+                   height:7%;
+                   text-align: center;">
         <span><span>Профиль</span></span>
     </button>
 </a>
