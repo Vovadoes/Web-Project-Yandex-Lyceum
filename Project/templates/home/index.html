@@ -20,20 +20,22 @@
                          padding-top: 18px;
                          position: fixed;'
                   method='POST'>
+                  {{ search_form.hidden_tag() }}
+                  {{ sort_form.hidden_tag() }}
                 <div style="display:flex;">
-                    <input type="text"
-                           class="input-search"
-                           id="input-search"
-                           name="query"
-                           style="margin-top:6px;"/>
+                    {{ search_form.query(type="text", class="input-search", style="margin-top:6px;") }}
                     <label class="search" for="input-search"></label>
                     <input type="hidden" name="param1" value="val" />
                     <div class="frame" style=" display:inline-block;">
-                        <button class="custom-btn btn-6" style="margin-left:30px;">
-                            <span>search</span>
-                        </button>
+                        {{ search_form.search(class="custom-btn btn-6", style="margin-left:30px;") }}
                     </div>
                 </div>
+                <p>
+                    {{ sort_form.populated(type="submit", class="btn btn-primary") }}
+                </p>
+                <p>
+                    {{ sort_form.time(type="submit", class="btn btn-primary") }}
+                </p>
             </form>
             <div style="padding-top:100px;">
                 <hr style='border: none; border-bottom: 1px solid lightgrey;'>
@@ -43,16 +45,16 @@
                         Found {{ results|length }} documents in {{ time }} seconds.
                     </div>
                 {% endif %}
-                {% for title, annotation, score, id in results %}
-                    <!-- Это перечесление всех найденных документов -->
-                    <div class='result'>
-                        <div class='score'>{{ score }}</div>
+                {% for article in dct_articles %}
+                <div class='result'>
+                        <div class='score'>{{ dct_articles[article]["score"] }}</div>
                         <div class='headline'>
-                            <a href='/article/{{ id }}/'>{{ title }}</a>
+                            <a href={{ url_for("app_articles.article", article_id = article.id ) }}>{{ dct_articles[article]["heading"] }}</a>
                         </div>
-                        <div class='annotation'>{{ annotation | replace('\n', ' / '|safe) }}</div>
+                        <div class='annotation'>{{ dct_articles[article]["main_text"] | replace('\n', ' / '|safe) }}</div>
                     </div>
                 {% endfor %}
+
             </div>
         </div>
     </body>
