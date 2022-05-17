@@ -191,5 +191,4 @@ if user is None:
     db_sess.commit()
     create_tags(article.heading, article=article, db_sess=db_sess)
 
-if is_pycharm:
-    app.run(port=8080, host='localhost', debug=True)
+app.run(port=8080, host='localhost', debug=True)
