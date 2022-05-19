@@ -23,12 +23,12 @@
                   method='POST'>
                 {{ search_form.hidden_tag() }}
                 {{ sort_form.hidden_tag() }}
-                <div style="display:flex;">
+                <div>
                     {{ search_form.query(type="text", class="input-search", style="margin-top:6px;") }}
                     <label class="search" for="input-search"></label>
                     <input type="hidden" name="param1" value="val" />
                     <div class="frame" style=" display:inline-block;">
-                        {{ search_form.search(class="custom-btn btn-6", style="margin-left:30px;") }}
+                        {{ search_form.search(class="custom-btn btn-6", style="margin-left:490px;") }}
                     </div>
                 </div>
                 <p>

@@ -49,13 +49,13 @@ margin: 0px;
 
 .search {
 border-color:black;
-position: relative;
 background:black;
 }
 
 .input-search {
 border-color:black;
-border: 2px solid #fff;
+position:absolute;
+border: 2px solid black;
 height: 30px;
 width: 30px;
 padding: 0 0px;
@@ -71,18 +71,14 @@ transition-timing-function: ease-out;
 
 .input-search:focus {
 border-color:black;
-width: 800px;
-padding: 0 12px;
-outline:none;
+width: 400px;
+color:black;
 }
 
 .input-search+.search:after {
 border-color:black;
-color
 content: '';
-border-top: 3px solid #fff;
 width: 15px;
-display: block;
 position: absolute;
 right: -6px;
 bottom: -8px;
@@ -94,11 +90,10 @@ transition: all 0.2s;
 -webkit-transition-timing-function: ease-out;
 transition-timing-function: ease-out;
 }
+
 .input-search+.search:before {
 border-color:black;
-color
 content: '';
-border-top: 3px solid #fff;
 width: 0px;
 position: absolute;
 right: -2px;
@@ -128,7 +123,7 @@ transition-delay: 0.2s;
 }
 a.button8 {
 color: black;
-font-weight: 500;
+font-weight: 100pt;
 text-decoration: none;
 user-select: none;
 padding: .2em 1em;
